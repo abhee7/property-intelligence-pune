@@ -1,4 +1,48 @@
-# PropIntel — Property Intelligence Platform
+<p align="center">
+  <img src="docs/banner.png" alt="PropIntel — property due diligence for Pune" width="100%">
+</p>
+
+<h1 align="center">PropIntel</h1>
+<p align="center"><b>Property intelligence for Pune: read the documents, check the record, score the risk — and show why.</b></p>
+
+<p align="center">
+  <a href="https://github.com/abhee7/property-intelligence-pune/actions/workflows/ci-cd.yml"><img src="https://github.com/abhee7/property-intelligence-pune/actions/workflows/ci-cd.yml/badge.svg" alt="CI"></a>
+  <img src="https://img.shields.io/badge/tests-402%20passing-2ea44f" alt="402 tests passing">
+  <img src="https://img.shields.io/badge/Next.js-15-000000?logo=nextdotjs" alt="Next.js 15">
+  <img src="https://img.shields.io/badge/TypeScript-5-3178c6?logo=typescript&logoColor=white" alt="TypeScript">
+  <img src="https://img.shields.io/badge/Prisma-SQLite-2D3748?logo=prisma" alt="Prisma and SQLite">
+  <img src="https://img.shields.io/badge/OCR-English%20%2B%20Marathi-f0a830" alt="OCR English and Marathi">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT licence">
+</p>
+
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#what-it-does">Features</a> ·
+  <a href="#screenshots">Screenshots</a> ·
+  <a href="#how-the-risk-score-works">Risk score</a> ·
+  <a href="docs/PropIntel_Project_Report.pdf">Project report</a> ·
+  <a href="DEMO.md">Demo script</a>
+</p>
+
+---
+
+## Why
+
+Buying land or a flat in Pune means trusting documents — the 7/12 extract, the title deed, the encumbrance
+certificate. The common frauds (the same plot listed twice, one plot claimed by two owners, a document that
+belongs to a different property, a title frozen by a court stay order) show up only when pieces of
+information are **compared**. PropIntel does that comparison automatically, in English and Marathi, and
+explains every point of its conclusion.
+
+## Highlights
+
+- **Reads Marathi and English documents** with OCR, then checks owner, village, survey number and area against the record. A Marathi 7/12 can be verified against an English record.
+- **Never accuses on a shaky scan** — low-confidence fields are held back for manual review instead of being reported as mismatches.
+- **Finds duplicates and ownership conflicts** across the whole portfolio, treating the survey number as the legal identifier.
+- **Explainable 0–100 risk score** from five weighted factors, with hard floors (stay order, fraud case, confirmed duplicate) and the evidence for every point.
+- **Optional AI** (off without a key): plain-English explanations, re-reading of poor scans, Marathi name spelling — it can never change a score.
+- **Reproducible**: one command installs it, a seeded dataset gives the same demo on every machine, 402 automated tests.
+
 
 A due-diligence tool for buying land and flats in **Pune, Maharashtra**. Upload a property's
 documents (7/12 extracts, title deeds, sale deeds…) and PropIntel reads them with OCR, checks
@@ -25,6 +69,24 @@ that with court cases and news into a **0–100 risk score** — with the eviden
 | **Alerts** | When a property's risk rises to High or Critical, its owner, broker and the agency admins get an in-app alert (bell in the header + Notifications page). |
 | **Admin** | Platform admin can list and (de)activate users, see system health and documents needing attention, and read the **audit trail** (logins, uploads, deletions, match decisions, property creation, user changes). |
 | **Auth & roles** | JWT access/refresh tokens, bcrypt, role-based access (admin, agency admin, broker, land owner), multi-tenant data isolation. |
+
+## Screenshots
+
+| | |
+|---|---|
+| ![Dashboard](docs/screenshots/dashboard.jpg)<br><sub>**Dashboard** — every chart is computed from the database</sub> | ![Risk intelligence](docs/screenshots/risk-intelligence.jpg)<br><sub>**Risk intelligence** — a Critical (82) property with its evidence</sub> |
+| ![Marathi verification](docs/screenshots/marathi-verification.jpg)<br><sub>**Marathi 7/12** verified against the English record</sub> | ![Matching](docs/screenshots/matching.jpg)<br><sub>**Matching** — duplicates, conflicts and possible matches</sub> |
+| ![Map](docs/screenshots/map.jpg)<br><sub>**Map** — 944 properties coloured by risk</sub> | ![Audit trail](docs/screenshots/admin-audit.jpg)<br><sub>**Admin** — audit trail of logins, uploads and decisions</sub> |
+
+## Documentation
+
+| | |
+|---|---|
+| [Project report](docs/PropIntel_Project_Report.pdf) | Design, implementation, testing, limitations (editable `.docx` alongside) |
+| [Demo script](DEMO.md) | A 15-minute walkthrough with the exact values to expect |
+| [Viva preparation](docs/VIVA_PREP.md) | Likely questions and honest answers |
+| [Dataset notes](data/pune-real-estate/README.md) | What is real and what is generated |
+| [Diagrams](docs/figures) | Architecture, pipeline, risk engine, matching, Marathi comparison, database |
 
 ## Tech stack
 
@@ -317,3 +379,9 @@ Being upfront about what this prototype does **not** do:
 | `database is locked` / timeouts | Only one process should write at a time — stop other scripts while the app runs a bulk job. |
 | Map tiles don't load | OpenStreetMap tiles need internet access. |
 | Want to start fresh | Delete `prisma/dev.db`, then `npx prisma db push && npm run db:seed && npm run dataset:import`. |
+
+---
+
+## Licence
+
+MIT — see [LICENSE](LICENSE). Sample data is partly generated (see [Limitations](#limitations)); nothing here is legal advice.
