@@ -1,0 +1,62 @@
+# PropIntel — runs the current app (Next.js + SQLite + OCR). No Postgres or Redis needed.
+#
+#   docker compose up --build          first run takes a few minutes (build + dataset import)
+#   open http://localhost:3000         sign in: manager@sahyadri-demo.com / Demo@12345
+#
+#   INIT_DATASET=0 docker compose up --build    skip the Pune dataset for a faster start
+#   docker compose down                         stop (data is kept in the `propintel-data` volume)
+#   docker compose down -v                      stop AND delete the database and uploads
+#
+# Settings are read from your shell or a `.env` file next to this one.
+
+x-app-env: &app-env
+  DATABASE_URL: file:/data/propintel.db
+  # CHANGE THESE outside local use (32+ random characters each)
+  JWT_ACCESS_SECRET: ${JWT_ACCESS_SECRET:-dev-access-secret-change-in-production-min-32-chars}
+  JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET:-dev-refresh-secret-change-in-production-min-32-chars}
+  PROVIDER_STORAGE: local
+  OCR_LANGS: ${OCR_LANGS:-eng+mar}
+  # Optional Claude features — empty key = off (see README → AI features)
+  ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+  ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
+  AI_NARRATIVES: ${AI_NARRATIVES:-manual}
+  AI_SCAN_READING: ${AI_SCAN_READING:-fallback}
+  AI_TRANSLITERATION: ${AI_TRANSLITERATION:-auto}
+
+services:
+  # One-shot: creates the tables, seeds users, imports the dataset. Exits when done.
+  init:
+    build:
+      context: .
+      target: tools
+    command: ["sh", "scripts/docker-init.sh"]
+    environment:
+      <<: *app-env
+      INIT_DATASET: ${INIT_DATASET:-1}
+    volumes:
+      - propintel-data:/data
+    restart: "no"
+
+  app:
+    build:
+      context: .
+      target: runner
+    ports:
+      - "${PORT:-3000}:3000"
+    environment:
+      <<: *app-env
+    volumes:
+      - propintel-data:/data
+    depends_on:
+      init:
+        condition: service_completed_successfully
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://127.0.0.1:3000/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 5s
+      start_period: 20s
+      retries: 3
+
+volumes:
+  propintel-data:

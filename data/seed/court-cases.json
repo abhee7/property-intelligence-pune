@@ -1,0 +1,635 @@
+{
+  "cases": [
+    {
+      "id": "court-001",
+      "tenantId": "t-demo-001",
+      "caseNumber": "WP/8657/2020",
+      "courtName": "High Court, Bombay (Pune Bench)",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "CONSUMER",
+      "caseStatus": "ACTIVE",
+      "title": "In Re: Survey No. S.No.150/3, Morgaon",
+      "description": "Partition suit between family members regarding inherited agricultural land.",
+      "filingDate": "2020-03-12",
+      "nextHearingDate": "2026-09-22",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-001-1",
+          "caseId": "court-001",
+          "partyName": "Shankar Thorat",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Ashok Kamble"
+        },
+        {
+          "id": "party-court-001-2",
+          "caseId": "court-001",
+          "partyName": "Deepak Sonawane",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Rahul Salunkhe"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-001-stay",
+          "caseId": "court-001",
+          "orderType": "Interim stay order",
+          "orderDate": "2026-06-02",
+          "summary": "Court has granted interim stay on mutation/transfer of the property until further orders. No sale, mortgage, or transfer of the property shall be effected during the pendency of this order.",
+          "documentUrl": "/demo/docs/stay-order-court-001.pdf",
+          "affectsTitle": true,
+          "isStayOrder": true
+        }
+      ]
+    },
+    {
+      "id": "court-002",
+      "tenantId": "t-demo-001",
+      "caseNumber": "CS/847/2025",
+      "courtName": "Tahsildar Court, Mulshi",
+      "courtType": "High Court",
+      "jurisdiction": "Pune",
+      "caseType": "HIGH_COURT_APPEAL",
+      "caseStatus": "ACTIVE",
+      "title": "Balu Lokhande vs Dnyaneshwar Gadre",
+      "description": "Revenue appeal challenging mutation entry. Respondent contests the validity of the succession certificate.",
+      "filingDate": "2025-12-10",
+      "nextHearingDate": "2026-09-02",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-002-1",
+          "caseId": "court-002",
+          "partyName": "Balu Lokhande",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Sambhaji Bhosale"
+        },
+        {
+          "id": "party-court-002-2",
+          "caseId": "court-002",
+          "partyName": "Krishna Deshpande",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Prashant Yadav"
+        },
+        {
+          "id": "party-court-002-3",
+          "caseId": "court-002",
+          "partyName": "Mohan Shrikhande",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Deepak Shrikhande"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-002-stay",
+          "caseId": "court-002",
+          "orderType": "Interim stay order",
+          "orderDate": "2026-07-23",
+          "summary": "Court has granted interim stay on mutation/transfer of the property until further orders. No sale, mortgage, or transfer of the property shall be effected during the pendency of this order.",
+          "documentUrl": "/demo/docs/stay-order-court-002.pdf",
+          "affectsTitle": true,
+          "isStayOrder": true
+        }
+      ]
+    },
+    {
+      "id": "court-003",
+      "tenantId": "t-demo-001",
+      "caseNumber": "MA/9123/2019",
+      "courtName": "Land Acquisition Tribunal, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "LAND_TRIBUNAL",
+      "caseStatus": "ACTIVE",
+      "title": "Shankar Thorat & Ors vs Ashok Sharma & Ors",
+      "description": "Revenue appeal challenging mutation entry. Respondent contests the validity of the succession certificate.",
+      "filingDate": "2019-06-26",
+      "nextHearingDate": "2026-08-08",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-003-1",
+          "caseId": "court-003",
+          "partyName": "Shankar Thorat",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Sandip Shrikhande"
+        },
+        {
+          "id": "party-court-003-2",
+          "caseId": "court-003",
+          "partyName": "Suresh Lokhande",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Sambhaji Bhandari"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-003-stay",
+          "caseId": "court-003",
+          "orderType": "Interim stay order",
+          "orderDate": "2026-05-01",
+          "summary": "Court has granted interim stay on mutation/transfer of the property until further orders. No sale, mortgage, or transfer of the property shall be effected during the pendency of this order.",
+          "documentUrl": "/demo/docs/stay-order-court-003.pdf",
+          "affectsTitle": true,
+          "isStayOrder": true
+        }
+      ]
+    },
+    {
+      "id": "court-004",
+      "tenantId": "t-demo-001",
+      "caseNumber": "CS/6880/2020",
+      "courtName": "District Court, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "REVENUE",
+      "caseStatus": "ACTIVE",
+      "title": "Jagdish Thorat vs Mahadev Shah",
+      "description": "Fraud allegation regarding forged sale deed and impersonation of original owner.",
+      "filingDate": "2020-03-08",
+      "nextHearingDate": "2026-09-14",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-004-1",
+          "caseId": "court-004",
+          "partyName": "Jagdish Thorat",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Balaji Lokhande"
+        },
+        {
+          "id": "party-court-004-2",
+          "caseId": "court-004",
+          "partyName": "Vandana Gupta",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Vitthal Phule"
+        },
+        {
+          "id": "party-court-004-3",
+          "caseId": "court-004",
+          "partyName": "Sanjay More",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Mahesh Yadav"
+        },
+        {
+          "id": "party-court-004-4",
+          "caseId": "court-004",
+          "partyName": "Ravi Gokhale",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Tushar Yadav"
+        }
+      ],
+      "orders": []
+    },
+    {
+      "id": "court-005",
+      "tenantId": "t-demo-001",
+      "caseNumber": "RCA/542/2021",
+      "courtName": "District Court, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "LAND_TRIBUNAL",
+      "caseStatus": "ACTIVE",
+      "title": "Narayan Patil vs State of Maharashtra",
+      "description": "Encroachment complaint. Plaintiff alleges unauthorized construction beyond sanctioned plot boundary.",
+      "filingDate": "2021-07-21",
+      "nextHearingDate": "2026-08-26",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-005-1",
+          "caseId": "court-005",
+          "partyName": "Jagdish Thorat",
+          "partyRole": "PETITIONER",
+          "advocateName": "Adv. Vikram Kadam"
+        },
+        {
+          "id": "party-court-005-2",
+          "caseId": "court-005",
+          "partyName": "Ramesh Chavan",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Manish Lokhande"
+        }
+      ],
+      "orders": []
+    },
+    {
+      "id": "court-006",
+      "tenantId": "t-demo-001",
+      "caseNumber": "RCA/8991/2020",
+      "courtName": "Revenue Tribunal, Pune Division",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "LAND_TRIBUNAL",
+      "caseStatus": "ACTIVE",
+      "title": "Deepak Mehta vs State of Maharashtra",
+      "description": "Partition suit between family members regarding inherited agricultural land.",
+      "filingDate": "2020-12-20",
+      "nextHearingDate": "2026-09-09",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-006-1",
+          "caseId": "court-006",
+          "partyName": "Meena Shinde",
+          "partyRole": "PETITIONER",
+          "advocateName": "Adv. Nitin Gadre"
+        },
+        {
+          "id": "party-court-006-2",
+          "caseId": "court-006",
+          "partyName": "Suman Kadam",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Ravi Pawar"
+        },
+        {
+          "id": "party-court-006-3",
+          "caseId": "court-006",
+          "partyName": "Govind Kale",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Mahesh More"
+        },
+        {
+          "id": "party-court-006-4",
+          "caseId": "court-006",
+          "partyName": "Anita Kadam",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Ajay Sawant"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-006-misc",
+          "caseId": "court-006",
+          "orderType": "Interim order",
+          "orderDate": "2026-04-11",
+          "summary": "Matter adjourned for filing of written statement by the defendant.",
+          "documentUrl": null,
+          "affectsTitle": false,
+          "isStayOrder": false
+        }
+      ]
+    },
+    {
+      "id": "court-007",
+      "tenantId": "t-demo-001",
+      "caseNumber": "SA/6442/2025",
+      "courtName": "District Court, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "CIVIL",
+      "caseStatus": "ACTIVE",
+      "title": "Vitthal Khare vs Vishal Shinde",
+      "description": "Dispute regarding title and ownership of the property. Plaintiff claims prior purchase through registered sale deed.",
+      "filingDate": "2025-12-28",
+      "nextHearingDate": "2026-10-03",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-007-1",
+          "caseId": "court-007",
+          "partyName": "Vitthal Khare",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Balaji Thorat"
+        },
+        {
+          "id": "party-court-007-2",
+          "caseId": "court-007",
+          "partyName": "Vandana Joshi",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Manish Gaikwad"
+        },
+        {
+          "id": "party-court-007-3",
+          "caseId": "court-007",
+          "partyName": "Anil Salunkhe",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Sanjay Salunkhe"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-007-misc",
+          "caseId": "court-007",
+          "orderType": "Interim order",
+          "orderDate": "2026-06-10",
+          "summary": "Application for amendment of plaint allowed.",
+          "documentUrl": null,
+          "affectsTitle": false,
+          "isStayOrder": false
+        }
+      ]
+    },
+    {
+      "id": "court-008",
+      "tenantId": "t-demo-001",
+      "caseNumber": "CS/8656/2021",
+      "courtName": "City Civil Court, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "CIVIL",
+      "caseStatus": "ACTIVE",
+      "title": "In Re: Survey No. S.No.299/12, Torna",
+      "description": "Fraud allegation regarding forged sale deed and impersonation of original owner.",
+      "filingDate": "2021-10-16",
+      "nextHearingDate": "2026-09-09",
+      "dispositionDate": null,
+      "parties": [
+        {
+          "id": "party-court-008-1",
+          "caseId": "court-008",
+          "partyName": "Vitthal Gokhale",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Balaji Gupta"
+        },
+        {
+          "id": "party-court-008-2",
+          "caseId": "court-008",
+          "partyName": "Sunita Mehta",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Ravi Kale"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-008-misc",
+          "caseId": "court-008",
+          "orderType": "Miscellaneous order",
+          "orderDate": "2026-04-16",
+          "summary": "Matter adjourned for filing of written statement by the defendant.",
+          "documentUrl": null,
+          "affectsTitle": false,
+          "isStayOrder": false
+        }
+      ]
+    },
+    {
+      "id": "court-009",
+      "tenantId": "t-demo-001",
+      "caseNumber": "SA/6918/2019",
+      "courtName": "City Civil Court, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "REVENUE",
+      "caseStatus": "DISPOSED",
+      "title": "Jagdish Bhosale vs State of Maharashtra",
+      "description": "Partition suit between family members regarding inherited agricultural land.",
+      "filingDate": "2019-08-14",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-03-10",
+      "parties": [
+        {
+          "id": "party-court-009-1",
+          "caseId": "court-009",
+          "partyName": "Krishna Kadam",
+          "partyRole": "PETITIONER",
+          "advocateName": "Adv. Amit Bhosale"
+        },
+        {
+          "id": "party-court-009-2",
+          "caseId": "court-009",
+          "partyName": "Ashok Gadre",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Balaji Shinde"
+        }
+      ],
+      "orders": []
+    },
+    {
+      "id": "court-010",
+      "tenantId": "t-demo-001",
+      "caseNumber": "RA/4737/2019",
+      "courtName": "Civil Court, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "LAND_TRIBUNAL",
+      "caseStatus": "WITHDRAWN",
+      "title": "In Re: Survey No. S.No.163/3, Paud",
+      "description": "Dispute regarding title and ownership of the property. Plaintiff claims prior purchase through registered sale deed.",
+      "filingDate": "2019-08-16",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-06-17",
+      "parties": [
+        {
+          "id": "party-court-010-1",
+          "caseId": "court-010",
+          "partyName": "Sachin Bhosale",
+          "partyRole": "PETITIONER",
+          "advocateName": "Adv. Deepak Gupta"
+        },
+        {
+          "id": "party-court-010-2",
+          "caseId": "court-010",
+          "partyName": "Nirmala Jadhav",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Krishna Gadre"
+        }
+      ],
+      "orders": []
+    },
+    {
+      "id": "court-011",
+      "tenantId": "t-demo-001",
+      "caseNumber": "SA/1178/2024",
+      "courtName": "Revenue Tribunal, Pune Division",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "CONSUMER",
+      "caseStatus": "DISPOSED",
+      "title": "Suman Kamble & Ors vs Ganesh Gokhale & Ors",
+      "description": "Partition suit between family members regarding inherited agricultural land.",
+      "filingDate": "2024-08-23",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-03-03",
+      "parties": [
+        {
+          "id": "party-court-011-1",
+          "caseId": "court-011",
+          "partyName": "Suman Kamble",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Jagdish Kamble"
+        },
+        {
+          "id": "party-court-011-2",
+          "caseId": "court-011",
+          "partyName": "Pandurang Mehta",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Anil Deshpande"
+        }
+      ],
+      "orders": []
+    },
+    {
+      "id": "court-012",
+      "tenantId": "t-demo-001",
+      "caseNumber": "RCA/642/2023",
+      "courtName": "Sub-Divisional Court, Haveli",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "CONSUMER",
+      "caseStatus": "DISPOSED",
+      "title": "Tushar Kadam vs State of Maharashtra",
+      "description": "Dispute regarding title and ownership of the property. Plaintiff claims prior purchase through registered sale deed.",
+      "filingDate": "2023-04-06",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-05-31",
+      "parties": [
+        {
+          "id": "party-court-012-1",
+          "caseId": "court-012",
+          "partyName": "Kavita Sawant",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Vinod Patel"
+        },
+        {
+          "id": "party-court-012-2",
+          "caseId": "court-012",
+          "partyName": "Prashant Bhosale",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Lakshman Kamble"
+        }
+      ],
+      "orders": []
+    },
+    {
+      "id": "court-013",
+      "tenantId": "t-demo-001",
+      "caseNumber": "SA/3273/2020",
+      "courtName": "Sub-Divisional Court, Haveli",
+      "courtType": "High Court",
+      "jurisdiction": "Pune",
+      "caseType": "HIGH_COURT_APPEAL",
+      "caseStatus": "DISPOSED",
+      "title": "Vikram Shrikhande vs State of Maharashtra",
+      "description": "Partition suit between family members regarding inherited agricultural land.",
+      "filingDate": "2020-05-05",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-04-17",
+      "parties": [
+        {
+          "id": "party-court-013-1",
+          "caseId": "court-013",
+          "partyName": "Lakshman Apte",
+          "partyRole": "PETITIONER",
+          "advocateName": "Adv. Ganesh Phule"
+        },
+        {
+          "id": "party-court-013-2",
+          "caseId": "court-013",
+          "partyName": "Mohan Gaikwad",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Sunil Deshmukh"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-013-misc",
+          "caseId": "court-013",
+          "orderType": "Directions order",
+          "orderDate": "2026-06-08",
+          "summary": "Commissioner appointed for local inspection of the property.",
+          "documentUrl": null,
+          "affectsTitle": false,
+          "isStayOrder": false
+        }
+      ]
+    },
+    {
+      "id": "court-014",
+      "tenantId": "t-demo-001",
+      "caseNumber": "RCA/9733/2019",
+      "courtName": "High Court, Bombay (Pune Bench)",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "LAND_TRIBUNAL",
+      "caseStatus": "DISPOSED",
+      "title": "Sunil Salunkhe vs State of Maharashtra",
+      "description": "Revenue appeal challenging mutation entry. Respondent contests the validity of the succession certificate.",
+      "filingDate": "2019-08-17",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-02-12",
+      "parties": [
+        {
+          "id": "party-court-014-1",
+          "caseId": "court-014",
+          "partyName": "Lata Gokhale",
+          "partyRole": "PETITIONER",
+          "advocateName": "Adv. Sachin Kamble"
+        },
+        {
+          "id": "party-court-014-2",
+          "caseId": "court-014",
+          "partyName": "Deepak Thorat",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Sambhaji Gadre"
+        },
+        {
+          "id": "party-court-014-3",
+          "caseId": "court-014",
+          "partyName": "Govind Shinde",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Ashok Bhandari"
+        }
+      ],
+      "orders": [
+        {
+          "id": "order-court-014-misc",
+          "caseId": "court-014",
+          "orderType": "Miscellaneous order",
+          "orderDate": "2026-07-20",
+          "summary": "Application for amendment of plaint allowed.",
+          "documentUrl": null,
+          "affectsTitle": false,
+          "isStayOrder": false
+        }
+      ]
+    },
+    {
+      "id": "court-015",
+      "tenantId": "t-demo-001",
+      "caseNumber": "RCA/6468/2020",
+      "courtName": "Consumer Dispute Redressal Forum, Pune",
+      "courtType": "District/Subordinate",
+      "jurisdiction": "Pune",
+      "caseType": "CIVIL",
+      "caseStatus": "DISPOSED",
+      "title": "In Re: Survey No. 763, Torna",
+      "description": "Encroachment complaint. Plaintiff alleges unauthorized construction beyond sanctioned plot boundary.",
+      "filingDate": "2020-11-09",
+      "nextHearingDate": null,
+      "dispositionDate": "2026-06-20",
+      "parties": [
+        {
+          "id": "party-court-015-1",
+          "caseId": "court-015",
+          "partyName": "Ramesh Kamble",
+          "partyRole": "PLAINTIFF",
+          "advocateName": "Adv. Govind Thorat"
+        },
+        {
+          "id": "party-court-015-2",
+          "caseId": "court-015",
+          "partyName": "Mahesh Sawant",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Dnyaneshwar Patil"
+        },
+        {
+          "id": "party-court-015-3",
+          "caseId": "court-015",
+          "partyName": "Deepak Thorat",
+          "partyRole": "DEFENDANT",
+          "advocateName": "Adv. Sandip Jadhav"
+        },
+        {
+          "id": "party-court-015-4",
+          "caseId": "court-015",
+          "partyName": "Sneha Apte",
+          "partyRole": "RESPONDENT",
+          "advocateName": "Adv. Tushar Joshi"
+        }
+      ],
+      "orders": []
+    }
+  ]
+}

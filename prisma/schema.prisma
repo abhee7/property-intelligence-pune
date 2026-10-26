@@ -1,0 +1,450 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+  engineType      = "wasm"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  plan      String   @default("FREE")
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  users          User[]
+  properties     Property[]
+  settings       TenantSettings?
+  notifications  Notification[]
+  riskScores     RiskScore[]
+  courtCases     CourtCase[]
+  newspaperSources NewspaperSource[]
+  newspaperMentions NewspaperPropertyMention[]
+}
+
+model TenantSettings {
+  id              String @id @default(cuid())
+  tenantId        String @unique
+  riskWeights     String @default("{}")
+  maxUsers        Int    @default(10)
+  maxProperties   Int    @default(100)
+  defaultCurrency String @default("INR")
+  timezone        String @default("Asia/Kolkata")
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+}
+
+model Role {
+  id             String  @id @default(cuid())
+  name           String  @unique
+  displayName    String
+  hierarchyLevel Int
+  isSystem       Boolean @default(true)
+  users User[]
+}
+
+model User {
+  id              String    @id @default(cuid())
+  tenantId        String
+  roleId          String
+  email           String    @unique
+  phone           String?
+  passwordHash    String
+  firstName       String
+  lastName        String
+  avatarUrl       String?
+  isActive        Boolean   @default(true)
+  mfaEnabled      Boolean   @default(false)
+  emailVerifiedAt DateTime?
+  lastLoginAt     DateTime?
+  createdAt       DateTime  @default(now())
+  deletedAt       DateTime?
+  tenant            Tenant    @relation(fields: [tenantId], references: [id])
+  role              Role      @relation(fields: [roleId], references: [id])
+  sessions          UserSession[]
+  ownedProperties   Property[] @relation("PropertyOwner")
+  brokedProperties  Property[] @relation("PropertyBroker")
+  documents         Document[] @relation("DocumentUploader")
+  notifications     Notification[]
+  loginAttempts     LoginAttempt[]
+  notifPreferences  NotificationPreference[]
+}
+
+model UserSession {
+  id               String   @id @default(cuid())
+  userId           String
+  refreshTokenHash String
+  ipAddress        String
+  userAgent        String
+  expiresAt        DateTime
+  createdAt        DateTime @default(now())
+  user User @relation(fields: [userId], references: [id])
+}
+
+model LoginAttempt {
+  id            String   @id @default(cuid())
+  userId        String?
+  email         String
+  ipAddress     String
+  userAgent     String?
+  success       Boolean
+  failureReason String?
+  createdAt     DateTime @default(now())
+  user User? @relation(fields: [userId], references: [id])
+}
+
+model PropertyType {
+  id       String  @id @default(cuid())
+  name     String  @unique
+  slug     String
+  isActive Boolean @default(true)
+  properties Property[]
+}
+
+model Address {
+  id         String  @id @default(cuid())
+  line1      String
+  line2      String?
+  city       String
+  district   String
+  state      String  @default("Maharashtra")
+  postalCode String
+  country    String  @default("IN")
+  latitude   Float?
+  longitude  Float?
+  properties Property[]
+}
+
+model Property {
+  id             String    @id @default(cuid())
+  tenantId       String
+  ownerId        String?
+  brokerId       String?
+  addressId      String
+  propertyTypeId String
+  title          String
+  description    String?
+  price          Float?
+  areaSqft       Float?
+  status         String    @default("DRAFT")
+  surveyNumber   String?
+  khasraNumber   String?
+  yearBuilt      Int?
+  metadata       String    @default("{}")
+  listedAt       DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  deletedAt      DateTime?
+  tenant        Tenant       @relation(fields: [tenantId], references: [id])
+  owner         User?        @relation("PropertyOwner", fields: [ownerId], references: [id])
+  broker        User?        @relation("PropertyBroker", fields: [brokerId], references: [id])
+  address       Address      @relation(fields: [addressId], references: [id])
+  propertyType  PropertyType @relation(fields: [propertyTypeId], references: [id])
+  documents     Document[]
+  riskScore     RiskScore?
+  media         PropertyMedia[]
+  notifications Notification[]
+  courtLinks    CourtCasePropertyLink[]
+  newsMentions  NewspaperPropertyMention[]
+  matchesAsA    PropertyMatch[] @relation("MatchPropertyA")
+  matchesAsB    PropertyMatch[] @relation("MatchPropertyB")
+}
+
+// Duplicate / conflict candidates found by the matching engine.
+// One row per unordered pair (propertyAId < propertyBId).
+model PropertyMatch {
+  id          String    @id @default(cuid())
+  tenantId    String
+  propertyAId String
+  propertyBId String
+  overallScore Int
+  matchType   String
+  confidence  String
+  factors     String    @default("[]")
+  status      String    @default("pending")
+  resolvedBy  String?
+  resolvedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  propertyA Property @relation("MatchPropertyA", fields: [propertyAId], references: [id])
+  propertyB Property @relation("MatchPropertyB", fields: [propertyBId], references: [id])
+  @@unique([propertyAId, propertyBId])
+  @@index([tenantId, status])
+}
+
+model PropertyMedia {
+  id         String  @id @default(cuid())
+  propertyId String
+  fileUrl    String
+  mediaType  String
+  caption    String?
+  sortOrder  Int     @default(0)
+  isPrimary  Boolean @default(false)
+  property Property @relation(fields: [propertyId], references: [id])
+}
+
+model DocumentType {
+  id          String  @id @default(cuid())
+  name        String  @unique
+  slug        String
+  requiresOcr Boolean @default(false)
+  isMandatory Boolean @default(false)
+  documents Document[]
+}
+
+model Document {
+  id             String    @id @default(cuid())
+  propertyId     String
+  uploadedBy     String
+  documentTypeId String
+  originalName   String
+  fileUrl        String
+  mimeType       String
+  fileSizeBytes  Int       @default(0)
+  ocrStatus      String    @default("PENDING")
+  ocrText        String?
+  ocrConfidence  Float?
+  ocrError       String?
+  extractedData  String    @default("{}")
+  checksumSha256 String?
+  processedAt    DateTime?
+  createdAt      DateTime  @default(now())
+  deletedAt      DateTime?
+  property     Property     @relation(fields: [propertyId], references: [id])
+  uploader     User         @relation("DocumentUploader", fields: [uploadedBy], references: [id])
+  documentType DocumentType @relation(fields: [documentTypeId], references: [id])
+}
+
+model RiskScore {
+  id           String    @id @default(cuid())
+  propertyId   String    @unique
+  tenantId     String
+  overallScore Int
+  riskLevel    String
+  aiNarrative  String?
+  // "rules" = generated from the scoring rules, "ai" = written by Claude from this exact data.
+  // inputsHash fingerprints the factors + evidence + flags, so an unchanged property never
+  // needs a second Claude call.
+  narrativeSource String  @default("rules")
+  narrativeModel  String?
+  inputsHash      String?
+  flags        String    @default("[]")
+  computedAt   DateTime  @default(now())
+  expiresAt    DateTime?
+  property Property @relation(fields: [propertyId], references: [id])
+  tenant   Tenant   @relation(fields: [tenantId], references: [id])
+  factors  RiskScoreFactor[]
+}
+
+model RiskFactorDefinition {
+  id            String  @id @default(cuid())
+  name          String  @unique
+  category      String
+  defaultWeight Float
+  scoringRules  String  @default("{}")
+  isActive      Boolean @default(true)
+  sortOrder     Int     @default(0)
+  factors RiskScoreFactor[]
+}
+
+model RiskScoreFactor {
+  id          String @id @default(cuid())
+  riskScoreId String
+  factorDefId String
+  factorScore Int
+  weight      Float
+  evidence    String @default("[]")
+  explanation String @default("")
+  riskScore RiskScore            @relation(fields: [riskScoreId], references: [id])
+  factorDef RiskFactorDefinition @relation(fields: [factorDefId], references: [id])
+}
+
+model CourtCase {
+  id              String    @id @default(cuid())
+  tenantId        String
+  caseNumber      String
+  courtName       String
+  courtType       String?
+  jurisdiction    String?
+  caseType        String?
+  caseStatus      String
+  title           String
+  description     String?
+  filingDate      DateTime?
+  nextHearingDate DateTime?
+  dispositionDate DateTime?
+  createdAt       DateTime  @default(now())
+  tenant   Tenant                  @relation(fields: [tenantId], references: [id])
+  parties  CourtCaseParty[]
+  links    CourtCasePropertyLink[]
+  hearings CourtHearing[]
+  orders   CourtOrder[]
+}
+
+model CourtCaseParty {
+  id           String @id @default(cuid())
+  caseId       String
+  partyName    String
+  partyRole    String
+  advocateName String?
+  courtCase CourtCase @relation(fields: [caseId], references: [id])
+}
+
+model CourtCasePropertyLink {
+  id          String   @id @default(cuid())
+  caseId      String
+  propertyId  String
+  linkType    String?
+  description String?
+  impactScore Float?
+  linkedAt    DateTime @default(now())
+  courtCase CourtCase @relation(fields: [caseId], references: [id])
+  property  Property  @relation(fields: [propertyId], references: [id])
+}
+
+model CourtHearing {
+  id          String   @id @default(cuid())
+  caseId      String
+  hearingDate DateTime
+  hearingType String?
+  courtRoom   String?
+  judgeName   String?
+  outcome     String?
+  status      String   @default("PENDING")
+  courtCase CourtCase @relation(fields: [caseId], references: [id])
+}
+
+model CourtOrder {
+  id           String   @id @default(cuid())
+  caseId       String
+  orderType    String
+  orderDate    DateTime
+  summary      String?
+  documentUrl  String?
+  affectsTitle Boolean  @default(false)
+  isStayOrder  Boolean  @default(false)
+  courtCase CourtCase @relation(fields: [caseId], references: [id])
+}
+
+model NewspaperSource {
+  id               String    @id @default(cuid())
+  tenantId         String
+  name             String
+  sourceType       String    @default("rss")
+  feedUrl          String?
+  baseUrl          String?
+  region           String?
+  language         String    @default("en")
+  isActive         Boolean   @default(true)
+  crawlIntervalMin Int       @default(60)
+  lastCrawledAt    DateTime?
+  tenant   Tenant             @relation(fields: [tenantId], references: [id])
+  articles NewspaperArticle[]
+}
+
+model NewspaperArticle {
+  id          String   @id @default(cuid())
+  sourceId    String
+  externalId  String   @unique
+  headline    String
+  summary     String?
+  content     String?
+  url         String?
+  author      String?
+  section     String?
+  language    String   @default("en")
+  publishedAt DateTime
+  rawMetadata String   @default("{}")
+  createdAt   DateTime @default(now())
+  source   NewspaperSource           @relation(fields: [sourceId], references: [id])
+  entities NewspaperEntity[]
+  mentions NewspaperPropertyMention[]
+}
+
+model NewspaperEntity {
+  id          String @id @default(cuid())
+  articleId   String
+  entityType  String
+  entityValue String
+  confidence  Float  @default(0)
+  startOffset Int?
+  endOffset   Int?
+  article NewspaperArticle @relation(fields: [articleId], references: [id])
+}
+
+model NewspaperPropertyMention {
+  id             String   @id @default(cuid())
+  articleId      String
+  propertyId     String
+  tenantId       String
+  matchType      String?
+  relevanceScore Float    @default(0)
+  sentiment      String?
+  sentimentScore Float?
+  matchedExcerpt String?
+  reviewed       Boolean  @default(false)
+  createdAt      DateTime @default(now())
+  article  NewspaperArticle @relation(fields: [articleId], references: [id])
+  property Property         @relation(fields: [propertyId], references: [id])
+  tenant   Tenant           @relation(fields: [tenantId], references: [id])
+}
+
+model Notification {
+  id            String    @id @default(cuid())
+  tenantId      String
+  userId        String
+  propertyId    String?
+  channel       String
+  subject       String?
+  body          String
+  status        String    @default("PENDING")
+  priority      String    @default("NORMAL")
+  dataPayload   String    @default("{}")
+  externalMsgId String?
+  errorMessage  String?
+  readAt        DateTime?
+  sentAt        DateTime?
+  createdAt     DateTime  @default(now())
+  tenant   Tenant    @relation(fields: [tenantId], references: [id])
+  user     User      @relation(fields: [userId], references: [id])
+  property Property? @relation(fields: [propertyId], references: [id])
+}
+
+model NotificationPreference {
+  id              String  @id @default(cuid())
+  userId          String
+  eventType       String
+  emailEnabled    Boolean @default(true)
+  whatsappEnabled Boolean @default(true)
+  smsEnabled      Boolean @default(false)
+  inAppEnabled    Boolean @default(true)
+  user User @relation(fields: [userId], references: [id])
+  @@unique([userId, eventType])
+}
+
+model AuditLog {
+  id           String   @id @default(cuid())
+  tenantId     String
+  userId       String?
+  action       String
+  resourceType String
+  resourceId   String?
+  ipAddress    String?
+  userAgent    String?
+  metadata     String   @default("{}")
+  createdAt    DateTime @default(now())
+}
+
+// Cache of Claude's Latin spellings for Devanagari names/places, so a name is only ever sent once.
+model Transliteration {
+  id        String   @id @default(cuid())
+  source    String
+  kind      String
+  spellings String   @default("[]")
+  model     String?
+  createdAt DateTime @default(now())
+  @@unique([source, kind])
+}

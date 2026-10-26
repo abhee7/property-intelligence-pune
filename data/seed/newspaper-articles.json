@@ -1,0 +1,1192 @@
+{
+  "sources": [
+    {
+      "id": "source-1",
+      "tenantId": "t-demo-001",
+      "name": "Sakal",
+      "sourceType": "rss",
+      "feedUrl": "https://sakal.com/rss/pune",
+      "baseUrl": "https://sakal.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-2",
+      "tenantId": "t-demo-001",
+      "name": "Lokmat",
+      "sourceType": "rss",
+      "feedUrl": "https://lokmat.com/rss/pune",
+      "baseUrl": "https://lokmat.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-3",
+      "tenantId": "t-demo-001",
+      "name": "Maharashtra Times",
+      "sourceType": "rss",
+      "feedUrl": "https://maharashtratimes.com/rss/pune",
+      "baseUrl": "https://maharashtratimes.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-4",
+      "tenantId": "t-demo-001",
+      "name": "Pudhari",
+      "sourceType": "rss",
+      "feedUrl": "https://pudhari.com/rss/pune",
+      "baseUrl": "https://pudhari.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-5",
+      "tenantId": "t-demo-001",
+      "name": "Loksatta",
+      "sourceType": "rss",
+      "feedUrl": "https://loksatta.com/rss/pune",
+      "baseUrl": "https://loksatta.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-6",
+      "tenantId": "t-demo-001",
+      "name": "Pune Mirror",
+      "sourceType": "rss",
+      "feedUrl": "https://punemirror.com/rss/pune",
+      "baseUrl": "https://punemirror.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-7",
+      "tenantId": "t-demo-001",
+      "name": "Indian Express Pune",
+      "sourceType": "rss",
+      "feedUrl": "https://indianexpresspune.com/rss/pune",
+      "baseUrl": "https://indianexpresspune.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    },
+    {
+      "id": "source-8",
+      "tenantId": "t-demo-001",
+      "name": "Times of India Pune",
+      "sourceType": "rss",
+      "feedUrl": "https://timesofindiapune.com/rss/pune",
+      "baseUrl": "https://timesofindiapune.com",
+      "region": "Pune",
+      "language": "en",
+      "isActive": true,
+      "crawlIntervalMin": 60,
+      "lastCrawledAt": "2026-07-30T13:12:53.780Z"
+    }
+  ],
+  "articles": [
+    {
+      "id": "article-001",
+      "sourceId": "source-1",
+      "externalId": "sakal-2026-07-23-9616",
+      "headline": "Pune's Hinjewadi IT corridor sees 40% surge in land prices amid infra push",
+      "summary": "Pune's Hinjewadi IT corridor sees 40% surge in land prices amid infra push. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses pune's hinjewadi it corridor sees 40% surge in land prices amid infra push with quotes from local officials and market analysts. The report covers impact on 7 properties in the area.]",
+      "url": "https://sakal.com/pune/2026-07-23/55402",
+      "author": "Ashok Kale",
+      "section": "Legal",
+      "language": "en",
+      "publishedAt": "2026-07-23",
+      "rawMetadata": {
+        "wordCount": 833,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-001-1",
+          "articleId": "article-001",
+          "entityType": "PERSON",
+          "entityValue": "170/3/4",
+          "confidence": 0.72,
+          "startOffset": 310,
+          "endOffset": 549
+        },
+        {
+          "id": "entity-article-001-2",
+          "articleId": "article-001",
+          "entityType": "ORGANIZATION",
+          "entityValue": "PMRDA",
+          "confidence": 0.67,
+          "startOffset": 438,
+          "endOffset": 597
+        },
+        {
+          "id": "entity-article-001-3",
+          "articleId": "article-001",
+          "entityType": "PERSON",
+          "entityValue": "PCMC",
+          "confidence": 0.87,
+          "startOffset": 69,
+          "endOffset": 594
+        },
+        {
+          "id": "entity-article-001-4",
+          "articleId": "article-001",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Bhukum",
+          "confidence": 0.61,
+          "startOffset": 196,
+          "endOffset": 517
+        },
+        {
+          "id": "entity-article-001-5",
+          "articleId": "article-001",
+          "entityType": "ORGANIZATION",
+          "entityValue": "256/12",
+          "confidence": 0.71,
+          "startOffset": 407,
+          "endOffset": 511
+        }
+      ]
+    },
+    {
+      "id": "article-002",
+      "sourceId": "source-6",
+      "externalId": "pune-mirror-2026-07-16-9637",
+      "headline": "Farmers protest land acquisition for Pune ring road in Mulshi taluka",
+      "summary": "Farmers protest land acquisition for Pune ring road in Mulshi taluka. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses farmers protest land acquisition for pune ring road in mulshi taluka with quotes from local officials and market analysts. The report covers impact on 18 properties in the area.]",
+      "url": "https://punemirror.com/pune/2026-07-16/72593",
+      "author": "Deepak Thorat",
+      "section": "Real Estate",
+      "language": "en",
+      "publishedAt": "2026-07-16",
+      "rawMetadata": {
+        "wordCount": 526,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-002-1",
+          "articleId": "article-002",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "440/1C",
+          "confidence": 0.84,
+          "startOffset": 397,
+          "endOffset": 547
+        },
+        {
+          "id": "entity-article-002-2",
+          "articleId": "article-002",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "256/7",
+          "confidence": 0.7,
+          "startOffset": 334,
+          "endOffset": 544
+        },
+        {
+          "id": "entity-article-002-3",
+          "articleId": "article-002",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Pandurang Patil",
+          "confidence": 0.91,
+          "startOffset": 439,
+          "endOffset": 546
+        }
+      ]
+    },
+    {
+      "id": "article-003",
+      "sourceId": "source-5",
+      "externalId": "loksatta-2026-06-27-9084",
+      "headline": "PCMC uncovers illegal NA conversions in Wakad-Hinjewadi belt",
+      "summary": "PCMC uncovers illegal NA conversions in Wakad-Hinjewadi belt. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses pcmc uncovers illegal na conversions in wakad-hinjewadi belt with quotes from local officials and market analysts. The report covers impact on 43 properties in the area.]",
+      "url": "https://loksatta.com/pune/2026-06-27/91773",
+      "author": "Mahadev Shinde",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-06-27",
+      "rawMetadata": {
+        "wordCount": 753,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-003-1",
+          "articleId": "article-003",
+          "entityType": "PERSON",
+          "entityValue": "Amit Mehta",
+          "confidence": 0.91,
+          "startOffset": 246,
+          "endOffset": 534
+        },
+        {
+          "id": "entity-article-003-2",
+          "articleId": "article-003",
+          "entityType": "ORGANIZATION",
+          "entityValue": "47/5/4",
+          "confidence": 0.92,
+          "startOffset": 309,
+          "endOffset": 512
+        },
+        {
+          "id": "entity-article-003-3",
+          "articleId": "article-003",
+          "entityType": "ORGANIZATION",
+          "entityValue": "117/14C",
+          "confidence": 0.86,
+          "startOffset": 393,
+          "endOffset": 587
+        },
+        {
+          "id": "entity-article-003-4",
+          "articleId": "article-003",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "Revenue Department",
+          "confidence": 0.89,
+          "startOffset": 144,
+          "endOffset": 541
+        }
+      ]
+    },
+    {
+      "id": "article-004",
+      "sourceId": "source-2",
+      "externalId": "lokmat-2026-07-08-2964",
+      "headline": "Property registrations in Pune district up 18% in Q2 2026",
+      "summary": "Property registrations in Pune district up 18% in Q2 2026. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses property registrations in pune district up 18% in q2 2026 with quotes from local officials and market analysts. The report covers impact on 27 properties in the area.]",
+      "url": "https://lokmat.com/pune/2026-07-08/97502",
+      "author": "Vishal Shrikhande",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-07-08",
+      "rawMetadata": {
+        "wordCount": 393,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-004-1",
+          "articleId": "article-004",
+          "entityType": "PERSON",
+          "entityValue": "Supa",
+          "confidence": 0.91,
+          "startOffset": 109,
+          "endOffset": 570
+        },
+        {
+          "id": "entity-article-004-2",
+          "articleId": "article-004",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "Vitthal Gokhale",
+          "confidence": 0.62,
+          "startOffset": 125,
+          "endOffset": 568
+        },
+        {
+          "id": "entity-article-004-3",
+          "articleId": "article-004",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "CS/1439/2024",
+          "confidence": 0.68,
+          "startOffset": 231,
+          "endOffset": 567
+        },
+        {
+          "id": "entity-article-004-4",
+          "articleId": "article-004",
+          "entityType": "ORGANIZATION",
+          "entityValue": "CS/763/2025",
+          "confidence": 0.84,
+          "startOffset": 119,
+          "endOffset": 528
+        },
+        {
+          "id": "entity-article-004-5",
+          "articleId": "article-004",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Ramesh Joshi",
+          "confidence": 0.82,
+          "startOffset": 179,
+          "endOffset": 593
+        }
+      ]
+    },
+    {
+      "id": "article-005",
+      "sourceId": "source-7",
+      "externalId": "indian-express-pune-2026-05-07-8898",
+      "headline": "Builder arrested for selling same flat to three buyers in Hadapsar",
+      "summary": "Builder arrested for selling same flat to three buyers in Hadapsar. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses builder arrested for selling same flat to three buyers in hadapsar with quotes from local officials and market analysts. The report covers impact on 10 properties in the area.]",
+      "url": "https://indianexpresspune.com/pune/2026-05-07/89238",
+      "author": "Amit Kale",
+      "section": "Business",
+      "language": "en",
+      "publishedAt": "2026-05-07",
+      "rawMetadata": {
+        "wordCount": 444,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-005-1",
+          "articleId": "article-005",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Anil Sonawane",
+          "confidence": 0.75,
+          "startOffset": 206,
+          "endOffset": 572
+        },
+        {
+          "id": "entity-article-005-2",
+          "articleId": "article-005",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "CS/3024/2020",
+          "confidence": 0.62,
+          "startOffset": 396,
+          "endOffset": 547
+        },
+        {
+          "id": "entity-article-005-3",
+          "articleId": "article-005",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "CS/4780/2026",
+          "confidence": 0.94,
+          "startOffset": 453,
+          "endOffset": 597
+        },
+        {
+          "id": "entity-article-005-4",
+          "articleId": "article-005",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Kanhe",
+          "confidence": 0.87,
+          "startOffset": 262,
+          "endOffset": 574
+        },
+        {
+          "id": "entity-article-005-5",
+          "articleId": "article-005",
+          "entityType": "PERSON",
+          "entityValue": "CS/8327/2021",
+          "confidence": 0.61,
+          "startOffset": 237,
+          "endOffset": 532
+        }
+      ]
+    },
+    {
+      "id": "article-006",
+      "sourceId": "source-1",
+      "externalId": "sakal-2026-07-15-4923",
+      "headline": "Pune Metro Phase 2 to boost realty prices along Swargate-Katraj corridor",
+      "summary": "Pune Metro Phase 2 to boost realty prices along Swargate-Katraj corridor. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses pune metro phase 2 to boost realty prices along swargate-katraj corridor with quotes from local officials and market analysts. The report covers impact on 27 properties in the area.]",
+      "url": "https://sakal.com/pune/2026-07-15/71557",
+      "author": "Vitthal Thorat",
+      "section": "City",
+      "language": "en",
+      "publishedAt": "2026-07-15",
+      "rawMetadata": {
+        "wordCount": 568,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-006-1",
+          "articleId": "article-006",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Omprakash Bhosale",
+          "confidence": 0.9,
+          "startOffset": 283,
+          "endOffset": 575
+        },
+        {
+          "id": "entity-article-006-2",
+          "articleId": "article-006",
+          "entityType": "LOCATION",
+          "entityValue": "Revenue Department",
+          "confidence": 0.67,
+          "startOffset": 420,
+          "endOffset": 587
+        },
+        {
+          "id": "entity-article-006-3",
+          "articleId": "article-006",
+          "entityType": "PERSON",
+          "entityValue": "PMC",
+          "confidence": 0.78,
+          "startOffset": 85,
+          "endOffset": 575
+        }
+      ]
+    },
+    {
+      "id": "article-007",
+      "sourceId": "source-1",
+      "externalId": "sakal-2026-07-31-3693",
+      "headline": "Encroachment drive removes 50 illegal structures in Wagholi",
+      "summary": "Encroachment drive removes 50 illegal structures in Wagholi. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses encroachment drive removes 50 illegal structures in wagholi with quotes from local officials and market analysts. The report covers impact on 49 properties in the area.]",
+      "url": "https://sakal.com/pune/2026-07-31/84667",
+      "author": "Vinod More",
+      "section": "Legal",
+      "language": "en",
+      "publishedAt": "2026-07-31",
+      "rawMetadata": {
+        "wordCount": 706,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-007-1",
+          "articleId": "article-007",
+          "entityType": "PERSON",
+          "entityValue": "Krishna Deshpande",
+          "confidence": 0.7,
+          "startOffset": 166,
+          "endOffset": 519
+        },
+        {
+          "id": "entity-article-007-2",
+          "articleId": "article-007",
+          "entityType": "PERSON",
+          "entityValue": "Balaji Shinde",
+          "confidence": 0.66,
+          "startOffset": 442,
+          "endOffset": 580
+        },
+        {
+          "id": "entity-article-007-3",
+          "articleId": "article-007",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "Rajesh Salunkhe",
+          "confidence": 0.61,
+          "startOffset": 375,
+          "endOffset": 543
+        },
+        {
+          "id": "entity-article-007-4",
+          "articleId": "article-007",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Pankaj Shinde",
+          "confidence": 0.71,
+          "startOffset": 380,
+          "endOffset": 548
+        },
+        {
+          "id": "entity-article-007-5",
+          "articleId": "article-007",
+          "entityType": "LOCATION",
+          "entityValue": "Govind Lokhande",
+          "confidence": 0.68,
+          "startOffset": 399,
+          "endOffset": 541
+        }
+      ]
+    },
+    {
+      "id": "article-008",
+      "sourceId": "source-5",
+      "externalId": "loksatta-2026-07-05-9070",
+      "headline": "Revenue dept finds discrepancies in 7/12 extracts in Shirur taluka",
+      "summary": "Revenue dept finds discrepancies in 7/12 extracts in Shirur taluka. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses revenue dept finds discrepancies in 7/12 extracts in shirur taluka with quotes from local officials and market analysts. The report covers impact on 44 properties in the area.]",
+      "url": "https://loksatta.com/pune/2026-07-05/16970",
+      "author": "Ganesh Kadam",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-07-05",
+      "rawMetadata": {
+        "wordCount": 384,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-008-1",
+          "articleId": "article-008",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Dhom",
+          "confidence": 0.89,
+          "startOffset": 73,
+          "endOffset": 513
+        },
+        {
+          "id": "entity-article-008-2",
+          "articleId": "article-008",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "85/5B",
+          "confidence": 0.6,
+          "startOffset": 235,
+          "endOffset": 579
+        },
+        {
+          "id": "entity-article-008-3",
+          "articleId": "article-008",
+          "entityType": "LOCATION",
+          "entityValue": "CS/7760/2023",
+          "confidence": 0.94,
+          "startOffset": 250,
+          "endOffset": 554
+        },
+        {
+          "id": "entity-article-008-4",
+          "articleId": "article-008",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Narayanpur",
+          "confidence": 0.82,
+          "startOffset": 283,
+          "endOffset": 510
+        },
+        {
+          "id": "entity-article-008-5",
+          "articleId": "article-008",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "S.No.427/13",
+          "confidence": 0.68,
+          "startOffset": 485,
+          "endOffset": 573
+        }
+      ]
+    },
+    {
+      "id": "article-009",
+      "sourceId": "source-6",
+      "externalId": "pune-mirror-2026-06-20-2272",
+      "headline": "Smart City project transforms Kharadi-Mundhwa real estate landscape",
+      "summary": "Smart City project transforms Kharadi-Mundhwa real estate landscape. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses smart city project transforms kharadi-mundhwa real estate landscape with quotes from local officials and market analysts. The report covers impact on 6 properties in the area.]",
+      "url": "https://punemirror.com/pune/2026-06-20/35978",
+      "author": "Shivaji Kulkarni",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-06-20",
+      "rawMetadata": {
+        "wordCount": 491,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-009-1",
+          "articleId": "article-009",
+          "entityType": "LOCATION",
+          "entityValue": "CS/9464/2024",
+          "confidence": 0.64,
+          "startOffset": 400,
+          "endOffset": 591
+        },
+        {
+          "id": "entity-article-009-2",
+          "articleId": "article-009",
+          "entityType": "LOCATION",
+          "entityValue": "Mangdari",
+          "confidence": 0.87,
+          "startOffset": 299,
+          "endOffset": 596
+        },
+        {
+          "id": "entity-article-009-3",
+          "articleId": "article-009",
+          "entityType": "LOCATION",
+          "entityValue": "Alandi",
+          "confidence": 0.62,
+          "startOffset": 276,
+          "endOffset": 542
+        }
+      ]
+    },
+    {
+      "id": "article-010",
+      "sourceId": "source-8",
+      "externalId": "times-of-india-pune-2026-07-25-2009",
+      "headline": "Heritage committee blocks redevelopment of old wada in Pune cantonment",
+      "summary": "Heritage committee blocks redevelopment of old wada in Pune cantonment. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses heritage committee blocks redevelopment of old wada in pune cantonment with quotes from local officials and market analysts. The report covers impact on 20 properties in the area.]",
+      "url": "https://timesofindiapune.com/pune/2026-07-25/10883",
+      "author": "Rahul More",
+      "section": "Legal",
+      "language": "en",
+      "publishedAt": "2026-07-25",
+      "rawMetadata": {
+        "wordCount": 995,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-010-1",
+          "articleId": "article-010",
+          "entityType": "PERSON",
+          "entityValue": "PMRDA",
+          "confidence": 0.68,
+          "startOffset": 280,
+          "endOffset": 578
+        },
+        {
+          "id": "entity-article-010-2",
+          "articleId": "article-010",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "159/5/3",
+          "confidence": 0.83,
+          "startOffset": 355,
+          "endOffset": 574
+        },
+        {
+          "id": "entity-article-010-3",
+          "articleId": "article-010",
+          "entityType": "PERSON",
+          "entityValue": "S.No.365/14",
+          "confidence": 0.62,
+          "startOffset": 103,
+          "endOffset": 538
+        }
+      ]
+    },
+    {
+      "id": "article-011",
+      "sourceId": "source-7",
+      "externalId": "indian-express-pune-2026-07-21-8645",
+      "headline": "RERA orders builder to refund Rs 1.2 crore for delayed possession in Baner",
+      "summary": "RERA orders builder to refund Rs 1.2 crore for delayed possession in Baner. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses rera orders builder to refund rs 1.2 crore for delayed possession in baner with quotes from local officials and market analysts. The report covers impact on 34 properties in the area.]",
+      "url": "https://indianexpresspune.com/pune/2026-07-21/10435",
+      "author": "Anil Kadam",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-07-21",
+      "rawMetadata": {
+        "wordCount": 648,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-011-1",
+          "articleId": "article-011",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Pankaj Wagh",
+          "confidence": 0.68,
+          "startOffset": 59,
+          "endOffset": 528
+        },
+        {
+          "id": "entity-article-011-2",
+          "articleId": "article-011",
+          "entityType": "PERSON",
+          "entityValue": "PMRDA",
+          "confidence": 0.67,
+          "startOffset": 258,
+          "endOffset": 563
+        },
+        {
+          "id": "entity-article-011-3",
+          "articleId": "article-011",
+          "entityType": "PERSON",
+          "entityValue": "448/12",
+          "confidence": 0.63,
+          "startOffset": 423,
+          "endOffset": 599
+        },
+        {
+          "id": "entity-article-011-4",
+          "articleId": "article-011",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Paud",
+          "confidence": 0.92,
+          "startOffset": 302,
+          "endOffset": 538
+        }
+      ]
+    },
+    {
+      "id": "article-012",
+      "sourceId": "source-7",
+      "externalId": "indian-express-pune-2026-06-22-8510",
+      "headline": "Pune sees record stamp duty collection of Rs 8,000 crore in FY26",
+      "summary": "Pune sees record stamp duty collection of Rs 8,000 crore in FY26. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses pune sees record stamp duty collection of rs 8,000 crore in fy26 with quotes from local officials and market analysts. The report covers impact on 41 properties in the area.]",
+      "url": "https://indianexpresspune.com/pune/2026-06-22/71081",
+      "author": "Tushar Gokhale",
+      "section": "Legal",
+      "language": "en",
+      "publishedAt": "2026-06-22",
+      "rawMetadata": {
+        "wordCount": 535,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-012-1",
+          "articleId": "article-012",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Mohan Patel",
+          "confidence": 0.95,
+          "startOffset": 95,
+          "endOffset": 585
+        },
+        {
+          "id": "entity-article-012-2",
+          "articleId": "article-012",
+          "entityType": "ORGANIZATION",
+          "entityValue": "CS/4988/2020",
+          "confidence": 0.82,
+          "startOffset": 272,
+          "endOffset": 559
+        },
+        {
+          "id": "entity-article-012-3",
+          "articleId": "article-012",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Limb",
+          "confidence": 0.68,
+          "startOffset": 465,
+          "endOffset": 513
+        },
+        {
+          "id": "entity-article-012-4",
+          "articleId": "article-012",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "PMC",
+          "confidence": 0.64,
+          "startOffset": 247,
+          "endOffset": 546
+        },
+        {
+          "id": "entity-article-012-5",
+          "articleId": "article-012",
+          "entityType": "PERSON",
+          "entityValue": "Prashant Salunkhe",
+          "confidence": 0.64,
+          "startOffset": 392,
+          "endOffset": 539
+        }
+      ]
+    },
+    {
+      "id": "article-013",
+      "sourceId": "source-2",
+      "externalId": "lokmat-2026-07-20-2598",
+      "headline": "Farmer family dispute over 50-acre Baramati land reaches High Court",
+      "summary": "Farmer family dispute over 50-acre Baramati land reaches High Court. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses farmer family dispute over 50-acre baramati land reaches high court with quotes from local officials and market analysts. The report covers impact on 35 properties in the area.]",
+      "url": "https://lokmat.com/pune/2026-07-20/73074",
+      "author": "Krishna Sharma",
+      "section": "City",
+      "language": "en",
+      "publishedAt": "2026-07-20",
+      "rawMetadata": {
+        "wordCount": 679,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-013-1",
+          "articleId": "article-013",
+          "entityType": "LOCATION",
+          "entityValue": "5/19",
+          "confidence": 0.66,
+          "startOffset": 277,
+          "endOffset": 537
+        },
+        {
+          "id": "entity-article-013-2",
+          "articleId": "article-013",
+          "entityType": "ORGANIZATION",
+          "entityValue": "CS/2454/2021",
+          "confidence": 0.94,
+          "startOffset": 257,
+          "endOffset": 592
+        },
+        {
+          "id": "entity-article-013-3",
+          "articleId": "article-013",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "PMC",
+          "confidence": 0.78,
+          "startOffset": 382,
+          "endOffset": 528
+        }
+      ]
+    },
+    {
+      "id": "article-014",
+      "sourceId": "source-7",
+      "externalId": "indian-express-pune-2026-07-23-7802",
+      "headline": "Illegal hillside construction in Lavale faces demolition order",
+      "summary": "Illegal hillside construction in Lavale faces demolition order. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses illegal hillside construction in lavale faces demolition order with quotes from local officials and market analysts. The report covers impact on 36 properties in the area.]",
+      "url": "https://indianexpresspune.com/pune/2026-07-23/40835",
+      "author": "Suresh Gokhale",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-07-23",
+      "rawMetadata": {
+        "wordCount": 1022,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-014-1",
+          "articleId": "article-014",
+          "entityType": "LOCATION",
+          "entityValue": "PCMC",
+          "confidence": 0.65,
+          "startOffset": 171,
+          "endOffset": 532
+        },
+        {
+          "id": "entity-article-014-2",
+          "articleId": "article-014",
+          "entityType": "LOCATION",
+          "entityValue": "Sandip Khare",
+          "confidence": 0.71,
+          "startOffset": 213,
+          "endOffset": 543
+        },
+        {
+          "id": "entity-article-014-3",
+          "articleId": "article-014",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "Rajgad",
+          "confidence": 0.96,
+          "startOffset": 127,
+          "endOffset": 563
+        }
+      ]
+    },
+    {
+      "id": "article-015",
+      "sourceId": "source-5",
+      "externalId": "loksatta-2026-07-15-7309",
+      "headline": "NRI investors drive luxury villa demand in Mulshi-Hinjewadi corridor",
+      "summary": "NRI investors drive luxury villa demand in Mulshi-Hinjewadi corridor. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses nri investors drive luxury villa demand in mulshi-hinjewadi corridor with quotes from local officials and market analysts. The report covers impact on 47 properties in the area.]",
+      "url": "https://loksatta.com/pune/2026-07-15/11850",
+      "author": "Prashant Bhandari",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-07-15",
+      "rawMetadata": {
+        "wordCount": 658,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-015-1",
+          "articleId": "article-015",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "Saswad",
+          "confidence": 0.68,
+          "startOffset": 465,
+          "endOffset": 526
+        },
+        {
+          "id": "entity-article-015-2",
+          "articleId": "article-015",
+          "entityType": "ORGANIZATION",
+          "entityValue": "Wadgaon Sheri",
+          "confidence": 0.63,
+          "startOffset": 151,
+          "endOffset": 595
+        },
+        {
+          "id": "entity-article-015-3",
+          "articleId": "article-015",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Tung",
+          "confidence": 0.69,
+          "startOffset": 330,
+          "endOffset": 521
+        }
+      ]
+    },
+    {
+      "id": "article-016",
+      "sourceId": "source-6",
+      "externalId": "pune-mirror-2026-05-25-3427",
+      "headline": "Pune traffic plan proposes new road through agricultural zone in Maval",
+      "summary": "Pune traffic plan proposes new road through agricultural zone in Maval. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses pune traffic plan proposes new road through agricultural zone in maval with quotes from local officials and market analysts. The report covers impact on 45 properties in the area.]",
+      "url": "https://punemirror.com/pune/2026-05-25/59931",
+      "author": "Balu Gadre",
+      "section": "Legal",
+      "language": "en",
+      "publishedAt": "2026-05-25",
+      "rawMetadata": {
+        "wordCount": 715,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-016-1",
+          "articleId": "article-016",
+          "entityType": "PERSON",
+          "entityValue": "PMRDA",
+          "confidence": 0.94,
+          "startOffset": 108,
+          "endOffset": 579
+        },
+        {
+          "id": "entity-article-016-2",
+          "articleId": "article-016",
+          "entityType": "PERSON",
+          "entityValue": "192/15A",
+          "confidence": 0.89,
+          "startOffset": 376,
+          "endOffset": 541
+        },
+        {
+          "id": "entity-article-016-3",
+          "articleId": "article-016",
+          "entityType": "LOCATION",
+          "entityValue": "S.No.367/3",
+          "confidence": 0.79,
+          "startOffset": 212,
+          "endOffset": 534
+        }
+      ]
+    },
+    {
+      "id": "article-017",
+      "sourceId": "source-4",
+      "externalId": "pudhari-2026-07-30-9235",
+      "headline": "Revenue tribunal upholds land title in 20-year-old Purandar dispute",
+      "summary": "Revenue tribunal upholds land title in 20-year-old Purandar dispute. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses revenue tribunal upholds land title in 20-year-old purandar dispute with quotes from local officials and market analysts. The report covers impact on 36 properties in the area.]",
+      "url": "https://pudhari.com/pune/2026-07-30/77177",
+      "author": "Anil Salunkhe",
+      "section": "City",
+      "language": "en",
+      "publishedAt": "2026-07-30",
+      "rawMetadata": {
+        "wordCount": 905,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-017-1",
+          "articleId": "article-017",
+          "entityType": "LOCATION",
+          "entityValue": "Revenue Department",
+          "confidence": 0.82,
+          "startOffset": 453,
+          "endOffset": 556
+        },
+        {
+          "id": "entity-article-017-2",
+          "articleId": "article-017",
+          "entityType": "PERSON",
+          "entityValue": "404/15",
+          "confidence": 0.96,
+          "startOffset": 201,
+          "endOffset": 576
+        },
+        {
+          "id": "entity-article-017-3",
+          "articleId": "article-017",
+          "entityType": "LOCATION",
+          "entityValue": "Satara",
+          "confidence": 0.71,
+          "startOffset": 72,
+          "endOffset": 543
+        },
+        {
+          "id": "entity-article-017-4",
+          "articleId": "article-017",
+          "entityType": "SURVEY_NUMBER",
+          "entityValue": "Revenue Department",
+          "confidence": 0.86,
+          "startOffset": 488,
+          "endOffset": 523
+        },
+        {
+          "id": "entity-article-017-5",
+          "articleId": "article-017",
+          "entityType": "LOCATION",
+          "entityValue": "Hanumant Jadhav",
+          "confidence": 0.91,
+          "startOffset": 241,
+          "endOffset": 514
+        }
+      ]
+    },
+    {
+      "id": "article-018",
+      "sourceId": "source-6",
+      "externalId": "pune-mirror-2026-07-25-8322",
+      "headline": "Water scarcity concerns dampen real estate demand in eastern Pune",
+      "summary": "Water scarcity concerns dampen real estate demand in eastern Pune. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses water scarcity concerns dampen real estate demand in eastern pune with quotes from local officials and market analysts. The report covers impact on 8 properties in the area.]",
+      "url": "https://punemirror.com/pune/2026-07-25/73762",
+      "author": "Ajay Gadre",
+      "section": "Maharashtra",
+      "language": "en",
+      "publishedAt": "2026-07-25",
+      "rawMetadata": {
+        "wordCount": 804,
+        "hasImage": false
+      },
+      "entities": [
+        {
+          "id": "entity-article-018-1",
+          "articleId": "article-018",
+          "entityType": "CASE_NUMBER",
+          "entityValue": "315/20",
+          "confidence": 0.98,
+          "startOffset": 479,
+          "endOffset": 551
+        },
+        {
+          "id": "entity-article-018-2",
+          "articleId": "article-018",
+          "entityType": "LOCATION",
+          "entityValue": "69/7/1",
+          "confidence": 0.95,
+          "startOffset": 450,
+          "endOffset": 591
+        },
+        {
+          "id": "entity-article-018-3",
+          "articleId": "article-018",
+          "entityType": "ORGANIZATION",
+          "entityValue": "S.No.302/6",
+          "confidence": 0.72,
+          "startOffset": 478,
+          "endOffset": 592
+        },
+        {
+          "id": "entity-article-018-4",
+          "articleId": "article-018",
+          "entityType": "LOCATION",
+          "entityValue": "Revenue Department",
+          "confidence": 0.68,
+          "startOffset": 394,
+          "endOffset": 546
+        }
+      ]
+    },
+    {
+      "id": "article-019",
+      "sourceId": "source-3",
+      "externalId": "maharashtra-times-2026-06-20-9949",
+      "headline": "Maan village farmers demand higher compensation for expressway land",
+      "summary": "Maan village farmers demand higher compensation for expressway land. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses maan village farmers demand higher compensation for expressway land with quotes from local officials and market analysts. The report covers impact on 30 properties in the area.]",
+      "url": "https://maharashtratimes.com/pune/2026-06-20/16223",
+      "author": "Pandurang Gokhale",
+      "section": "Real Estate",
+      "language": "en",
+      "publishedAt": "2026-06-20",
+      "rawMetadata": {
+        "wordCount": 940,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-019-1",
+          "articleId": "article-019",
+          "entityType": "PERSON",
+          "entityValue": "CS/8765/2021",
+          "confidence": 0.69,
+          "startOffset": 279,
+          "endOffset": 578
+        },
+        {
+          "id": "entity-article-019-2",
+          "articleId": "article-019",
+          "entityType": "LOCATION",
+          "entityValue": "Ashok Gadre",
+          "confidence": 0.74,
+          "startOffset": 130,
+          "endOffset": 569
+        },
+        {
+          "id": "entity-article-019-3",
+          "articleId": "article-019",
+          "entityType": "PERSON",
+          "entityValue": "Mohan Shrikhande",
+          "confidence": 0.69,
+          "startOffset": 468,
+          "endOffset": 538
+        },
+        {
+          "id": "entity-article-019-4",
+          "articleId": "article-019",
+          "entityType": "LOCATION",
+          "entityValue": "CS/3266/2021",
+          "confidence": 0.71,
+          "startOffset": 133,
+          "endOffset": 560
+        }
+      ]
+    },
+    {
+      "id": "article-020",
+      "sourceId": "source-3",
+      "externalId": "maharashtra-times-2026-07-31-2649",
+      "headline": "Property fraud ring busted: fake documents used to sell government land",
+      "summary": "Property fraud ring busted: fake documents used to sell government land. This article discusses developments in Pune district's real estate market and their implications for property values and land ownership in the region.",
+      "content": "[Full article content would be extracted from the PDF/RSS feed. This is placeholder text for the prototype. The article discusses property fraud ring busted: fake documents used to sell government land with quotes from local officials and market analysts. The report covers impact on 38 properties in the area.]",
+      "url": "https://maharashtratimes.com/pune/2026-07-31/59731",
+      "author": "Rahul Jadhav",
+      "section": "City",
+      "language": "en",
+      "publishedAt": "2026-07-31",
+      "rawMetadata": {
+        "wordCount": 557,
+        "hasImage": true
+      },
+      "entities": [
+        {
+          "id": "entity-article-020-1",
+          "articleId": "article-020",
+          "entityType": "ORGANIZATION",
+          "entityValue": "RERA",
+          "confidence": 0.72,
+          "startOffset": 260,
+          "endOffset": 516
+        },
+        {
+          "id": "entity-article-020-2",
+          "articleId": "article-020",
+          "entityType": "LOCATION",
+          "entityValue": "PCMC",
+          "confidence": 0.89,
+          "startOffset": 402,
+          "endOffset": 592
+        },
+        {
+          "id": "entity-article-020-3",
+          "articleId": "article-020",
+          "entityType": "PERSON",
+          "entityValue": "Paud",
+          "confidence": 0.63,
+          "startOffset": 167,
+          "endOffset": 595
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,3663 @@
+{
+  "landRecords": [
+    {
+      "surveyNumber": "496/2C",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Ramesh Kamble",
+      "area": "2457 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3092/2016",
+          "date": "12/5/2024",
+          "fromOwner": "Anil Thorat",
+          "toOwner": "Ramesh Kamble",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/4614/2015",
+          "date": "25/6/2017",
+          "fromOwner": "Amit Patil",
+          "toOwner": "Ramesh Kamble",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/5848/2017",
+          "date": "28/11/2023",
+          "fromOwner": "Narayan Apte",
+          "toOwner": "Ramesh Kamble",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/6661/2018",
+          "date": "28/4/2016",
+          "fromOwner": "Yogesh Kadam",
+          "toOwner": "Ramesh Kamble",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-17"
+    },
+    {
+      "surveyNumber": "S.No.336/6",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Daund",
+      "village": "Daund",
+      "ownerName": "Vitthal Khare",
+      "area": "5071 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6839/2017",
+          "date": "25/4/2023",
+          "fromOwner": "Sandip Salunkhe",
+          "toOwner": "Vitthal Khare",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-11"
+    },
+    {
+      "surveyNumber": "S.No.150/3",
+      "khasraNumber": "5814/85",
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Morgaon",
+      "ownerName": "Shankar Thorat",
+      "area": "31966 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3087/2017",
+          "date": "19/3/2015",
+          "fromOwner": "Suresh Shrikhande",
+          "toOwner": "Shankar Thorat",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/5177/2021",
+          "date": "5/1/2015",
+          "fromOwner": "Shivaji Apte",
+          "toOwner": "Shankar Thorat",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/9137/2025",
+          "date": "7/10/2021",
+          "fromOwner": "Mahadev Bhosale",
+          "toOwner": "Shankar Thorat",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/5396/2020",
+          "date": "27/5/2020",
+          "fromOwner": "Narayan Kamble",
+          "toOwner": "Shankar Thorat",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-26"
+    },
+    {
+      "surveyNumber": "763",
+      "khasraNumber": "1866/44",
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Ramesh Kamble",
+      "area": "2468 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6111/2017",
+          "date": "28/1/2022",
+          "fromOwner": "Prashant Thorat",
+          "toOwner": "Ramesh Kamble",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-07"
+    },
+    {
+      "surveyNumber": "68",
+      "khasraNumber": "2485/34",
+      "district": "Pune",
+      "taluka": "Daund",
+      "village": "Daund",
+      "ownerName": "Pramod Deshpande",
+      "area": "1942 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1501/2015",
+          "date": "14/4/2015",
+          "fromOwner": "Prashant More",
+          "toOwner": "Pramod Deshpande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/5528/2024",
+          "date": "7/11/2020",
+          "fromOwner": "Shankar Apte",
+          "toOwner": "Pramod Deshpande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-22"
+    },
+    {
+      "surveyNumber": "130/1/5",
+      "khasraNumber": "983/50",
+      "district": "Pune",
+      "taluka": "Mulshi",
+      "village": "Paud",
+      "ownerName": "Balu Lokhande",
+      "area": "28331 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/7795/2017",
+          "date": "24/2/2021",
+          "fromOwner": "Anil Shinde",
+          "toOwner": "Balu Lokhande",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/3404/2015",
+          "date": "2/1/2015",
+          "fromOwner": "Pankaj Gupta",
+          "toOwner": "Balu Lokhande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/9246/2022",
+          "date": "1/7/2017",
+          "fromOwner": "Sandip Bhosale",
+          "toOwner": "Balu Lokhande",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-08"
+    },
+    {
+      "surveyNumber": "33/15C",
+      "khasraNumber": "8423/12",
+      "district": "Pune",
+      "taluka": "Indapur",
+      "village": "Indapur",
+      "ownerName": "Vitthal Gokhale",
+      "area": "2384 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3055/2023",
+          "date": "13/7/2015",
+          "fromOwner": "Shankar Sonawane",
+          "toOwner": "Vitthal Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/3193/2017",
+          "date": "18/10/2017",
+          "fromOwner": "Ganesh Kamble",
+          "toOwner": "Vitthal Gokhale",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/7968/2021",
+          "date": "16/3/2023",
+          "fromOwner": "Rahul Deshpande",
+          "toOwner": "Vitthal Gokhale",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/8383/2017",
+          "date": "21/12/2018",
+          "fromOwner": "Vikram Bhandari",
+          "toOwner": "Vitthal Gokhale",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-04"
+    },
+    {
+      "surveyNumber": "395",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Saswad",
+      "ownerName": "Kavita Sonawane",
+      "area": "91796 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2245/2017",
+          "date": "5/4/2016",
+          "fromOwner": "Sambhaji Bhandari",
+          "toOwner": "Kavita Sonawane",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/7221/2018",
+          "date": "13/9/2019",
+          "fromOwner": "Manish Gaikwad",
+          "toOwner": "Kavita Sonawane",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/1845/2020",
+          "date": "17/7/2020",
+          "fromOwner": "Dnyaneshwar Gokhale",
+          "toOwner": "Kavita Sonawane",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-25"
+    },
+    {
+      "surveyNumber": "387/12C",
+      "khasraNumber": "6454/15",
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Mangdari",
+      "ownerName": "Shankar Thorat",
+      "area": "58860 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5653/2022",
+          "date": "20/1/2022",
+          "fromOwner": "Vitthal Gadre",
+          "toOwner": "Shankar Thorat",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-06-13"
+    },
+    {
+      "surveyNumber": "84/9",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Kadus",
+      "ownerName": "Shankar Thorat",
+      "area": "85768 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3304/2018",
+          "date": "28/5/2025",
+          "fromOwner": "Krishna Mane",
+          "toOwner": "Shankar Thorat",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/5480/2017",
+          "date": "3/5/2017",
+          "fromOwner": "Pankaj Kulkarni",
+          "toOwner": "Shankar Thorat",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/7795/2025",
+          "date": "28/5/2016",
+          "fromOwner": "Dnyaneshwar Patil",
+          "toOwner": "Shankar Thorat",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-31"
+    },
+    {
+      "surveyNumber": "803",
+      "khasraNumber": "6498/4",
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Rajgurunagar",
+      "ownerName": "Ramesh Shah",
+      "area": "903 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3805/2025",
+          "date": "13/10/2021",
+          "fromOwner": "Pandurang Bhosale",
+          "toOwner": "Ramesh Shah",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/8306/2021",
+          "date": "18/7/2020",
+          "fromOwner": "Mohan Phule",
+          "toOwner": "Ramesh Shah",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-12"
+    },
+    {
+      "surveyNumber": "423",
+      "khasraNumber": "4532/93",
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Pramod Lokhande",
+      "area": "2636 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2633/2025",
+          "date": "8/5/2015",
+          "fromOwner": "Hanumant Apte",
+          "toOwner": "Pramod Lokhande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "surveyNumber": "469",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Mulshi",
+      "village": "Maan",
+      "ownerName": "Jagdish Thorat",
+      "area": "2316 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9656/2023",
+          "date": "16/1/2025",
+          "fromOwner": "Govind Kamble",
+          "toOwner": "Jagdish Thorat",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/5943/2020",
+          "date": "24/6/2022",
+          "fromOwner": "Mahesh Deshpande",
+          "toOwner": "Jagdish Thorat",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/6055/2022",
+          "date": "24/11/2024",
+          "fromOwner": "Vishal Nimbalkar",
+          "toOwner": "Jagdish Thorat",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/3854/2022",
+          "date": "2/5/2024",
+          "fromOwner": "Omprakash Kadam",
+          "toOwner": "Jagdish Thorat",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-06-13"
+    },
+    {
+      "surveyNumber": "145/1/2",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Haveli",
+      "village": "Wagholi",
+      "ownerName": "Lata Yadav",
+      "area": "47391 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2738/2016",
+          "date": "19/7/2020",
+          "fromOwner": "Sandip Shrikhande",
+          "toOwner": "Lata Yadav",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7790/2020",
+          "date": "13/9/2019",
+          "fromOwner": "Narayan Sharma",
+          "toOwner": "Lata Yadav",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/1781/2017",
+          "date": "21/1/2020",
+          "fromOwner": "Balu Gadre",
+          "toOwner": "Lata Yadav",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-06"
+    },
+    {
+      "surveyNumber": "321/14",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Indapur",
+      "village": "Indapur",
+      "ownerName": "Lata Yadav",
+      "area": "9024 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5064/2020",
+          "date": "2/9/2020",
+          "fromOwner": "Pankaj Patel",
+          "toOwner": "Lata Yadav",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/9340/2024",
+          "date": "3/10/2020",
+          "fromOwner": "Rahul Kamble",
+          "toOwner": "Lata Yadav",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7365/2025",
+          "date": "6/9/2016",
+          "fromOwner": "Vikram Chavan",
+          "toOwner": "Lata Yadav",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-07-25"
+    },
+    {
+      "surveyNumber": "143/2",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Alandi",
+      "ownerName": "Suresh Deshmukh",
+      "area": "117324 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2852/2023",
+          "date": "6/10/2022",
+          "fromOwner": "Yogesh Khare",
+          "toOwner": "Suresh Deshmukh",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-12"
+    },
+    {
+      "surveyNumber": "243",
+      "khasraNumber": "6823/11",
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Anita Sharma",
+      "area": "1150 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9332/2025",
+          "date": "6/11/2018",
+          "fromOwner": "Pankaj Nimbalkar",
+          "toOwner": "Anita Sharma",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/8149/2015",
+          "date": "14/2/2024",
+          "fromOwner": "Vikram Sonawane",
+          "toOwner": "Anita Sharma",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-13"
+    },
+    {
+      "surveyNumber": "309/4B",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Malegaon",
+      "ownerName": "Pandurang Lokhande",
+      "area": "1890 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1048/2023",
+          "date": "26/9/2016",
+          "fromOwner": "Balaji Patel",
+          "toOwner": "Pandurang Lokhande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/2628/2019",
+          "date": "22/7/2025",
+          "fromOwner": "Sandip Mehta",
+          "toOwner": "Pandurang Lokhande",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/6629/2018",
+          "date": "26/2/2019",
+          "fromOwner": "Nitin Kale",
+          "toOwner": "Pandurang Lokhande",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/5488/2019",
+          "date": "19/12/2025",
+          "fromOwner": "Ravi Deshpande",
+          "toOwner": "Pandurang Lokhande",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-01"
+    },
+    {
+      "surveyNumber": "520",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Jejuri",
+      "ownerName": "Jagdish Thorat",
+      "area": "715 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4320/2024",
+          "date": "24/10/2017",
+          "fromOwner": "Balaji Wagh",
+          "toOwner": "Jagdish Thorat",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-31"
+    },
+    {
+      "surveyNumber": "124/18",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Nasrapur",
+      "ownerName": "Sachin Bhosale",
+      "area": "2904 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6710/2025",
+          "date": "12/2/2019",
+          "fromOwner": "Vishal Phule",
+          "toOwner": "Sachin Bhosale",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/4861/2024",
+          "date": "11/2/2020",
+          "fromOwner": "Manish Apte",
+          "toOwner": "Sachin Bhosale",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/1765/2016",
+          "date": "15/12/2023",
+          "fromOwner": "Shankar Shinde",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1744/2017",
+          "date": "21/10/2020",
+          "fromOwner": "Vikram Apte",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-15"
+    },
+    {
+      "surveyNumber": "73/15",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Alandi",
+      "ownerName": "Pandurang Lokhande",
+      "area": "4020 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3170/2017",
+          "date": "13/8/2018",
+          "fromOwner": "Mahesh Sharma",
+          "toOwner": "Pandurang Lokhande",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/2972/2021",
+          "date": "2/5/2025",
+          "fromOwner": "Vinod Shrikhande",
+          "toOwner": "Pandurang Lokhande",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/8459/2017",
+          "date": "12/9/2025",
+          "fromOwner": "Ganesh Bhosale",
+          "toOwner": "Pandurang Lokhande",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/5241/2025",
+          "date": "10/3/2022",
+          "fromOwner": "Vitthal Yadav",
+          "toOwner": "Pandurang Lokhande",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-18"
+    },
+    {
+      "surveyNumber": "S.No.326/9",
+      "khasraNumber": "6909/93",
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Narayanpur",
+      "ownerName": "Krishna Kadam",
+      "area": "159566 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/7095/2015",
+          "date": "9/1/2020",
+          "fromOwner": "Govind Khare",
+          "toOwner": "Krishna Kadam",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-18"
+    },
+    {
+      "surveyNumber": "134/4C",
+      "khasraNumber": "9898/21",
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Malegaon",
+      "ownerName": "Krishna Kulkarni",
+      "area": "3462 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/8777/2023",
+          "date": "19/4/2018",
+          "fromOwner": "Jagdish Nimbalkar",
+          "toOwner": "Krishna Kulkarni",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-15"
+    },
+    {
+      "surveyNumber": "203",
+      "khasraNumber": "7945/15",
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Bhor",
+      "ownerName": "Meena Shinde",
+      "area": "4632 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4307/2019",
+          "date": "6/2/2022",
+          "fromOwner": "Ashok Deshmukh",
+          "toOwner": "Meena Shinde",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/9036/2015",
+          "date": "28/2/2017",
+          "fromOwner": "Balu Khare",
+          "toOwner": "Meena Shinde",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-26"
+    },
+    {
+      "surveyNumber": "3",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Kikvi",
+      "ownerName": "Sachin Bhosale",
+      "area": "24237 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3464/2020",
+          "date": "27/5/2018",
+          "fromOwner": "Tushar Wagh",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3341/2018",
+          "date": "12/9/2016",
+          "fromOwner": "Dnyaneshwar Patil",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-07-10"
+    },
+    {
+      "surveyNumber": "248",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Supa",
+      "ownerName": "Lata Gokhale",
+      "area": "70942 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2247/2017",
+          "date": "4/7/2021",
+          "fromOwner": "Suresh Kale",
+          "toOwner": "Lata Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/2654/2023",
+          "date": "28/12/2024",
+          "fromOwner": "Ramesh Sharma",
+          "toOwner": "Lata Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/6438/2018",
+          "date": "9/7/2017",
+          "fromOwner": "Balaji Deshpande",
+          "toOwner": "Lata Gokhale",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/4058/2017",
+          "date": "12/9/2021",
+          "fromOwner": "Sambhaji Sawant",
+          "toOwner": "Lata Gokhale",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-15"
+    },
+    {
+      "surveyNumber": "195/11C",
+      "khasraNumber": "7776/23",
+      "district": "Pune",
+      "taluka": "Daund",
+      "village": "Daund",
+      "ownerName": "Kavita Sawant",
+      "area": "80362 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9901/2021",
+          "date": "3/10/2016",
+          "fromOwner": "Rahul Chavan",
+          "toOwner": "Kavita Sawant",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-20"
+    },
+    {
+      "surveyNumber": "286/4",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Sanjay Bhandari",
+      "area": "562 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2312/2015",
+          "date": "2/8/2022",
+          "fromOwner": "Ashok Patil",
+          "toOwner": "Sanjay Bhandari",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/4481/2018",
+          "date": "27/10/2017",
+          "fromOwner": "Mahesh Sonawane",
+          "toOwner": "Sanjay Bhandari",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/4965/2023",
+          "date": "14/5/2022",
+          "fromOwner": "Lakshman Patil",
+          "toOwner": "Sanjay Bhandari",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-19"
+    },
+    {
+      "surveyNumber": "419/11A",
+      "khasraNumber": "4035/7",
+      "district": "Pune",
+      "taluka": "Maval",
+      "village": "Vadgaon",
+      "ownerName": "Pandurang Lokhande",
+      "area": "2746 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3963/2025",
+          "date": "24/2/2021",
+          "fromOwner": "Mahadev Pawar",
+          "toOwner": "Pandurang Lokhande",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/1213/2023",
+          "date": "12/1/2015",
+          "fromOwner": "Ravi Deshpande",
+          "toOwner": "Pandurang Lokhande",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/7145/2018",
+          "date": "25/11/2024",
+          "fromOwner": "Anil Pawar",
+          "toOwner": "Pandurang Lokhande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/6509/2024",
+          "date": "17/2/2016",
+          "fromOwner": "Nitin Lokhande",
+          "toOwner": "Pandurang Lokhande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-20"
+    },
+    {
+      "surveyNumber": "248",
+      "khasraNumber": "1089/92",
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Rajgad",
+      "ownerName": "Anita Sharma",
+      "area": "2847 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9511/2025",
+          "date": "26/9/2018",
+          "fromOwner": "Vikram Jadhav",
+          "toOwner": "Anita Sharma",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-06-01"
+    },
+    {
+      "surveyNumber": "S.No.115/14",
+      "khasraNumber": "446/45",
+      "district": "Pune",
+      "taluka": "Shirur",
+      "village": "Koregaon Bhima",
+      "ownerName": "Meena Gadre",
+      "area": "1768 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3622/2016",
+          "date": "2/7/2023",
+          "fromOwner": "Nitin Thorat",
+          "toOwner": "Meena Gadre",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3825/2015",
+          "date": "22/12/2020",
+          "fromOwner": "Krishna Bhandari",
+          "toOwner": "Meena Gadre",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/2701/2025",
+          "date": "12/1/2015",
+          "fromOwner": "Sandip Patel",
+          "toOwner": "Meena Gadre",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3976/2015",
+          "date": "23/4/2025",
+          "fromOwner": "Rajesh Patel",
+          "toOwner": "Meena Gadre",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-25"
+    },
+    {
+      "surveyNumber": "370/16",
+      "khasraNumber": "5384/63",
+      "district": "Pune",
+      "taluka": "Junnar",
+      "village": "Junnar",
+      "ownerName": "Vitthal Khare",
+      "area": "8315 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3353/2018",
+          "date": "23/12/2022",
+          "fromOwner": "Sanjay Mane",
+          "toOwner": "Vitthal Khare",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/5900/2024",
+          "date": "14/9/2017",
+          "fromOwner": "Sambhaji Chavan",
+          "toOwner": "Vitthal Khare",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-09"
+    },
+    {
+      "surveyNumber": "70/1/5",
+      "khasraNumber": "5317/77",
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Narayanpur",
+      "ownerName": "Vitthal Gokhale",
+      "area": "165307 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1999/2019",
+          "date": "23/2/2023",
+          "fromOwner": "Jagdish Pawar",
+          "toOwner": "Vitthal Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/3892/2025",
+          "date": "11/2/2017",
+          "fromOwner": "Tushar Jadhav",
+          "toOwner": "Vitthal Gokhale",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-21"
+    },
+    {
+      "surveyNumber": "560",
+      "khasraNumber": "5809/57",
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Meena Shinde",
+      "area": "3893 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5793/2017",
+          "date": "28/10/2024",
+          "fromOwner": "Omprakash Nimbalkar",
+          "toOwner": "Meena Shinde",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/6991/2023",
+          "date": "8/2/2018",
+          "fromOwner": "Sambhaji Gupta",
+          "toOwner": "Meena Shinde",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/6952/2019",
+          "date": "21/7/2022",
+          "fromOwner": "Dnyaneshwar Wagh",
+          "toOwner": "Meena Shinde",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "surveyNumber": "S.No.247/4",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Velhe",
+      "ownerName": "Rekha Gupta",
+      "area": "2605 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1237/2021",
+          "date": "28/1/2015",
+          "fromOwner": "Tushar Mane",
+          "toOwner": "Rekha Gupta",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/4478/2025",
+          "date": "11/6/2021",
+          "fromOwner": "Omprakash Wagh",
+          "toOwner": "Rekha Gupta",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/7383/2019",
+          "date": "21/6/2022",
+          "fromOwner": "Shankar Patil",
+          "toOwner": "Rekha Gupta",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-09"
+    },
+    {
+      "surveyNumber": "290/20B",
+      "khasraNumber": "3196/10",
+      "district": "Pune",
+      "taluka": "Haveli",
+      "village": "Manjri",
+      "ownerName": "Anita Sharma",
+      "area": "2106 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4611/2020",
+          "date": "21/10/2021",
+          "fromOwner": "Vishal Joshi",
+          "toOwner": "Anita Sharma",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/6803/2020",
+          "date": "5/11/2017",
+          "fromOwner": "Tushar Patel",
+          "toOwner": "Anita Sharma",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/2242/2018",
+          "date": "27/11/2022",
+          "fromOwner": "Pankaj Kamble",
+          "toOwner": "Anita Sharma",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/2205/2024",
+          "date": "17/6/2015",
+          "fromOwner": "Ajay Chavan",
+          "toOwner": "Anita Sharma",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-07"
+    },
+    {
+      "surveyNumber": "235/15",
+      "khasraNumber": "4850/98",
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Ganesh More",
+      "area": "9866 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9821/2015",
+          "date": "19/10/2025",
+          "fromOwner": "Nitin Joshi",
+          "toOwner": "Ganesh More",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/7550/2015",
+          "date": "12/2/2019",
+          "fromOwner": "Vikram Thorat",
+          "toOwner": "Ganesh More",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/2003/2023",
+          "date": "16/9/2020",
+          "fromOwner": "Shankar Kale",
+          "toOwner": "Ganesh More",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/5089/2022",
+          "date": "15/6/2021",
+          "fromOwner": "Suresh Patil",
+          "toOwner": "Ganesh More",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-19"
+    },
+    {
+      "surveyNumber": "123/2",
+      "khasraNumber": "5543/26",
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Ambavade",
+      "ownerName": "Ravi Shah",
+      "area": "9807 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5111/2015",
+          "date": "13/9/2017",
+          "fromOwner": "Narayan Gaikwad",
+          "toOwner": "Ravi Shah",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/6289/2017",
+          "date": "9/11/2023",
+          "fromOwner": "Ravi Patil",
+          "toOwner": "Ravi Shah",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/4408/2018",
+          "date": "15/10/2020",
+          "fromOwner": "Deepak Khare",
+          "toOwner": "Ravi Shah",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/3313/2018",
+          "date": "17/4/2024",
+          "fromOwner": "Tushar Joshi",
+          "toOwner": "Ravi Shah",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "surveyNumber": "299/3C",
+      "khasraNumber": "3050/99",
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Krishna Kadam",
+      "area": "160315 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3288/2016",
+          "date": "6/6/2025",
+          "fromOwner": "Omprakash Jadhav",
+          "toOwner": "Krishna Kadam",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/6964/2023",
+          "date": "26/10/2022",
+          "fromOwner": "Pramod Khare",
+          "toOwner": "Krishna Kadam",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/7057/2020",
+          "date": "13/7/2022",
+          "fromOwner": "Sanjay Shrikhande",
+          "toOwner": "Krishna Kadam",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-21"
+    },
+    {
+      "surveyNumber": "S.No.306/11",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Daund",
+      "village": "Daund",
+      "ownerName": "Lata Gokhale",
+      "area": "617 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4529/2016",
+          "date": "6/12/2016",
+          "fromOwner": "Manish Patil",
+          "toOwner": "Lata Gokhale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/6342/2020",
+          "date": "24/11/2020",
+          "fromOwner": "Suresh Bhandari",
+          "toOwner": "Lata Gokhale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1855/2021",
+          "date": "22/7/2022",
+          "fromOwner": "Ramesh Gokhale",
+          "toOwner": "Lata Gokhale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/7619/2021",
+          "date": "14/1/2018",
+          "fromOwner": "Sunil Wagh",
+          "toOwner": "Lata Gokhale",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-11"
+    },
+    {
+      "surveyNumber": "S.No.299/12",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Vitthal Gokhale",
+      "area": "4232 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3273/2022",
+          "date": "2/8/2016",
+          "fromOwner": "Yogesh Lokhande",
+          "toOwner": "Vitthal Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/6266/2021",
+          "date": "20/5/2024",
+          "fromOwner": "Ajay Mane",
+          "toOwner": "Vitthal Gokhale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/9013/2022",
+          "date": "18/3/2019",
+          "fromOwner": "Narayan Apte",
+          "toOwner": "Vitthal Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/4246/2020",
+          "date": "14/10/2018",
+          "fromOwner": "Mohan Jadhav",
+          "toOwner": "Vitthal Gokhale",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-21"
+    },
+    {
+      "surveyNumber": "186/6/4",
+      "khasraNumber": "1104/88",
+      "district": "Pune",
+      "taluka": "Junnar",
+      "village": "Junnar",
+      "ownerName": "Ramesh Kamble",
+      "area": "3387 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2395/2023",
+          "date": "24/8/2022",
+          "fromOwner": "Prashant Bhandari",
+          "toOwner": "Ramesh Kamble",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/5034/2017",
+          "date": "9/11/2018",
+          "fromOwner": "Sunil Sharma",
+          "toOwner": "Ramesh Kamble",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/3876/2018",
+          "date": "11/8/2016",
+          "fromOwner": "Sambhaji Deshmukh",
+          "toOwner": "Ramesh Kamble",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/2707/2025",
+          "date": "19/8/2024",
+          "fromOwner": "Vishal Deshmukh",
+          "toOwner": "Ramesh Kamble",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-02"
+    },
+    {
+      "surveyNumber": "38/9/5",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Kikvi",
+      "ownerName": "Vandana Shinde",
+      "area": "792 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6548/2018",
+          "date": "2/12/2024",
+          "fromOwner": "Sambhaji Yadav",
+          "toOwner": "Vandana Shinde",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/1967/2025",
+          "date": "11/7/2017",
+          "fromOwner": "Mahesh Patel",
+          "toOwner": "Vandana Shinde",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Revenue recovery pending"
+      ],
+      "lastUpdated": "2026-07-19"
+    },
+    {
+      "surveyNumber": "192/7/3",
+      "khasraNumber": "5425/11",
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Morgaon",
+      "ownerName": "Rekha Deshpande",
+      "area": "7661 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5722/2015",
+          "date": "14/1/2017",
+          "fromOwner": "Sunil Apte",
+          "toOwner": "Rekha Deshpande",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-10"
+    },
+    {
+      "surveyNumber": "476/14",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Rajuri",
+      "ownerName": "Hanumant Salunkhe",
+      "area": "3277 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1441/2025",
+          "date": "28/9/2025",
+          "fromOwner": "Mahadev Pawar",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/3358/2015",
+          "date": "24/2/2017",
+          "fromOwner": "Vishal Pawar",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/3677/2024",
+          "date": "21/11/2020",
+          "fromOwner": "Vishal Deshmukh",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/7487/2024",
+          "date": "23/7/2020",
+          "fromOwner": "Deepak Gadre",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-07-30"
+    },
+    {
+      "surveyNumber": "760",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Alandi",
+      "ownerName": "Meena Shinde",
+      "area": "7498 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2204/2024",
+          "date": "3/4/2017",
+          "fromOwner": "Narayan Mane",
+          "toOwner": "Meena Shinde",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/3073/2019",
+          "date": "15/11/2023",
+          "fromOwner": "Shivaji Joshi",
+          "toOwner": "Meena Shinde",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3423/2023",
+          "date": "3/4/2016",
+          "fromOwner": "Lakshman Patel",
+          "toOwner": "Meena Shinde",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-30"
+    },
+    {
+      "surveyNumber": "251",
+      "khasraNumber": "2409/98",
+      "district": "Pune",
+      "taluka": "Maval",
+      "village": "Tung",
+      "ownerName": "Yogesh Wagh",
+      "area": "2895 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1789/2016",
+          "date": "13/6/2015",
+          "fromOwner": "Tushar Sawant",
+          "toOwner": "Yogesh Wagh",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-18"
+    },
+    {
+      "surveyNumber": "115/7/4",
+      "khasraNumber": "1203/46",
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Baramati",
+      "ownerName": "Lata Gokhale",
+      "area": "2822 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9887/2021",
+          "date": "25/3/2023",
+          "fromOwner": "Dnyaneshwar Patil",
+          "toOwner": "Lata Gokhale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/9924/2020",
+          "date": "11/8/2025",
+          "fromOwner": "Lakshman Deshpande",
+          "toOwner": "Lata Gokhale",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/9885/2019",
+          "date": "25/9/2021",
+          "fromOwner": "Vinod Nimbalkar",
+          "toOwner": "Lata Gokhale",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-06-17"
+    },
+    {
+      "surveyNumber": "S.No.151/3",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Indapur",
+      "village": "Indapur",
+      "ownerName": "Pramod Deshpande",
+      "area": "1966 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6013/2022",
+          "date": "11/4/2024",
+          "fromOwner": "Vikram Bhosale",
+          "toOwner": "Pramod Deshpande",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/9659/2018",
+          "date": "2/2/2024",
+          "fromOwner": "Nitin Kulkarni",
+          "toOwner": "Pramod Deshpande",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-24"
+    },
+    {
+      "surveyNumber": "865",
+      "khasraNumber": "5729/43",
+      "district": "Pune",
+      "taluka": "Shirur",
+      "village": "Shirur",
+      "ownerName": "Ramesh Kamble",
+      "area": "8470 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2221/2018",
+          "date": "11/11/2021",
+          "fromOwner": "Vikram Kadam",
+          "toOwner": "Ramesh Kamble",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-14"
+    },
+    {
+      "surveyNumber": "6/8/5",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Daund",
+      "village": "Daund",
+      "ownerName": "Suresh Deshmukh",
+      "area": "78974 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6592/2025",
+          "date": "17/6/2021",
+          "fromOwner": "Rajesh Chavan",
+          "toOwner": "Suresh Deshmukh",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-28"
+    },
+    {
+      "surveyNumber": "S.No.342/5",
+      "khasraNumber": "5553/59",
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Velhe",
+      "ownerName": "Hanumant Salunkhe",
+      "area": "149208 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9820/2024",
+          "date": "23/1/2022",
+          "fromOwner": "Sambhaji Kale",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/5927/2018",
+          "date": "1/11/2015",
+          "fromOwner": "Yogesh Shinde",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7714/2015",
+          "date": "6/10/2021",
+          "fromOwner": "Balaji Joshi",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/2153/2018",
+          "date": "3/7/2018",
+          "fromOwner": "Amit Shrikhande",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-07-14"
+    },
+    {
+      "surveyNumber": "S.No.187/12",
+      "khasraNumber": "3882/12",
+      "district": "Pune",
+      "taluka": "Indapur",
+      "village": "Indapur",
+      "ownerName": "Krishna Kadam",
+      "area": "8221 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6170/2018",
+          "date": "3/1/2016",
+          "fromOwner": "Deepak Yadav",
+          "toOwner": "Krishna Kadam",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/8937/2019",
+          "date": "23/5/2021",
+          "fromOwner": "Tushar Deshpande",
+          "toOwner": "Krishna Kadam",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/4208/2019",
+          "date": "28/3/2024",
+          "fromOwner": "Prashant Kadam",
+          "toOwner": "Krishna Kadam",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-14"
+    },
+    {
+      "surveyNumber": "288",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Rajgad",
+      "ownerName": "Lata Gokhale",
+      "area": "92105 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4829/2018",
+          "date": "20/3/2025",
+          "fromOwner": "Anil Sawant",
+          "toOwner": "Lata Gokhale",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-19"
+    },
+    {
+      "surveyNumber": "255/14C",
+      "khasraNumber": "9998/17",
+      "district": "Pune",
+      "taluka": "Haveli",
+      "village": "Lohegaon",
+      "ownerName": "Pramod Deshpande",
+      "area": "2180 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9107/2018",
+          "date": "17/8/2025",
+          "fromOwner": "Jagdish Mehta",
+          "toOwner": "Pramod Deshpande",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/2739/2024",
+          "date": "22/12/2016",
+          "fromOwner": "Pandurang Shinde",
+          "toOwner": "Pramod Deshpande",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/3866/2022",
+          "date": "14/7/2021",
+          "fromOwner": "Dnyaneshwar Gokhale",
+          "toOwner": "Pramod Deshpande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "surveyNumber": "983",
+      "khasraNumber": "9432/45",
+      "district": "Pune",
+      "taluka": "Mulshi",
+      "village": "Nande",
+      "ownerName": "Sachin Bhosale",
+      "area": "45096 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1543/2022",
+          "date": "1/6/2015",
+          "fromOwner": "Anil Shinde",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/5760/2017",
+          "date": "18/1/2018",
+          "fromOwner": "Sandip Mane",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3239/2025",
+          "date": "8/7/2024",
+          "fromOwner": "Jagdish Kulkarni",
+          "toOwner": "Sachin Bhosale",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-09"
+    },
+    {
+      "surveyNumber": "43/3/1",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Shirur",
+      "village": "Ranjangaon",
+      "ownerName": "Krishna Sonawane",
+      "area": "1315 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9562/2025",
+          "date": "14/11/2025",
+          "fromOwner": "Pandurang Yadav",
+          "toOwner": "Krishna Sonawane",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-02"
+    },
+    {
+      "surveyNumber": "S.No.22/3",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Shirur",
+      "village": "Talegaon Dhamdhere",
+      "ownerName": "Yogesh Wagh",
+      "area": "105480 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6141/2016",
+          "date": "12/1/2015",
+          "fromOwner": "Hanumant Kulkarni",
+          "toOwner": "Yogesh Wagh",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/7117/2025",
+          "date": "18/8/2021",
+          "fromOwner": "Vikram Deshmukh",
+          "toOwner": "Yogesh Wagh",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/2157/2016",
+          "date": "25/4/2018",
+          "fromOwner": "Govind Bhosale",
+          "toOwner": "Yogesh Wagh",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/3418/2025",
+          "date": "26/9/2023",
+          "fromOwner": "Vikram Jadhav",
+          "toOwner": "Yogesh Wagh",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "surveyNumber": "140/19",
+      "khasraNumber": "9343/19",
+      "district": "Pune",
+      "taluka": "Daund",
+      "village": "Daund",
+      "ownerName": "Ravi Shah",
+      "area": "694 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4892/2024",
+          "date": "27/6/2023",
+          "fromOwner": "Vinod Thorat",
+          "toOwner": "Ravi Shah",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7641/2017",
+          "date": "18/6/2017",
+          "fromOwner": "Vikram Khare",
+          "toOwner": "Ravi Shah",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-25"
+    },
+    {
+      "surveyNumber": "16/4/5",
+      "khasraNumber": "2456/69",
+      "district": "Pune",
+      "taluka": "Indapur",
+      "village": "Indapur",
+      "ownerName": "Hanumant Salunkhe",
+      "area": "2597 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5287/2025",
+          "date": "3/6/2023",
+          "fromOwner": "Lakshman Sonawane",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/7721/2019",
+          "date": "22/8/2023",
+          "fromOwner": "Amit More",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-07-31"
+    },
+    {
+      "surveyNumber": "S.No.422/5",
+      "khasraNumber": "7317/2",
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Chakan",
+      "ownerName": "Ravi Shah",
+      "area": "1855 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6353/2023",
+          "date": "28/9/2016",
+          "fromOwner": "Tushar Thorat",
+          "toOwner": "Ravi Shah",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3870/2024",
+          "date": "16/8/2019",
+          "fromOwner": "Shankar Gupta",
+          "toOwner": "Ravi Shah",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Revenue recovery pending"
+      ],
+      "lastUpdated": "2026-07-27"
+    },
+    {
+      "surveyNumber": "S.No.163/3",
+      "khasraNumber": "454/47",
+      "district": "Pune",
+      "taluka": "Mulshi",
+      "village": "Paud",
+      "ownerName": "Sachin Bhosale",
+      "area": "1820 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4069/2016",
+          "date": "24/1/2024",
+          "fromOwner": "Sandip Kadam",
+          "toOwner": "Sachin Bhosale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/8684/2016",
+          "date": "11/7/2022",
+          "fromOwner": "Yogesh Shinde",
+          "toOwner": "Sachin Bhosale",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-30"
+    },
+    {
+      "surveyNumber": "S.No.270/1",
+      "khasraNumber": "4372/69",
+      "district": "Pune",
+      "taluka": "Junnar",
+      "village": "Junnar",
+      "ownerName": "Savita Sharma",
+      "area": "4426 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/8943/2023",
+          "date": "23/3/2025",
+          "fromOwner": "Sanjay Kadam",
+          "toOwner": "Savita Sharma",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7490/2020",
+          "date": "25/9/2015",
+          "fromOwner": "Prashant Sonawane",
+          "toOwner": "Savita Sharma",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-15"
+    },
+    {
+      "surveyNumber": "3/3",
+      "khasraNumber": "4229/35",
+      "district": "Pune",
+      "taluka": "Haveli",
+      "village": "Lohegaon",
+      "ownerName": "Kavita Sawant",
+      "area": "2292 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/8221/2019",
+          "date": "4/3/2024",
+          "fromOwner": "Sachin Thorat",
+          "toOwner": "Kavita Sawant",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-08"
+    },
+    {
+      "surveyNumber": "101/9/1",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Velhe",
+      "ownerName": "Vitthal Khare",
+      "area": "4185 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3400/2018",
+          "date": "19/5/2020",
+          "fromOwner": "Deepak Deshmukh",
+          "toOwner": "Vitthal Khare",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-13"
+    },
+    {
+      "surveyNumber": "364/1A",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Lata Yadav",
+      "area": "957 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4626/2015",
+          "date": "5/7/2025",
+          "fromOwner": "Vinod Sawant",
+          "toOwner": "Lata Yadav",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-26"
+    },
+    {
+      "surveyNumber": "434/12",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Rajgurunagar",
+      "ownerName": "Savita Sharma",
+      "area": "8383 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9243/2025",
+          "date": "21/8/2017",
+          "fromOwner": "Ramesh Deshpande",
+          "toOwner": "Savita Sharma",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1302/2018",
+          "date": "6/1/2018",
+          "fromOwner": "Manish Gokhale",
+          "toOwner": "Savita Sharma",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/4116/2022",
+          "date": "21/3/2024",
+          "fromOwner": "Prashant Wagh",
+          "toOwner": "Savita Sharma",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1210/2021",
+          "date": "7/7/2021",
+          "fromOwner": "Tushar Chavan",
+          "toOwner": "Savita Sharma",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-12"
+    },
+    {
+      "surveyNumber": "69/6/2",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Baramati",
+      "village": "Malegaon",
+      "ownerName": "Krishna Sonawane",
+      "area": "1836 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2316/2021",
+          "date": "28/3/2024",
+          "fromOwner": "Suresh Sonawane",
+          "toOwner": "Krishna Sonawane",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/4443/2024",
+          "date": "11/12/2015",
+          "fromOwner": "Narayan Kamble",
+          "toOwner": "Krishna Sonawane",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/5104/2018",
+          "date": "2/5/2024",
+          "fromOwner": "Vitthal Shinde",
+          "toOwner": "Krishna Sonawane",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-06"
+    },
+    {
+      "surveyNumber": "33/14C",
+      "khasraNumber": "6135/51",
+      "district": "Pune",
+      "taluka": "Khed",
+      "village": "Rajgurunagar",
+      "ownerName": "Vitthal Gokhale",
+      "area": "3891 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/7070/2019",
+          "date": "4/10/2021",
+          "fromOwner": "Rajesh Lokhande",
+          "toOwner": "Vitthal Gokhale",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Revenue recovery pending"
+      ],
+      "lastUpdated": "2026-07-09"
+    },
+    {
+      "surveyNumber": "177/14",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Mulshi",
+      "village": "Lavale",
+      "ownerName": "Vandana Patel",
+      "area": "2008 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6374/2021",
+          "date": "10/7/2020",
+          "fromOwner": "Vishal Pawar",
+          "toOwner": "Vandana Patel",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/9577/2018",
+          "date": "5/9/2020",
+          "fromOwner": "Mohan Joshi",
+          "toOwner": "Vandana Patel",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-27"
+    },
+    {
+      "surveyNumber": "S.No.76/7",
+      "khasraNumber": null,
+      "district": "Kolhapur",
+      "taluka": "Panhala",
+      "village": "Panhala",
+      "ownerName": "Suman Kamble",
+      "area": "2047 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2926/2015",
+          "date": "3/1/2022",
+          "fromOwner": "Ramesh Mehta",
+          "toOwner": "Suman Kamble",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-07-31"
+    },
+    {
+      "surveyNumber": "238/9",
+      "khasraNumber": "7281/4",
+      "district": "Satara",
+      "taluka": "Koregaon",
+      "village": "Koregaon",
+      "ownerName": "Savita Sharma",
+      "area": "1927 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6551/2020",
+          "date": "3/2/2024",
+          "fromOwner": "Pramod Patel",
+          "toOwner": "Savita Sharma",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/8800/2023",
+          "date": "2/10/2015",
+          "fromOwner": "Sanjay Phule",
+          "toOwner": "Savita Sharma",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-30"
+    },
+    {
+      "surveyNumber": "41/14",
+      "khasraNumber": "7495/61",
+      "district": "Satara",
+      "taluka": "Karad",
+      "village": "Karad",
+      "ownerName": "Jagdish Thorat",
+      "area": "643 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3120/2016",
+          "date": "27/3/2019",
+          "fromOwner": "Sandip Shrikhande",
+          "toOwner": "Jagdish Thorat",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/7086/2017",
+          "date": "13/3/2025",
+          "fromOwner": "Sachin Deshmukh",
+          "toOwner": "Jagdish Thorat",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7039/2018",
+          "date": "4/10/2018",
+          "fromOwner": "Ajay Patil",
+          "toOwner": "Jagdish Thorat",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3208/2023",
+          "date": "4/8/2022",
+          "fromOwner": "Manish Chavan",
+          "toOwner": "Jagdish Thorat",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-05"
+    },
+    {
+      "surveyNumber": "362",
+      "khasraNumber": null,
+      "district": "Kolhapur",
+      "taluka": "Panhala",
+      "village": "Panhala",
+      "ownerName": "Nanda Pawar",
+      "area": "89440 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1631/2025",
+          "date": "11/8/2018",
+          "fromOwner": "Sachin Patel",
+          "toOwner": "Nanda Pawar",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/5396/2019",
+          "date": "7/1/2015",
+          "fromOwner": "Vikram Nimbalkar",
+          "toOwner": "Nanda Pawar",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-20"
+    },
+    {
+      "surveyNumber": "S.No.310/7",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Asha Deshpande",
+      "area": "891 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/7047/2023",
+          "date": "21/4/2016",
+          "fromOwner": "Lakshman Kamble",
+          "toOwner": "Asha Deshpande",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/1618/2019",
+          "date": "13/8/2024",
+          "fromOwner": "Vikram Kale",
+          "toOwner": "Asha Deshpande",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/6736/2024",
+          "date": "23/11/2021",
+          "fromOwner": "Sambhaji Mane",
+          "toOwner": "Asha Deshpande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/7788/2016",
+          "date": "15/6/2018",
+          "fromOwner": "Jagdish Pawar",
+          "toOwner": "Asha Deshpande",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-05"
+    },
+    {
+      "surveyNumber": "S.No.129/1",
+      "khasraNumber": null,
+      "district": "Sangli",
+      "taluka": "Khanapur",
+      "village": "Khanapur",
+      "ownerName": "Vandana Shinde",
+      "area": "1376 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2007/2015",
+          "date": "16/12/2021",
+          "fromOwner": "Yogesh Salunkhe",
+          "toOwner": "Vandana Shinde",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-15"
+    },
+    {
+      "surveyNumber": "420/20A",
+      "khasraNumber": null,
+      "district": "Kolhapur",
+      "taluka": "Panhala",
+      "village": "Panhala",
+      "ownerName": "Sachin Bhosale",
+      "area": "3487 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9624/2016",
+          "date": "9/10/2015",
+          "fromOwner": "Tushar Pawar",
+          "toOwner": "Sachin Bhosale",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/2587/2020",
+          "date": "3/9/2021",
+          "fromOwner": "Ramesh More",
+          "toOwner": "Sachin Bhosale",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/2918/2021",
+          "date": "3/8/2018",
+          "fromOwner": "Rahul Sonawane",
+          "toOwner": "Sachin Bhosale",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/9037/2022",
+          "date": "16/9/2017",
+          "fromOwner": "Hanumant Phule",
+          "toOwner": "Sachin Bhosale",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-07-10"
+    },
+    {
+      "surveyNumber": "149/6/5",
+      "khasraNumber": "7366/31",
+      "district": "Satara",
+      "taluka": "Mahabaleshwar",
+      "village": "Mahabaleshwar",
+      "ownerName": "Nanda Kamble",
+      "area": "3601 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1299/2017",
+          "date": "13/7/2018",
+          "fromOwner": "Mahadev Sharma",
+          "toOwner": "Nanda Kamble",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/1760/2023",
+          "date": "3/7/2024",
+          "fromOwner": "Krishna Kale",
+          "toOwner": "Nanda Kamble",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-11"
+    },
+    {
+      "surveyNumber": "445/13B",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Jejuri",
+      "ownerName": "Kavita Sawant",
+      "area": "155519 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1217/2025",
+          "date": "18/3/2020",
+          "fromOwner": "Vitthal Jadhav",
+          "toOwner": "Kavita Sawant",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/2521/2017",
+          "date": "5/6/2019",
+          "fromOwner": "Prashant Kulkarni",
+          "toOwner": "Kavita Sawant",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/9919/2015",
+          "date": "7/6/2015",
+          "fromOwner": "Sanjay Lokhande",
+          "toOwner": "Kavita Sawant",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/5974/2022",
+          "date": "20/4/2015",
+          "fromOwner": "Vinod Pawar",
+          "toOwner": "Kavita Sawant",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-14"
+    },
+    {
+      "surveyNumber": "389/10B",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Mulshi",
+      "village": "Tamhini",
+      "ownerName": "Ramesh Kamble",
+      "area": "2646 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/5556/2025",
+          "date": "28/11/2021",
+          "fromOwner": "Pandurang More",
+          "toOwner": "Ramesh Kamble",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/9540/2018",
+          "date": "1/8/2025",
+          "fromOwner": "Sunil Mane",
+          "toOwner": "Ramesh Kamble",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/8287/2023",
+          "date": "8/9/2015",
+          "fromOwner": "Vikram Thorat",
+          "toOwner": "Ramesh Kamble",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/1478/2018",
+          "date": "20/7/2025",
+          "fromOwner": "Vinod Shinde",
+          "toOwner": "Ramesh Kamble",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-03"
+    },
+    {
+      "surveyNumber": "51/10/1",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Nasrapur",
+      "ownerName": "Hanumant Salunkhe",
+      "area": "76912 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/4987/2016",
+          "date": "21/9/2018",
+          "fromOwner": "Sambhaji Chavan",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/1830/2023",
+          "date": "24/1/2021",
+          "fromOwner": "Vinod Shah",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/9846/2023",
+          "date": "14/6/2023",
+          "fromOwner": "Prashant Wagh",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/6873/2019",
+          "date": "24/7/2023",
+          "fromOwner": "Vinod Mane",
+          "toOwner": "Hanumant Salunkhe",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-06-28"
+    },
+    {
+      "surveyNumber": "411",
+      "khasraNumber": null,
+      "district": "Satara",
+      "taluka": "Wai",
+      "village": "Dhom",
+      "ownerName": "Govind Wagh",
+      "area": "5630 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1240/2023",
+          "date": "17/5/2019",
+          "fromOwner": "Ravi Sawant",
+          "toOwner": "Govind Wagh",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/6890/2016",
+          "date": "2/12/2025",
+          "fromOwner": "Rahul Kamble",
+          "toOwner": "Govind Wagh",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1102/2024",
+          "date": "1/9/2023",
+          "fromOwner": "Vinod Shah",
+          "toOwner": "Govind Wagh",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/3709/2020",
+          "date": "7/10/2015",
+          "fromOwner": "Krishna Sharma",
+          "toOwner": "Govind Wagh",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — HDFC"
+      ],
+      "lastUpdated": "2026-06-09"
+    },
+    {
+      "surveyNumber": "58",
+      "khasraNumber": null,
+      "district": "Solapur",
+      "taluka": "Solapur North",
+      "village": "Solapur",
+      "ownerName": "Lakshman Apte",
+      "area": "14956 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9699/2020",
+          "date": "19/8/2025",
+          "fromOwner": "Dnyaneshwar Wagh",
+          "toOwner": "Lakshman Apte",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-11"
+    },
+    {
+      "surveyNumber": "S.No.173/12",
+      "khasraNumber": "9450/36",
+      "district": "Satara",
+      "taluka": "Wai",
+      "village": "Dhom",
+      "ownerName": "Suman Sharma",
+      "area": "3966 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6137/2015",
+          "date": "11/1/2022",
+          "fromOwner": "Dnyaneshwar Bhosale",
+          "toOwner": "Suman Sharma",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-22"
+    },
+    {
+      "surveyNumber": "S.No.442/8",
+      "khasraNumber": null,
+      "district": "Kolhapur",
+      "taluka": "Karveer",
+      "village": "Kolhapur",
+      "ownerName": "Sachin Bhosale",
+      "area": "4267 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3216/2019",
+          "date": "19/10/2020",
+          "fromOwner": "Ajay Bhosale",
+          "toOwner": "Sachin Bhosale",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/3027/2016",
+          "date": "22/2/2016",
+          "fromOwner": "Ashok Jadhav",
+          "toOwner": "Sachin Bhosale",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-12"
+    },
+    {
+      "surveyNumber": "296/17C",
+      "khasraNumber": "4104/99",
+      "district": "Sangli",
+      "taluka": "Khanapur",
+      "village": "Khanapur",
+      "ownerName": "Suman Kamble",
+      "area": "4367 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3396/2015",
+          "date": "21/12/2015",
+          "fromOwner": "Pramod Bhandari",
+          "toOwner": "Suman Kamble",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-24"
+    },
+    {
+      "surveyNumber": "S.No.319/12",
+      "khasraNumber": "7072/14",
+      "district": "Sangli",
+      "taluka": "Tasgaon",
+      "village": "Tasgaon",
+      "ownerName": "Meena Gadre",
+      "area": "4239 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3548/2022",
+          "date": "27/4/2023",
+          "fromOwner": "Ravi Kale",
+          "toOwner": "Meena Gadre",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-24"
+    },
+    {
+      "surveyNumber": "S.No.432/1",
+      "khasraNumber": "5594/13",
+      "district": "Solapur",
+      "taluka": "Akkalkot",
+      "village": "Akkalkot",
+      "ownerName": "Rekha Deshpande",
+      "area": "1495 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9088/2021",
+          "date": "9/9/2024",
+          "fromOwner": "Lakshman Shah",
+          "toOwner": "Rekha Deshpande",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/7863/2025",
+          "date": "4/11/2024",
+          "fromOwner": "Vishal Joshi",
+          "toOwner": "Rekha Deshpande",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/1055/2016",
+          "date": "23/10/2024",
+          "fromOwner": "Rahul Sawant",
+          "toOwner": "Rekha Deshpande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/1506/2016",
+          "date": "5/3/2022",
+          "fromOwner": "Sanjay Kadam",
+          "toOwner": "Rekha Deshpande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-07"
+    },
+    {
+      "surveyNumber": "488/4",
+      "khasraNumber": null,
+      "district": "Satara",
+      "taluka": "Karad",
+      "village": "Karad",
+      "ownerName": "Lata Gokhale",
+      "area": "94306 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9807/2020",
+          "date": "5/11/2023",
+          "fromOwner": "Vinod Shrikhande",
+          "toOwner": "Lata Gokhale",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [
+        "Bank mortgage — SBI"
+      ],
+      "lastUpdated": "2026-07-01"
+    },
+    {
+      "surveyNumber": "54",
+      "khasraNumber": null,
+      "district": "Satara",
+      "taluka": "Wai",
+      "village": "Menavali",
+      "ownerName": "Ravi Shah",
+      "area": "771 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/3337/2024",
+          "date": "24/3/2021",
+          "fromOwner": "Govind Patel",
+          "toOwner": "Ravi Shah",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-13"
+    },
+    {
+      "surveyNumber": "496/2C",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Ramesh Kamble",
+      "area": "2457 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/8283/2016",
+          "date": "16/7/2016",
+          "fromOwner": "Shivaji Kale",
+          "toOwner": "Ramesh Kamble",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/4402/2022",
+          "date": "7/5/2017",
+          "fromOwner": "Pramod Pawar",
+          "toOwner": "Ramesh Kamble",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1246/2023",
+          "date": "9/6/2023",
+          "fromOwner": "Balu Phule",
+          "toOwner": "Ramesh Kamble",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/9015/2018",
+          "date": "22/5/2020",
+          "fromOwner": "Omprakash Chavan",
+          "toOwner": "Ramesh Kamble",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Revenue recovery pending"
+      ],
+      "lastUpdated": "2026-07-01"
+    },
+    {
+      "surveyNumber": "387/12C",
+      "khasraNumber": "6454/15",
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Mangdari",
+      "ownerName": "Shankar Thorat",
+      "area": "58860 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6195/2021",
+          "date": "18/7/2018",
+          "fromOwner": "Shivaji Shrikhande",
+          "toOwner": "Shankar Thorat",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/1298/2017",
+          "date": "15/10/2020",
+          "fromOwner": "Anil Salunkhe",
+          "toOwner": "Shankar Thorat",
+          "type": "inheritance"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-28"
+    },
+    {
+      "surveyNumber": "243",
+      "khasraNumber": "6823/11",
+      "district": "Pune",
+      "taluka": "Ambegaon",
+      "village": "Ambegaon",
+      "ownerName": "Sachin Bhosale",
+      "area": "1150 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/8372/2023",
+          "date": "24/11/2021",
+          "fromOwner": "Balaji Pawar",
+          "toOwner": "Sachin Bhosale",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-09"
+    },
+    {
+      "surveyNumber": "3",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Bhor",
+      "village": "Kikvi",
+      "ownerName": "Ramesh Shah",
+      "area": "24237 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/2418/2024",
+          "date": "25/2/2017",
+          "fromOwner": "Ravi Mehta",
+          "toOwner": "Ramesh Shah",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/9960/2022",
+          "date": "15/1/2025",
+          "fromOwner": "Pankaj Apte",
+          "toOwner": "Ramesh Shah",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/3088/2023",
+          "date": "3/3/2018",
+          "fromOwner": "Sandip Sharma",
+          "toOwner": "Ramesh Shah",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [
+        "Lien — Maharashtra State Co-op Bank"
+      ],
+      "lastUpdated": "2026-06-23"
+    },
+    {
+      "surveyNumber": "70/1/5",
+      "khasraNumber": "5317/77",
+      "district": "Pune",
+      "taluka": "Purandar",
+      "village": "Narayanpur",
+      "ownerName": "Yogesh Wagh",
+      "area": "165307 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1884/2021",
+          "date": "22/11/2019",
+          "fromOwner": "Pandurang Gokhale",
+          "toOwner": "Yogesh Wagh",
+          "type": "gift"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-04"
+    },
+    {
+      "surveyNumber": "S.No.299/12",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Torna",
+      "ownerName": "Vandana Patel",
+      "area": "4232 sq ft",
+      "landUse": "mixed",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/8980/2023",
+          "date": "19/4/2022",
+          "fromOwner": "Jagdish Shinde",
+          "toOwner": "Vandana Patel",
+          "type": "gift"
+        },
+        {
+          "mutationNumber": "MUT/1220/2015",
+          "date": "10/7/2017",
+          "fromOwner": "Ajay Phule",
+          "toOwner": "Vandana Patel",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-04"
+    },
+    {
+      "surveyNumber": "S.No.151/3",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Indapur",
+      "village": "Indapur",
+      "ownerName": "Pramod Deshpande",
+      "area": "1966 sq ft",
+      "landUse": "commercial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/1078/2018",
+          "date": "5/7/2017",
+          "fromOwner": "Vinod Bhandari",
+          "toOwner": "Pramod Deshpande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-08"
+    },
+    {
+      "surveyNumber": "43/3/1",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Shirur",
+      "village": "Ranjangaon",
+      "ownerName": "Krishna Sonawane",
+      "area": "1315 sq ft",
+      "landUse": "residential",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/6299/2019",
+          "date": "6/5/2017",
+          "fromOwner": "Dnyaneshwar Sonawane",
+          "toOwner": "Krishna Sonawane",
+          "type": "partition"
+        },
+        {
+          "mutationNumber": "MUT/6240/2024",
+          "date": "4/9/2019",
+          "fromOwner": "Rahul Kadam",
+          "toOwner": "Krishna Sonawane",
+          "type": "partition"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-28"
+    },
+    {
+      "surveyNumber": "101/9/1",
+      "khasraNumber": null,
+      "district": "Pune",
+      "taluka": "Velhe",
+      "village": "Velhe",
+      "ownerName": "Vandana Lokhande",
+      "area": "4185 sq ft",
+      "landUse": "industrial",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/9664/2023",
+          "date": "2/10/2016",
+          "fromOwner": "Ramesh Gokhale",
+          "toOwner": "Vandana Lokhande",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/1413/2020",
+          "date": "9/5/2019",
+          "fromOwner": "Sunil Sharma",
+          "toOwner": "Vandana Lokhande",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-07-20"
+    },
+    {
+      "surveyNumber": "41/14",
+      "khasraNumber": "7495/61",
+      "district": "Satara",
+      "taluka": "Karad",
+      "village": "Karad",
+      "ownerName": "Ganesh More",
+      "area": "643 sq ft",
+      "landUse": "agricultural",
+      "mutationEntries": [
+        {
+          "mutationNumber": "MUT/7369/2019",
+          "date": "15/10/2019",
+          "fromOwner": "Vinod Mane",
+          "toOwner": "Ganesh More",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/3673/2018",
+          "date": "27/4/2024",
+          "fromOwner": "Krishna Khare",
+          "toOwner": "Ganesh More",
+          "type": "sale"
+        },
+        {
+          "mutationNumber": "MUT/9330/2023",
+          "date": "13/11/2021",
+          "fromOwner": "Pandurang Chavan",
+          "toOwner": "Ganesh More",
+          "type": "inheritance"
+        },
+        {
+          "mutationNumber": "MUT/9307/2015",
+          "date": "11/10/2018",
+          "fromOwner": "Sachin Patil",
+          "toOwner": "Ganesh More",
+          "type": "sale"
+        }
+      ],
+      "encumbrances": [],
+      "lastUpdated": "2026-06-28"
+    }
+  ],
+  "taxRecords": [
+    {
+      "propertyId": "prop-001",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 46690,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-002",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 21841,
+      "paidAmount": 43459,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-003",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 5311,
+      "paidAmount": 37087,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-004",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 48782,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-005",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 15469,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-006",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 40188,
+      "paidAmount": 35290,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-007",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 45587,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-008",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 21227,
+      "paidAmount": 24481,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-009",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 30537,
+      "paidAmount": 42827,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-010",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 42080,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-011",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 22833,
+      "paidAmount": 20453,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-012",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 29459,
+      "paidAmount": 47841,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-013",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 44930,
+      "paidAmount": 16864,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-014",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 34248,
+      "paidAmount": 21602,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-015",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 16865,
+      "paidAmount": 31747,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-016",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 49383,
+      "paidAmount": 26723,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-017",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 48363,
+      "paidAmount": 34370,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-018",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 15585,
+      "paidAmount": 27285,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-019",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 11033,
+      "paidAmount": 35970,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-020",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 33013,
+      "paidAmount": 33873,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-021",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 23191,
+      "paidAmount": 25027,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-022",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 19366,
+      "paidAmount": 48576,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-023",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 9518,
+      "paidAmount": 9282,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-024",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 6621,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-025",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 33249,
+      "paidAmount": 16502,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-026",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 48704,
+      "paidAmount": 0,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-027",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 30418,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-028",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 13422,
+      "paidAmount": 32335,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-029",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 8409,
+      "paidAmount": 13108,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-030",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 33111,
+      "paidAmount": 29371,
+      "status": "partial",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-031",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 48726,
+      "paidAmount": 25807,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-032",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 37746,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-033",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 19776,
+      "paidAmount": 25455,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-034",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 41709,
+      "paidAmount": 15828,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-035",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 15132,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-036",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 43735,
+      "paidAmount": 20593,
+      "status": "partial",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-037",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 29861,
+      "paidAmount": 12394,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-038",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 29885,
+      "paidAmount": 15380,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-039",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 35545,
+      "paidAmount": 8339,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-040",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 34376,
+      "paidAmount": 0,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-041",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 16550,
+      "paidAmount": 7192,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-042",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 20204,
+      "paidAmount": 6860,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-043",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 21892,
+      "paidAmount": 43248,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-044",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 7485,
+      "paidAmount": 8220,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-045",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 41805,
+      "paidAmount": 31221,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-046",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 8994,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-047",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 43071,
+      "paidAmount": 27289,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-048",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 31350,
+      "paidAmount": 27941,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-049",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 31478,
+      "paidAmount": 27306,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-050",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 24333,
+      "paidAmount": 27406,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-051",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 11302,
+      "paidAmount": 30541,
+      "status": "partial",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-052",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 9331,
+      "paidAmount": 38182,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-053",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 25418,
+      "paidAmount": 9143,
+      "status": "unpaid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-054",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 49651,
+      "paidAmount": 33560,
+      "status": "partial",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-055",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 19783,
+      "paidAmount": 8223,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-056",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 34388,
+      "paidAmount": 0,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-057",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 33030,
+      "paidAmount": 10939,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-058",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 22152,
+      "paidAmount": 16724,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-059",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 19538,
+      "paidAmount": 27527,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    },
+    {
+      "propertyId": "prop-060",
+      "assessmentYear": "2025-2026",
+      "taxAmount": 7270,
+      "paidAmount": 12690,
+      "status": "paid",
+      "dueDate": "2026-03-31"
+    }
+  ]
+}

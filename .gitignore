@@ -1,0 +1,15 @@
+node_modules/
+.next/
+.env
+.env.local
+*.db
+*.db-journal
+uploads/
+ocr-data/
+.ocr-cache/
+coverage/
+.DS_Store
+demo-docs/
+sample-docs/
+prisma/*.bak
+*.tsbuildinfo

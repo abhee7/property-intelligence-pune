@@ -1,0 +1,496 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-inter bg-void text-platinum antialiased min-h-screen selection:bg-white/20 selection:text-platinum;
+  }
+}
+
+/* Custom scrollbar utilities — permanent dark platinum-glass surface */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(244, 246, 250, 0.14);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(244, 246, 250, 0.24);
+}
+
+/* Menu utilities — sidebar nav, platinum-glass active state */
+.menu-item {
+  @apply relative flex items-center w-full gap-3 px-3 py-2.5 font-medium rounded-xl text-sm transition-all duration-150;
+}
+.menu-item-active {
+  background: rgba(244, 246, 250, 0.09);
+  border: 1px solid rgba(244, 246, 250, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  @apply text-platinum font-semibold;
+}
+.menu-item-inactive {
+  @apply text-platinum/45 hover:bg-white/[0.04] hover:text-platinum/85 border border-transparent;
+}
+.menu-item-icon-size svg {
+  @apply w-5 h-5 flex-shrink-0;
+}
+.menu-item-icon-active {
+  @apply text-platinum;
+}
+.menu-item-icon-inactive {
+  @apply text-platinum/40 group-hover:text-platinum/75;
+}
+
+.menu-dropdown-item {
+  @apply relative flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors;
+}
+.menu-dropdown-item-active {
+  @apply bg-white/[0.08] text-platinum font-semibold;
+}
+.menu-dropdown-item-inactive {
+  @apply text-platinum/45 hover:bg-white/[0.04] hover:text-platinum/80;
+}
+
+.menu-dropdown-badge {
+  @apply block rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-platinum/70;
+}
+.menu-dropdown-badge-active {
+  @apply bg-white/[0.14];
+}
+.menu-dropdown-badge-inactive {
+  @apply bg-white/[0.06] group-hover:bg-white/[0.12];
+}
+
+/* ─── Platinum Glass design system (login) ─── */
+
+.pi-glass {
+  background: rgba(19, 20, 25, 0.66);
+  backdrop-filter: blur(18px) saturate(125%);
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.07),
+    inset 0 0 24px rgba(255, 255, 255, 0.015),
+    0 24px 60px -24px rgba(0, 0, 0, 0.7);
+}
+
+.pi-input {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: border-color 220ms cubic-bezier(0.16, 0.8, 0.24, 1), background-color 220ms ease, box-shadow 220ms ease;
+}
+.pi-input:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.045);
+}
+.pi-input:focus-within {
+  border-color: #c2c7d2;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 0 0 3px rgba(244, 246, 250, 0.1);
+}
+.pi-input svg {
+  transition: stroke 160ms ease;
+}
+.pi-input:focus-within svg {
+  stroke: #f4f6fa;
+}
+
+.pi-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+}
+.pi-checkbox .box {
+  width: 19px;
+  height: 19px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 220ms cubic-bezier(0.16, 0.8, 0.24, 1);
+  flex-shrink: 0;
+}
+.pi-checkbox .box svg {
+  width: 12px;
+  height: 12px;
+  stroke: #0c0d11;
+  stroke-width: 3;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: all 180ms cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.pi-checkbox.on .box {
+  background: linear-gradient(135deg, #fff, #c9cdd6);
+  border-color: transparent;
+  box-shadow: 0 0 0 3px rgba(244, 246, 250, 0.1), 0 4px 12px -4px rgba(255, 255, 255, 0.4);
+}
+.pi-checkbox.on .box svg {
+  opacity: 1;
+  transform: scale(1);
+}
+.pi-checkbox .label {
+  font-size: 12.5px;
+  color: #8e93a0;
+  transition: color 160ms ease;
+}
+.pi-checkbox.on .label {
+  color: #eef1f6;
+}
+
+.pi-btn-primary {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+  background: linear-gradient(135deg, #ffffff, #c7ccd6);
+  color: #0c0d11;
+  transition: transform 180ms cubic-bezier(0.16, 0.8, 0.24, 1), box-shadow 250ms ease;
+  box-shadow: 0 8px 24px -8px rgba(255, 255, 255, 0.3);
+}
+.pi-btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 30px -6px rgba(255, 255, 255, 0.45);
+}
+.pi-btn-primary:active:not(:disabled) {
+  transform: scale(0.97);
+}
+.pi-btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pi-btn-ghost {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+  background: rgba(244, 246, 250, 0.04);
+  border: 1px solid rgba(244, 246, 250, 0.1);
+  transition: transform 160ms cubic-bezier(0.22, 1, 0.36, 1), border-color 160ms ease, background-color 160ms ease;
+}
+.pi-btn-ghost:hover {
+  transform: translateY(-1px);
+  background: rgba(244, 246, 250, 0.08);
+  border-color: rgba(244, 246, 250, 0.24);
+}
+.pi-btn-ghost:active {
+  transform: translateY(0px) scale(0.99);
+  background: rgba(244, 246, 250, 0.06);
+}
+
+.pi-icon-btn {
+  transition: color 140ms ease, background-color 140ms ease, transform 140ms ease;
+}
+.pi-icon-btn:hover {
+  color: #f4f6fa;
+  background: rgba(244, 246, 250, 0.08);
+}
+.pi-icon-btn:active {
+  transform: scale(0.92);
+}
+
+@keyframes pi-pulse-dot {
+  0%, 100% { opacity: 0.5; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+.pi-pulse-dot {
+  animation: pi-pulse-dot 2.6s ease-in-out infinite;
+}
+
+@keyframes pi-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.pi-fade-up {
+  animation: pi-fade-up 700ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ─── Glow-ring field (ported from Uiverse "SEARCH BAR" by Lakshay-art, recolored platinum) ─── */
+
+.pi-glow-field {
+  position: relative;
+  isolation: isolate;
+}
+.pi-glow-ring {
+  position: absolute;
+  inset: -2px;
+  border-radius: 14px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+.pi-glow-ring::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 460px;
+  height: 460px;
+  transform: translate(-50%, -50%) rotate(60deg);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  transition: transform 2.2s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.pi-glow-ring.pi-glow-outer {
+  inset: -10px;
+  border-radius: 20px;
+  filter: blur(16px);
+  opacity: 0.14;
+  transition: opacity 300ms ease;
+}
+.pi-glow-ring.pi-glow-outer::before {
+  background-image: conic-gradient(transparent, transparent 30%, rgba(244, 246, 250, 0.9) 42%, #fff 46%, rgba(244, 246, 250, 0.9) 50%, transparent 62%, transparent 100%);
+}
+.pi-glow-ring.pi-glow-inner {
+  opacity: 0.16;
+  transition: opacity 300ms ease;
+}
+.pi-glow-ring.pi-glow-inner::before {
+  background-image: conic-gradient(#1c191c, rgba(244, 246, 250, 0.55) 5%, #1c191c 14%, #1c191c 50%, rgba(199, 204, 214, 0.6) 60%, #1c191c 64%);
+  filter: brightness(1.3) blur(0.6px);
+}
+.pi-glow-field:hover .pi-glow-ring::before,
+.pi-glow-field:focus-within .pi-glow-ring::before {
+  transform: translate(-50%, -50%) rotate(300deg);
+}
+.pi-glow-field:hover .pi-glow-outer,
+.pi-glow-field:focus-within .pi-glow-outer {
+  opacity: 0.55;
+}
+.pi-glow-field:hover .pi-glow-inner,
+.pi-glow-field:focus-within .pi-glow-inner {
+  opacity: 0.85;
+}
+.pi-glow-field:focus-within .pi-glow-ring::before {
+  transition: transform 3.5s cubic-bezier(0.16, 0.8, 0.24, 1);
+}
+.pi-glow-core {
+  position: relative;
+  z-index: 1;
+}
+
+/* ─── Star-sparkle burst (ported from Uiverse button by MuhammadHasann, recolored platinum) ─── */
+
+.pi-star-wrap {
+  position: absolute;
+  inset: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.pi-star {
+  position: absolute;
+  z-index: -5;
+  opacity: 0;
+  filter: drop-shadow(0 0 0 rgba(244, 246, 250, 0));
+  transition: all 1s cubic-bezier(0.05, 0.83, 0.43, 0.96), opacity 0.5s ease;
+}
+.pi-star svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.pi-star-1 { top: 22%; left: 12%; width: 15px; height: 15px; }
+.pi-star-2 { top: 48%; left: 40%; width: 9px; height: 9px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+.pi-star-3 { top: 42%; left: 36%; width: 5px; height: 5px; transition: all 1s cubic-bezier(0, 0.4, 0, 1.01); }
+.pi-star-4 { top: 22%; left: 58%; width: 7px; height: 7px; transition: all 0.8s cubic-bezier(0, 0.4, 0, 1.01); }
+.pi-star-5 { top: 27%; left: 64%; width: 9px; height: 9px; transition: all 0.6s cubic-bezier(0, 0.4, 0, 1.01); }
+.pi-star-6 { top: 8%; left: 72%; width: 5px; height: 5px; transition: all 0.8s ease; }
+
+.pi-btn-primary:hover .pi-star,
+.pi-btn-ghost:hover .pi-star {
+  z-index: 2;
+  opacity: 1;
+  filter: drop-shadow(0 0 8px rgba(244, 246, 250, 0.9));
+}
+.pi-btn-primary:hover .pi-star-1, .pi-btn-ghost:hover .pi-star-1 { top: -75%; left: -6%; }
+.pi-btn-primary:hover .pi-star-2, .pi-btn-ghost:hover .pi-star-2 { top: -18%; left: 18%; }
+.pi-btn-primary:hover .pi-star-3, .pi-btn-ghost:hover .pi-star-3 { top: 62%; left: 22%; }
+.pi-btn-primary:hover .pi-star-4, .pi-btn-ghost:hover .pi-star-4 { top: 32%; left: 76%; }
+.pi-btn-primary:hover .pi-star-5, .pi-btn-ghost:hover .pi-star-5 { top: 26%; left: 104%; }
+.pi-btn-primary:hover .pi-star-6, .pi-btn-ghost:hover .pi-star-6 { top: 6%; left: 62%; }
+
+/* ─── Dashboard-scale glass system (iOS/macOS "Liquid Glass" surfaces) ─── */
+
+.pi-card {
+  position: relative;
+  overflow: hidden;
+  background: rgba(22, 23, 30, 0.62);
+  backdrop-filter: blur(15px) saturate(130%);
+  -webkit-backdrop-filter: blur(15px) saturate(130%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.02),
+    0 20px 50px -28px rgba(0, 0, 0, 0.75);
+  border-radius: 20px;
+}
+/* Glass sheen — a soft diagonal light catch so the panel reads as a
+   refractive surface rather than a flat tinted rectangle. */
+.pi-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(128deg, rgba(255, 255, 255, 0.075) 0%, rgba(255, 255, 255, 0.016) 26%, transparent 46%);
+  pointer-events: none;
+}
+
+.pi-card-interactive {
+  transition: transform 220ms cubic-bezier(0.16, 0.8, 0.24, 1), border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+.pi-card-interactive:hover {
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.18);
+  background: rgba(26, 27, 35, 0.66);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 18px -6px rgba(57, 135, 229, 0.16),
+    0 26px 60px -24px rgba(0, 0, 0, 0.8);
+}
+
+.pi-surface {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 14px;
+}
+
+.pi-surface-hover {
+  transition: background-color 160ms ease, border-color 160ms ease;
+}
+.pi-surface-hover:hover {
+  background: rgba(255, 255, 255, 0.055);
+  border-color: rgba(255, 255, 255, 0.14);
+}
+
+.pi-divider {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Icon tile — used for stat-card icons, sidebar brand mark, header actions */
+.pi-icon-tile {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0.015));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* ─── Flip card — front summary, back detail reveal on hover ─── */
+
+.pi-flip-card {
+  perspective: 1600px;
+  min-height: 280px;
+}
+.pi-flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 650ms cubic-bezier(0.16, 0.8, 0.24, 1);
+  transform-style: preserve-3d;
+}
+.pi-flip-card:hover .pi-flip-card-inner,
+.pi-flip-card:focus-within .pi-flip-card-inner {
+  transform: rotateY(180deg);
+}
+.pi-flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.pi-flip-back {
+  transform: rotateY(180deg);
+  background: linear-gradient(155deg, rgba(30, 31, 39, 0.88), rgba(13, 14, 18, 0.92));
+  backdrop-filter: blur(12px) saturate(120%);
+  -webkit-backdrop-filter: blur(12px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.09),
+    0 24px 60px -24px rgba(0, 0, 0, 0.85);
+  overflow: hidden;
+}
+.pi-flip-back::before {
+  content: "";
+  position: absolute;
+  top: -35%;
+  right: -22%;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(57, 135, 229, 0.26), transparent 70%);
+  pointer-events: none;
+}
+.pi-flip-back::after {
+  content: "";
+  position: absolute;
+  bottom: -30%;
+  left: -18%;
+  width: 190px;
+  height: 190px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(244, 246, 250, 0.09), transparent 70%);
+  pointer-events: none;
+}
+.pi-flip-hint {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  opacity: 0.4;
+  transition: opacity 200ms ease;
+}
+.pi-flip-card:hover .pi-flip-hint {
+  opacity: 0;
+}
+
+/* Table — platinum-glass rows */
+.pi-table thead th {
+  @apply text-[10.5px] font-bold uppercase tracking-wider text-platinum/40 text-left px-4 py-3;
+}
+.pi-table tbody tr {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  transition: background-color 140ms ease;
+}
+.pi-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.035);
+}
+.pi-table tbody td {
+  @apply px-4 py-3.5 text-sm text-platinum/80;
+}
+
+/* Generic glass pill badge base (status/risk badges compose on top) */
+.pi-pill {
+  @apply inline-flex items-center gap-1.5 font-semibold rounded-full border;
+  backdrop-filter: blur(6px);
+}
+
+/* Header search + inputs at dashboard scale reuse .pi-input from the login system */
+
+::selection {
+  background: rgba(255, 255, 255, 0.18);
+  color: #f4f6fa;
+}
+

@@ -1,0 +1,30 @@
+# Keep the build context small and — more importantly — keep secrets and local data out of images.
+
+# dependencies and build output are produced inside the image
+node_modules
+.next
+coverage
+.git
+.github
+
+# secrets: never copied into an image (pass them at runtime — see docker-compose.yml)
+.env
+.env.*
+!.env.example
+
+# local data: your database, uploaded documents and OCR cache must not be baked into an image
+uploads
+ocr-data
+.ocr-cache
+prisma/*.db
+prisma/*.db-journal
+prisma/*.bak
+
+# generated demo files
+demo-docs
+sample-docs
+
+# tests and docs aren't needed to run the app
+__tests__
+*.md
+!data/**/README.md
