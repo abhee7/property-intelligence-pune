@@ -1,5 +1,6 @@
 // src/modules/admin/admin.service.ts
 
+import { getHeapStatistics } from "node:v8";
 import { prisma } from "@/lib/db/client";
 import { hashPassword } from "@/lib/auth/password";
 import { getProviderStatus } from "@/lib/providers/registry";
@@ -113,7 +114,9 @@ export async function getSystemHealth(tenantId: string): Promise<SystemHealth> {
     prisma.notification.count({ where: { tenantId } }),
   ]);
 
-  const memUsage = process.memoryUsage();
+  // heapUsed can exceed heapTotal (large objects live outside it), so report against V8's heap limit instead
+  const heapUsed = process.memoryUsage().heapUsed;
+  const heapLimit = getHeapStatistics().heap_size_limit;
 
   return {
     status: dbLatency < 100 ? "healthy" : dbLatency < 500 ? "degraded" : "down",
@@ -121,9 +124,9 @@ export async function getSystemHealth(tenantId: string): Promise<SystemHealth> {
     database: { status: dbLatency < 100 ? "connected" : "slow", latencyMs: dbLatency },
     providers: getProviderStatus(),
     memory: {
-      used: formatBytes(memUsage.heapUsed),
-      total: formatBytes(memUsage.heapTotal),
-      percent: Math.round((memUsage.heapUsed / memUsage.heapTotal) * 100),
+      used: formatBytes(heapUsed),
+      total: formatBytes(heapLimit),
+      percent: Math.round((heapUsed / heapLimit) * 100),
     },
     counts: { users: userCount, properties: propCount, documents: docCount, notifications: notifCount },
     recentErrors: await getRecentProblems(tenantId),
