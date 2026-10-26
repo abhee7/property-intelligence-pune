@@ -89,109 +89,26 @@ export default function DashboardPage() {
     fetchDashboardData();
   }, [getAccessToken]);
 
-  // Fallback demo metrics if DB is loading or empty
-  const kpis = data?.kpis || {
-    totalProperties: 84,
-    verifiedProperties: 52,
-    underVerificationCount: 18,
-    highRiskCount: 9,
-    activeCases: 6,
-    pendingDocs: 14,
-    newsMentions: 12,
+  // Everything below comes from /api/dashboard. While it loads (or if it fails) the charts are empty
+  // rather than showing invented numbers.
+  const kpis = data?.kpis ?? { totalProperties: 0, verifiedProperties: 0, underVerificationCount: 0, highRiskCount: 0, activeCases: 0, verificationRate: 0 };
+  const statusData: { status: string; count: number }[] = data?.statusBreakdown ?? [];
+  const riskData: { name: string; value: number; key: string }[] = data?.riskDistribution ?? [];
+  const talukaData: { taluka: string; count: number }[] = data?.talukaBreakdown ?? [];
+  const trendData: { month: string; properties: number; documentsRead: number }[] = data?.trend ?? [];
+  const highRiskProperties: any[] = data?.highRiskProperties ?? [];
+  const riskTotal = riskData.reduce((sum, r) => sum + r.value, 0);
+
+  const timeAgo = (iso: string) => {
+    const mins = Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60000));
+    if (mins < 60) return `${Math.max(mins, 1)} min ago`;
+    if (mins < 60 * 24) return `${Math.round(mins / 60)} h ago`;
+    if (mins < 60 * 24 * 60) return `${Math.round(mins / (60 * 24))} d ago`;
+    return new Date(iso).toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
   };
-
-  const statusData = data?.statusBreakdown || [
-    { status: "VERIFIED", count: 52 },
-    { status: "LISTED", count: 18 },
-    { status: "UNDER_VERIFICATION", count: 12 },
-    { status: "FLAGGED", count: 7 },
-    { status: "DRAFT", count: 5 },
-  ];
-
-  const riskData = [
-    { name: "Minimal", value: 38, key: "MINIMAL" },
-    { name: "Low", value: 25, key: "LOW" },
-    { name: "Moderate", value: 12, key: "MODERATE" },
-    { name: "High", value: 6, key: "HIGH" },
-    { name: "Critical", value: 3, key: "CRITICAL" },
-  ];
-
-  const talukaData = [
-    { taluka: "Haveli", count: 32 },
-    { taluka: "Mulshi", count: 24 },
-    { taluka: "Maval", count: 14 },
-    { taluka: "Baramati", count: 8 },
-    { taluka: "Khed", count: 6 },
-  ];
-
-  const trendData = [
-    { month: "Jan", properties: 12, verifications: 8 },
-    { month: "Feb", properties: 19, verifications: 14 },
-    { month: "Mar", properties: 28, verifications: 22 },
-    { month: "Apr", properties: 42, verifications: 31 },
-    { month: "May", properties: 61, verifications: 44 },
-    { month: "Jun", properties: 84, verifications: 52 },
-  ];
-
-  const highRiskProperties = data?.highRiskProperties || [
-    {
-      id: "prop-002",
-      title: "Survey 118, Hinjewadi",
-      location: "Hinjewadi, Mulshi",
-      surveyNumber: "S.No.299/12",
-      riskScore: 73,
-      riskLevel: "HIGH",
-      status: "FLAGGED",
-      price: 12500000,
-    },
-    {
-      id: "prop-dup-001",
-      title: "Survey 118, Hinjawadi (Relisted)",
-      location: "Hinjewadi, Mulshi",
-      surveyNumber: "S.No.299/12",
-      riskScore: 68,
-      riskLevel: "HIGH",
-      status: "FLAGGED",
-      price: 11800000,
-    },
-    {
-      id: "prop-008",
-      title: "Land parcel, Baramati",
-      location: "Morgaon, Baramati",
-      surveyNumber: "S.No.150/3",
-      riskScore: 55,
-      riskLevel: "MODERATE",
-      status: "LISTED",
-      price: 5500000,
-    },
-  ];
-
-  const recentActivity = [
-    {
-      type: "PROPERTY",
-      title: "New property listed in Kharadi",
-      time: "10 mins ago",
-      desc: "Plot 42, Kharadi added by Vinod Deshmukh",
-    },
-    {
-      type: "RISK",
-      title: "Risk Assessment computed",
-      time: "45 mins ago",
-      desc: "Survey 118 Hinjewadi flagged with HIGH risk score (73)",
-    },
-    {
-      type: "COURT",
-      title: "Court Case updated",
-      time: "2 hours ago",
-      desc: "Case CS-2025/881 next hearing set for Aug 24",
-    },
-    {
-      type: "NEWS",
-      title: "News mention detected",
-      time: "4 hours ago",
-      desc: "Sakal article mentions land dispute near Wagholi MIDC",
-    },
-  ];
+  const recentActivity: { type: string; title: string; time: string; desc: string }[] = (data?.recentActivity ?? []).map((a: any) => ({
+    type: a.type, title: a.title, desc: a.desc, time: timeAgo(a.at),
+  }));
 
   const activityIconStyles: Record<string, string> = {
     PROPERTY: "text-[#7fb0ee]",
@@ -249,15 +166,15 @@ export default function DashboardPage() {
           title="Verified Properties"
           value={kpis.verifiedProperties}
           icon={<CheckCircle2 className="w-5 h-5 text-emerald-400" />}
-          subtitle={`${kpis.verificationRate || 62}% verification rate`}
+          subtitle={`${kpis.verificationRate ?? 0}% verification rate`}
           badgeText="Verified"
           badgeVariant="success"
         />
         <StatCard
           title="Under Verification"
-          value={kpis.underVerificationCount || 18}
+          value={kpis.underVerificationCount ?? 0}
           icon={<Clock className="w-5 h-5 text-amber-400" />}
-          subtitle="Document OCR in progress"
+          subtitle="Properties awaiting verification"
           badgeText="Pending"
           badgeVariant="warning"
         />
@@ -286,10 +203,10 @@ export default function DashboardPage() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <h3 className="font-sora text-base font-bold text-platinum">
-                Property Onboarding &amp; Verification Trend
+                Property Onboarding &amp; Document Reading Trend
               </h3>
               <p className="text-xs text-platinum/40">
-                Monthly growth of properties and completed AI verification checks
+                Cumulative properties on file and documents read by OCR, last 6 months
               </p>
             </div>
             <div className="flex items-center gap-4 text-xs font-semibold">
@@ -299,7 +216,7 @@ export default function DashboardPage() {
               </span>
               <span className="flex items-center gap-1.5 text-emerald-400">
                 <span className="w-2.5 h-2.5 rounded-full" style={{ background: CHART_STATUS.good }} />
-                Verified
+                Documents read
               </span>
             </div>
           </div>
@@ -325,7 +242,7 @@ export default function DashboardPage() {
                 />
                 <Line
                   type="monotone"
-                  dataKey="verifications"
+                  dataKey="documentsRead"
                   stroke={CHART_STATUS.good}
                   strokeWidth={2.5}
                   dot={{ r: 3.5, fill: CHART_STATUS.good, strokeWidth: 0 }}
@@ -378,7 +295,7 @@ export default function DashboardPage() {
             </ResponsiveContainer>
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
               <span className="font-sora text-2xl font-extrabold text-platinum tabular-nums">
-                {activeRiskSlice !== undefined ? riskData[activeRiskSlice].value : riskData.reduce((s, r) => s + r.value, 0)}
+                {activeRiskSlice !== undefined ? riskData[activeRiskSlice].value : riskTotal}
               </span>
               <span className="text-[10px] font-mono uppercase tracking-wider text-platinum/40 mt-0.5">
                 {activeRiskSlice !== undefined ? riskData[activeRiskSlice].name : "Total"}
@@ -386,8 +303,8 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-2 pt-2 border-t border-white/[0.08]">
-            {riskData.slice(0, 3).map((r) => (
+          <div className="grid grid-cols-5 gap-2 pt-2 border-t border-white/[0.08]">
+            {riskData.map((r) => (
               <div key={r.key} className="text-center">
                 <span className="text-[10px] font-bold uppercase tracking-wider text-platinum/40 block">
                   {r.name}
@@ -521,6 +438,13 @@ export default function DashboardPage() {
                 </tr>
               </thead>
               <tbody>
+                {highRiskProperties.length === 0 && (
+                  <tr>
+                    <td colSpan={6} className="text-platinum/40 py-6 text-center">
+                      {loading ? "Loading…" : "No scored properties yet."}
+                    </td>
+                  </tr>
+                )}
                 {highRiskProperties.map((prop: any) => (
                   <tr key={prop.id}>
                     <td className="font-semibold text-platinum">
@@ -567,10 +491,11 @@ export default function DashboardPage() {
               Recent Intelligence Stream
             </h3>
             <p className="text-xs text-platinum/40 mb-4">
-              Real-time platform logs &amp; risk events
+              Latest risk scores, documents read, court cases and news
             </p>
 
             <div className="space-y-4">
+              {recentActivity.length === 0 && <p className="text-xs text-platinum/40">{loading ? "Loading…" : "No recent activity."}</p>}
               {recentActivity.map((act, i) => (
                 <div key={i} className="flex items-start gap-3 text-xs">
                   <div className={`pi-icon-tile w-7 h-7 flex-shrink-0 mt-0.5 ${activityIconStyles[act.type]}`}>

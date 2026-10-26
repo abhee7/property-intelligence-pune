@@ -19,18 +19,10 @@ const PropertyMap = dynamic(() => import("@/components/shared/property-map"), {
   ),
 });
 
-const DEMO_PROPERTIES = [
-  { id: "prop-001", title: "Plot 42, Kharadi", status: "VERIFIED", price: 4800000, areaSqft: 2400, surveyNumber: "42/3A", propertyType: { name: "Residential plot" }, address: { city: "Pune", district: "Pune", latitude: 18.5562, longitude: 73.9404 }, owner: { firstName: "Amit", lastName: "Patil" }, broker: { firstName: "Vinod", lastName: "Deshmukh" }, riskScore: { overallScore: 18, riskLevel: "LOW" }, metadata: { taluka: "Haveli", village: "Kharadi" } },
-  { id: "prop-002", title: "Survey 118, Hinjewadi", status: "FLAGGED", price: 12500000, areaSqft: 5200, surveyNumber: "S.No.299/12", propertyType: { name: "Commercial plot" }, address: { city: "Pune", district: "Pune", latitude: 18.5912, longitude: 73.7380 }, owner: { firstName: "Sunil", lastName: "Deshmukh" }, broker: { firstName: "Rahul", lastName: "Joshi" }, riskScore: { overallScore: 73, riskLevel: "HIGH" }, metadata: { taluka: "Mulshi", village: "Hinjewadi" } },
-  { id: "prop-003", title: "Flat 7B, Baner Road", status: "UNDER_VERIFICATION", price: 8200000, areaSqft: 1100, surveyNumber: "387/12C", propertyType: { name: "Flat / Apartment" }, address: { city: "Pune", district: "Pune", latitude: 18.5590, longitude: 73.7868 }, owner: { firstName: "Meena", lastName: "Kulkarni" }, broker: { firstName: "Vishal", lastName: "Sharma" }, riskScore: { overallScore: 47, riskLevel: "MODERATE" }, metadata: { taluka: "Haveli", village: "Baner" } },
-  { id: "prop-004", title: "Farm Plot, Mulshi", status: "LISTED", price: 21000000, areaSqft: 43560, surveyNumber: "118/2A", propertyType: { name: "Agricultural land" }, address: { city: "Pune", district: "Pune", latitude: 18.5100, longitude: 73.5100 }, owner: { firstName: "Vitthal", lastName: "Pawar" }, broker: { firstName: "Sachin", lastName: "More" }, riskScore: { overallScore: 8, riskLevel: "MINIMAL" }, metadata: { taluka: "Mulshi", village: "Pirangut" } },
-  { id: "prop-005", title: "Gala 3, Wagholi MIDC", status: "VERIFIED", price: 18000000, areaSqft: 4100, surveyNumber: "73/15", propertyType: { name: "Industrial gala" }, address: { city: "Pune", district: "Pune", latitude: 18.5800, longitude: 73.9800 }, owner: { firstName: "Ganesh", lastName: "Shinde" }, broker: { firstName: "Amit", lastName: "Kumar" }, riskScore: { overallScore: 22, riskLevel: "LOW" }, metadata: { taluka: "Haveli", village: "Wagholi" } },
-];
-
 export default function PropertyMapPage() {
   const { getAccessToken } = useAuth();
-  const [properties, setProperties] = useState<any[]>(DEMO_PROPERTIES);
-  const [selectedProperty, setSelectedProperty] = useState<any>(DEMO_PROPERTIES[0]);
+  const [properties, setProperties] = useState<any[]>([]);
+  const [selectedProperty, setSelectedProperty] = useState<any>(null);
   const [search, setSearch] = useState("");
   const [riskFilter, setRiskFilter] = useState("All");
 
@@ -38,14 +30,21 @@ export default function PropertyMapPage() {
     async function fetchProperties() {
       try {
         const token = getAccessToken();
-        const res = await fetch("/api/properties?limit=100", {
-          headers: token ? { Authorization: `Bearer ${token}` } : {},
-        });
-        const data = await res.json();
-        if (data.success && data.data?.properties?.length > 0) {
-          setProperties(data.data.properties);
-          setSelectedProperty(data.data.properties[0]);
-        }
+        const headers: Record<string, string> = token ? { Authorization: `Bearer ${token}` } : {};
+        // the API returns at most 100 per page, so walk through all of them
+        const all: any[] = [];
+        let page = 1;
+        let totalPages = 1;
+        do {
+          const res = await fetch(`/api/properties?limit=100&page=${page}`, { headers });
+          const data = await res.json();
+          if (!data.success) break;
+          all.push(...(data.data?.properties ?? []));
+          totalPages = data.data?.pagination?.totalPages ?? 1;
+          page++;
+        } while (page <= totalPages && page <= 50);
+        setProperties(all);
+        setSelectedProperty(all[0] ?? null);
       } catch (err) {
         console.error("Map properties load error:", err);
       }

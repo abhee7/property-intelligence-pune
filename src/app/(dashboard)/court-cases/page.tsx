@@ -14,61 +14,9 @@ import {
 
 export default function CourtCasesPage() {
   const { getAccessToken } = useAuth();
-  const [cases, setCases] = useState<any[]>([
-    {
-      id: "case-1",
-      caseNumber: "CS-2025/881",
-      courtName: "Pune Civil Court (Senior Division)",
-      caseType: "Title Dispute & Ownership Clearance",
-      caseStatus: "ACTIVE",
-      title: "Deshmukh vs Patil Title Dispute",
-      description: "Civil litigation over ancestral land rights on Hinjewadi Survey #299.",
-      filingDate: "2025-11-10",
-      nextHearingDate: "2026-08-25",
-      parties: [
-        { partyName: "Sunil Deshmukh", partyRole: "PLAINTIFF", advocateName: "Adv. Kulkarni" },
-        { partyName: "Amit Patil", partyRole: "DEFENDANT", advocateName: "Adv. Shinde" },
-      ],
-      links: [
-        { property: { id: "prop-002", title: "Survey 118, Hinjewadi", surveyNumber: "S.No.299/12" } },
-      ],
-    },
-    {
-      id: "case-2",
-      caseNumber: "LAA-2024/104",
-      courtName: "Bombay High Court (Bench Pune)",
-      caseType: "Land Acquisition Compensation",
-      caseStatus: "ACTIVE",
-      title: "MIDC Ring Road Compensation Appeal",
-      description: "High court stay order petition regarding MIDC industrial road widening.",
-      filingDate: "2024-05-18",
-      nextHearingDate: "2026-09-12",
-      parties: [
-        { partyName: "Ganesh Shinde", partyRole: "PETITIONER", advocateName: "Adv. Joshi" },
-        { partyName: "MIDC Maharashtra", partyRole: "RESPONDENT", advocateName: "Govt Pleader" },
-      ],
-      links: [
-        { property: { id: "prop-005", title: "Gala 3, Wagholi MIDC", surveyNumber: "73/15" } },
-      ],
-    },
-    {
-      id: "case-3",
-      caseNumber: "REV-2023/419",
-      courtName: "Revenue Sub-Divisional Officer (Haveli)",
-      caseType: "7/12 Mutation Dispute",
-      caseStatus: "DISPOSED",
-      title: "Ferfar / Mutation Entry Challenge",
-      description: "Disposed revenue appeal validating the heirship mutation entries.",
-      filingDate: "2023-09-01",
-      nextHearingDate: null,
-      parties: [
-        { partyName: "Vitthal Pawar", partyRole: "APPLICANT", advocateName: "Adv. Pawar" },
-      ],
-      links: [
-        { property: { id: "prop-004", title: "Farm Plot, Mulshi", surveyNumber: "118/2A" } },
-      ],
-    },
-  ]);
+  const [cases, setCases] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
@@ -82,11 +30,13 @@ export default function CourtCasesPage() {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
         const data = await res.json();
-        if (data.success && data.data?.cases?.length > 0) {
-          setCases(data.data.cases);
-        }
+        if (data.success) setCases(data.data?.cases ?? []);
+        else setLoadError(data.error || "Couldn't load court cases");
       } catch (err) {
         console.error("Fetch court cases error:", err);
+        setLoadError("Couldn't load court cases");
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -147,6 +97,11 @@ export default function CourtCasesPage() {
 
       {/* Court Cases Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {(loading || loadError || filteredCases.length === 0) && (
+          <div className="pi-card p-8 text-center text-sm text-platinum/45">
+            {loading ? "Loading…" : loadError || "No court cases match."}
+          </div>
+        )}
         {filteredCases.map((c) => (
           <div
             key={c.id}

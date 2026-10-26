@@ -3,6 +3,7 @@
 // GET  /api/documents — list with filters
 
 import { NextRequest } from "next/server";
+import { recordAudit } from "@/lib/audit";
 import { authenticate, apiSuccess, apiError } from "@/lib/auth/middleware";
 import { uploadDocument, searchDocuments } from "@/modules/documents/document.service";
 import { documentSearchSchema, validateFileType, validateFileSize, MAX_FILES_PER_UPLOAD } from "@/lib/validation/document.schema";
@@ -62,6 +63,7 @@ export async function POST(request: NextRequest) {
         );
 
         results.push(doc);
+        await recordAudit({ tenantId: auth.tenantId, userId: auth.userId, action: "document.upload", resourceType: "document", resourceId: (doc as any).id, metadata: { propertyId, file: file.name } }, request);
       } catch (err: any) {
         errors.push(`${file.name}: ${err.message}`);
       }

@@ -3,6 +3,7 @@
 import { NextRequest } from "next/server";
 import { authenticate, apiSuccess, apiError } from "@/lib/auth/middleware";
 import { listUsers, createUser } from "@/modules/admin/admin.service";
+import { recordAudit } from "@/lib/audit";
 
 export async function GET(request: NextRequest) {
   const auth = authenticate(request, { requiredRole: "agency_admin" });
@@ -24,6 +25,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const user = await createUser(auth.tenantId, body);
+    await recordAudit({ tenantId: auth.tenantId, userId: auth.userId, action: "user.create", resourceType: "user", resourceId: user.id, metadata: { email: user.email, role: body.role } }, request);
     return apiSuccess({ user }, 201);
   } catch (error: any) {
     return apiError(error.message, 400);

@@ -29,7 +29,7 @@ npm run demo:docs                    # (re)creates the files in demo-docs/ (3 En
 
 > "This is a portfolio of **944 Pune properties** — real listings from a public dataset."
 
-- Point at: **944 total**, **24 verified (3%)**, **42 high-risk**, **71 active court cases**.
+- Point at: **944 total**, **24 verified (3%)**, **42 high-risk**, **71 active court cases**. Every card and chart on this page is computed from the database — the risk donut totals 944 and matches the Risk Analysis page.
 - Say: *"Only 3% are verified because verification needs documents — most listings have none yet.
   PropIntel treats 'unverified' as a risk in itself, not as safe."*
 

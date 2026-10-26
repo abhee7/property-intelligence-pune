@@ -1,36 +1,55 @@
 // src/components/notifications/notification-bell.tsx
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { Bell, AlertTriangle, CheckCircle2, Shield, Newspaper, Scale, FileText, Bot, Building2, X } from "lucide-react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import Link from "next/link";
+import { Bell, AlertTriangle, ShieldAlert } from "lucide-react";
 import { CHART_SERIES, CHART_STATUS } from "@/lib/chart-theme";
-
-const ICONS: Record<string, any> = { AlertTriangle, CheckCircle2, Shield, Newspaper, Scale, FileText, Bot, Building2 };
+import { useAuth } from "@/lib/auth/auth-provider";
+import { timeAgo } from "@/lib/time";
 
 interface BellNotification {
   id: string;
-  subject: string;
+  subject: string | null;
   body: string;
-  icon: string;
-  iconColor: string;
-  time: string;
-  read: boolean;
+  priority: string;
+  readAt: string | null;
+  createdAt: string;
 }
 
-const DEMO: BellNotification[] = [
-  { id: "b1", subject: "Risk Alert — Survey 118", body: "Risk score updated to 73 (HIGH)", icon: "AlertTriangle", iconColor: CHART_STATUS.critical, time: "2h ago", read: false },
-  { id: "b2", subject: "Duplicate Detected", body: "S.No.299/12 — 2 broker listings", icon: "Shield", iconColor: CHART_SERIES[6], time: "5h ago", read: false },
-  { id: "b3", subject: "Verification Complete", body: "Plot 42, Kharadi — all checks passed", icon: "CheckCircle2", iconColor: CHART_STATUS.good, time: "1d ago", read: false },
-  { id: "b4", subject: "OCR Processed", body: "14 fields extracted, 91% confidence", icon: "FileText", iconColor: CHART_SERIES[0], time: "2d ago", read: true },
-  { id: "b5", subject: "News Mention", body: "Sakal article matches Farm Plot, Mulshi", icon: "Newspaper", iconColor: CHART_STATUS.warning, time: "3d ago", read: true },
-];
+const POLL_MS = 60_000;
 
 export function NotificationBell() {
+  const { getAccessToken } = useAuth();
   const [open, setOpen] = useState(false);
-  const [items, setItems] = useState(DEMO);
+  const [items, setItems] = useState<BellNotification[]>([]);
+  const [unread, setUnread] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
 
-  const unread = items.filter(i => !i.read).length;
+  const call = useCallback(
+    async (url: string, init?: RequestInit) => {
+      const token = getAccessToken();
+      if (!token) return null;
+      const res = await fetch(url, { ...init, headers: { Authorization: `Bearer ${token}`, ...(init?.headers || {}) } });
+      const json = await res.json().catch(() => null);
+      return json?.success ? json.data : null;
+    },
+    [getAccessToken],
+  );
+
+  const refresh = useCallback(async () => {
+    const data = await call("/api/notifications?limit=8");
+    if (data) {
+      setItems(data.notifications);
+      setUnread(data.unread);
+    }
+  }, [call]);
+
+  useEffect(() => {
+    refresh();
+    const t = setInterval(refresh, POLL_MS);
+    return () => clearInterval(t);
+  }, [refresh]);
 
   // Close on outside click
   useEffect(() => {
@@ -41,8 +60,16 @@ export function NotificationBell() {
     return () => document.removeEventListener("mousedown", handler);
   }, []);
 
-  function markRead(id: string) {
-    setItems(prev => prev.map(i => i.id === id ? { ...i, read: true } : i));
+  async function markRead(id: string) {
+    setItems((prev) => prev.map((i) => (i.id === id ? { ...i, readAt: i.readAt ?? new Date().toISOString() } : i)));
+    setUnread((u) => Math.max(0, u - (items.find((i) => i.id === id)?.readAt ? 0 : 1)));
+    await call(`/api/notifications/${id}`, { method: "PATCH" });
+  }
+
+  async function markAllRead() {
+    setItems((prev) => prev.map((i) => ({ ...i, readAt: i.readAt ?? new Date().toISOString() })));
+    setUnread(0);
+    await call("/api/notifications?markAllRead=true");
   }
 
   return (
@@ -59,30 +86,37 @@ export function NotificationBell() {
           <div style={{ padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.08)", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
             <span style={{ fontWeight: 700, fontSize: 14, fontFamily: "'Sora',sans-serif" }}>Notifications</span>
             {unread > 0 && (
-              <button onClick={() => setItems(prev => prev.map(i => ({ ...i, read: true })))} style={{ fontSize: 12, color: "rgba(244,246,250,0.6)", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}>Mark all read</button>
+              <button onClick={markAllRead} style={{ fontSize: 12, color: "rgba(244,246,250,0.6)", background: "none", border: "none", cursor: "pointer", fontWeight: 600 }}>Mark all read</button>
             )}
           </div>
           <div style={{ maxHeight: 380, overflowY: "auto" }}>
-            {items.map(item => {
-              const Icon = ICONS[item.icon] || Bell;
+            {items.length === 0 && (
+              <div style={{ padding: "28px 16px", textAlign: "center", fontSize: 13, color: "rgba(244,246,250,0.45)" }}>
+                Nothing yet. You&apos;ll be alerted here when a property&apos;s risk rises to High or Critical.
+              </div>
+            )}
+            {items.map((item) => {
+              const read = !!item.readAt;
+              const urgent = item.priority?.toLowerCase() === "urgent";
+              const Icon = urgent ? ShieldAlert : AlertTriangle;
+              const color = urgent ? CHART_STATUS.critical : CHART_STATUS.warning;
               return (
-                <div key={item.id} onClick={() => markRead(item.id)} style={{ display: "flex", gap: 10, padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", background: item.read ? "transparent" : "rgba(244,246,250,0.03)", transition: "background 0.1s" }}>
-                  {!item.read && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#F4F6FA", flexShrink: 0, marginTop: 7 }} />}
-                  {item.read && <div style={{ width: 6 }} />}
-                  <div style={{ width: 30, height: 30, borderRadius: 8, background: `${item.iconColor}1f`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                    <Icon size={14} color={item.iconColor} />
+                <div key={item.id} onClick={() => markRead(item.id)} style={{ display: "flex", gap: 10, padding: "12px 16px", borderBottom: "1px solid rgba(255,255,255,0.05)", cursor: "pointer", background: read ? "transparent" : "rgba(244,246,250,0.03)", transition: "background 0.1s" }}>
+                  {!read ? <div style={{ width: 6, height: 6, borderRadius: "50%", background: "#F4F6FA", flexShrink: 0, marginTop: 7 }} /> : <div style={{ width: 6 }} />}
+                  <div style={{ width: 30, height: 30, borderRadius: 8, background: `${color}1f`, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                    <Icon size={14} color={color} />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <div style={{ fontSize: 13, fontWeight: item.read ? 500 : 700 }}>{item.subject}</div>
+                    <div style={{ fontSize: 13, fontWeight: read ? 500 : 700 }}>{item.subject || "Notification"}</div>
                     <div style={{ fontSize: 12, color: "rgba(244,246,250,0.45)", marginTop: 1, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.body}</div>
-                    <div style={{ fontSize: 11, color: "rgba(244,246,250,0.35)", marginTop: 3 }}>{item.time}</div>
+                    <div style={{ fontSize: 11, color: "rgba(244,246,250,0.35)", marginTop: 3 }}>{timeAgo(item.createdAt)}</div>
                   </div>
                 </div>
               );
             })}
           </div>
           <div style={{ padding: "10px 16px", borderTop: "1px solid rgba(255,255,255,0.08)", textAlign: "center" }}>
-            <a href="/notifications" style={{ fontSize: 13, color: "#F4F6FA", textDecoration: "none", fontWeight: 700 }}>View all notifications</a>
+            <Link href="/notifications" onClick={() => setOpen(false)} style={{ fontSize: 13, color: "#F4F6FA", textDecoration: "none", fontWeight: 700 }}>View all notifications</Link>
           </div>
         </div>
       )}

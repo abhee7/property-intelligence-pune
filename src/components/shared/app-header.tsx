@@ -5,10 +5,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useSidebar } from "@/context/SidebarContext";
 import { useAuth } from "@/lib/auth/auth-provider";
+import { NotificationBell } from "@/components/notifications/notification-bell";
 import {
   Menu,
   Search,
-  Bell,
   User as UserIcon,
   LogOut,
   ChevronDown,
@@ -84,15 +84,8 @@ export function AppHeader() {
 
       {/* Right side: Actions & User Menu */}
       <div className="relative flex items-center gap-2 sm:gap-3">
-        {/* Notifications Button */}
-        <Link
-          href="/notifications"
-          aria-label="Notifications"
-          className="pi-icon-btn relative p-2.5 rounded-xl text-platinum/50"
-        >
-          <Bell className="w-5 h-5" />
-          <span className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#3987e5] ring-2 ring-[#0A0B0F]"></span>
-        </Link>
+        {/* Notifications: real unread count, dropdown of the latest alerts */}
+        <NotificationBell />
 
         {/* User Profile Dropdown */}
         {user && (

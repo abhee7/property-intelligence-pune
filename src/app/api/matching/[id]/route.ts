@@ -1,6 +1,7 @@
 // src/app/api/matching/[id]/route.ts
 
 import { NextRequest } from "next/server";
+import { recordAudit } from "@/lib/audit";
 import { authenticate, apiSuccess, apiError } from "@/lib/auth/middleware";
 import { getMatchById, resolveMatch } from "@/modules/matching/matching.service";
 
@@ -32,6 +33,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     const match = await resolveMatch(auth.tenantId, id, auth.userId, action);
     if (!match) return apiError("Match not found", 404);
+    await recordAudit({ tenantId: auth.tenantId, userId: auth.userId, action: `match.${action}`, resourceType: "match", resourceId: id }, request);
 
     return apiSuccess({ match });
   } catch (error: any) {

@@ -17,50 +17,9 @@ import { CHART_STATUS } from "@/lib/chart-theme";
 
 export default function NewsIntelligencePage() {
   const { getAccessToken } = useAuth();
-  const [mentions, setMentions] = useState<any[]>([
-    {
-      id: "mention-1",
-      relevanceScore: 0.94,
-      sentiment: "NEGATIVE",
-      matchedExcerpt: "Special land tribunal issues notice regarding Hinjewadi Survey #299 ownership disputes.",
-      createdAt: "2026-06-20",
-      article: {
-        headline: "Special Revenue Inspection Drive in Hinjewadi IT Park",
-        source: { name: "Lokmat" },
-        publishedAt: "2026-06-20",
-        url: "#",
-      },
-      property: { id: "prop-002", title: "Survey 118, Hinjewadi", surveyNumber: "S.No.299/12" },
-    },
-    {
-      id: "mention-2",
-      relevanceScore: 0.88,
-      sentiment: "POSITIVE",
-      matchedExcerpt: "Pune Metropolitan Region Development Authority (PMRDA) approves new ring road connectivity near Wagholi MIDC.",
-      createdAt: "2026-05-14",
-      article: {
-        headline: "PMRDA Infrastructure Push Boosts Wagholi Commercial Gala Values",
-        source: { name: "Maharashtra Times" },
-        publishedAt: "2026-05-14",
-        url: "#",
-      },
-      property: { id: "prop-005", title: "Gala 3, Wagholi MIDC", surveyNumber: "73/15" },
-    },
-    {
-      id: "mention-3",
-      relevanceScore: 0.82,
-      sentiment: "NEUTRAL",
-      matchedExcerpt: "Sub-registrar office records high volume of residential plot registrations in Kharadi and Baner.",
-      createdAt: "2026-04-10",
-      article: {
-        headline: "Kharadi Real Estate Transactions Rise in Q2",
-        source: { name: "Sakal" },
-        publishedAt: "2026-04-10",
-        url: "#",
-      },
-      property: { id: "prop-001", title: "Plot 42, Kharadi", surveyNumber: "42/3A" },
-    },
-  ]);
+  const [mentions, setMentions] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
   const [search, setSearch] = useState("");
   const [sentimentFilter, setSentimentFilter] = useState("ALL");
@@ -73,11 +32,13 @@ export default function NewsIntelligencePage() {
           headers: token ? { Authorization: `Bearer ${token}` } : {},
         });
         const data = await res.json();
-        if (data.success && data.data?.mentions?.length > 0) {
-          setMentions(data.data.mentions);
-        }
+        if (data.success) setMentions(data.data?.mentions ?? []);
+        else setLoadError(data.error || "Couldn't load news mentions");
       } catch (err) {
         console.error("Fetch news error:", err);
+        setLoadError("Couldn't load news mentions");
+      } finally {
+        setLoading(false);
       }
     }
 
@@ -164,6 +125,11 @@ export default function NewsIntelligencePage() {
 
       {/* News Cards Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {(loading || loadError || filteredMentions.length === 0) && (
+          <div className="pi-card p-8 text-center text-sm text-platinum/45">
+            {loading ? "Loading…" : loadError || "No news mentions match."}
+          </div>
+        )}
         {filteredMentions.map((m) => {
           const sentiment = sentimentStyles[m.sentiment] || sentimentStyles.NEUTRAL;
           return (

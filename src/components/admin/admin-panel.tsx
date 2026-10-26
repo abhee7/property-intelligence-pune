@@ -1,56 +1,32 @@
 // src/components/admin/admin-panel.tsx
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import {
-  Users, Shield, Activity, Server, Database, Cpu, HardDrive, AlertTriangle,
-  CheckCircle2, XCircle, Clock, Search, Plus, MoreHorizontal, ChevronDown,
-  Bot, RefreshCw, Eye, Zap, FileText, Bell, Lock, Unlock, Settings, Loader2,
+  Users, Shield, Server, Database, Cpu, Clock, Search, Zap, Bot, Lock, Unlock, Loader2, AlertTriangle, Activity,
 } from "lucide-react";
 import { CHART_SERIES, CHART_STATUS } from "@/lib/chart-theme";
+import { useAuth } from "@/lib/auth/auth-provider";
 
-// ─── Demo data ───
+// ─── Types (what /api/admin/* returns) ───
 
-const DEMO_USERS = [
-  { id: "u1", email: "admin@sahyadri-demo.com", firstName: "System", lastName: "Admin", role: "admin", roleDisplay: "Platform admin", isActive: true, lastLogin: "1 hour ago" },
-  { id: "u2", email: "manager@sahyadri-demo.com", firstName: "Prashant", lastName: "Kulkarni", role: "agency_admin", roleDisplay: "Agency admin", isActive: true, lastLogin: "3 hours ago" },
-  { id: "u3", email: "vinoddeshmukh@gmail.com", firstName: "Vinod", lastName: "Deshmukh", role: "broker", roleDisplay: "Broker", isActive: true, lastLogin: "5 hours ago" },
-  { id: "u4", email: "rahul_joshi@hotmail.com", firstName: "Rahul", lastName: "Joshi", role: "broker", roleDisplay: "Broker", isActive: true, lastLogin: "1 day ago" },
-  { id: "u5", email: "sachin_bhosale64@hotmail.com", firstName: "Sachin", lastName: "Bhosale", role: "broker", roleDisplay: "Broker", isActive: false, lastLogin: "30 days ago" },
-  { id: "u6", email: "pramod.lokhande95@hotmail.com", firstName: "Pramod", lastName: "Lokhande", role: "land_owner", roleDisplay: "Land owner", isActive: true, lastLogin: "2 days ago" },
-  { id: "u7", email: "meena_kulkarni@yahoo.co.in", firstName: "Meena", lastName: "Kulkarni", role: "land_owner", roleDisplay: "Land owner", isActive: true, lastLogin: "1 week ago" },
-];
-
-const PROVIDERS = [
-  { name: "OCR engine", provider: "Tesseract.js", type: "mock", status: "healthy", latency: "3.2s" },
-  { name: "Gov records", provider: "Local JSON", type: "mock", status: "healthy", latency: "0.6s" },
-  { name: "Court records", provider: "Local JSON", type: "mock", status: "degraded", latency: "1.2s" },
-  { name: "News provider", provider: "Local JSON", type: "mock", status: "healthy", latency: "0.4s" },
-  { name: "AI agents", provider: "Rule engine", type: "mock", status: "healthy", latency: "2.1s" },
-  { name: "Notifications", provider: "Console log", type: "mock", status: "healthy", latency: "0.1s" },
-  { name: "Risk engine", provider: "Local scorer", type: "mock", status: "healthy", latency: "1.8s" },
-  { name: "Storage", provider: "Local disk", type: "mock", status: "healthy", latency: "0.02s" },
-];
-
-const ERROR_LOG = [
-  { time: "2 hours ago", service: "Court scanner", level: "error", message: "eCourts API timeout after 10s — circuit breaker opened. Fallback: scoring without court data." },
-  { time: "6 hours ago", service: "OCR processor", level: "warn", message: "Low confidence (0.52) on encumbrance_cert.pdf — document flagged for manual review." },
-  { time: "1 day ago", service: "Matching engine", level: "info", message: "Full scan completed — 100 properties, 4,950 comparisons, 4 matches found in 2.3s." },
-  { time: "2 days ago", service: "News monitor", level: "warn", message: "RSS feed unreachable — Pudhari. Retrying in 60 minutes." },
-  { time: "3 days ago", service: "Risk engine", level: "info", message: "Batch re-computation completed for 80 properties. 3 score changes > 10 points." },
-  { time: "5 days ago", service: "Notification", level: "info", message: "Dispatched 12 alerts (4 WhatsApp, 5 email, 3 in-app) for risk threshold breach." },
-];
-
-const AUDIT_LOG = [
-  { time: "1 hour ago", user: "System Admin", action: "Login", resource: "auth", ip: "127.0.0.1" },
-  { time: "3 hours ago", user: "Prashant Kulkarni", action: "Updated property status", resource: "prop-002", ip: "192.168.1.45" },
-  { time: "5 hours ago", user: "Vinod Deshmukh", action: "Uploaded 3 documents", resource: "prop-001", ip: "192.168.1.67" },
-  { time: "1 day ago", user: "System", action: "AI verification triggered", resource: "prop-002", ip: "internal" },
-  { time: "2 days ago", user: "System Admin", action: "Deactivated user", resource: "user-broker-005", ip: "127.0.0.1" },
-  { time: "3 days ago", user: "Rahul Joshi", action: "Created property", resource: "prop-009", ip: "192.168.1.89" },
-];
-
-// ─── Component ───
+interface AdminUserRow {
+  id: string; email: string; firstName: string; lastName: string;
+  role: string; roleDisplay: string; isActive: boolean; lastLoginAt: string | null;
+}
+interface SystemHealth {
+  status: "healthy" | "degraded" | "down";
+  uptime: string;
+  database: { status: string; latencyMs: number };
+  providers: Record<string, { provider: string; type: string }>;
+  memory: { used: string; total: string; percent: number };
+  counts: { users: number; properties: number; documents: number; notifications: number };
+  recentErrors: { time: string; service: string; message: string }[];
+}
+interface AuditRow {
+  id: string; action: string; resourceType: string; resourceId: string | null; ipAddress: string | null; createdAt: string;
+  user: { firstName: string; lastName: string; email: string } | null;
+}
 
 type AdminTab = "users" | "health" | "logs" | "audit";
 
@@ -61,27 +37,113 @@ const ROLE_COLORS: Record<string, { bg: string; color: string }> = {
   land_owner: { bg: `${CHART_STATUS.good}1f`, color: CHART_STATUS.good },
 };
 
-const LOG_COLORS: Record<string, string> = { error: CHART_STATUS.critical, warn: CHART_STATUS.warning, info: CHART_SERIES[0] };
+const PROVIDER_LABELS: Record<string, string> = {
+  ocr: "OCR engine", govRecords: "Land records", courtRecords: "Court records", news: "News",
+  notification: "Notifications", riskEngine: "Risk engine", storage: "Storage", aiAgent: "AI agent",
+};
+
+const when = (iso: string | null) => (iso ? new Date(iso).toLocaleString("en-IN", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit" }) : "—");
+
+// ─── Component ───
 
 export default function AdminPanel() {
+  const { user, getAccessToken } = useAuth();
   const [tab, setTab] = useState<AdminTab>("users");
   const [userSearch, setUserSearch] = useState("");
-  const [users, setUsers] = useState(DEMO_USERS);
+  const [users, setUsers] = useState<AdminUserRow[]>([]);
+  const [usersTotal, setUsersTotal] = useState(0);
+  const [health, setHealth] = useState<SystemHealth | null>(null);
+  const [audit, setAudit] = useState<AuditRow[]>([]);
+  const [auditTotal, setAuditTotal] = useState(0);
+  const [loading, setLoading] = useState<Record<string, boolean>>({});
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [busyUser, setBusyUser] = useState<string | null>(null);
 
-  function toggleActive(id: string) {
-    setUsers(prev => prev.map(u => u.id === id ? { ...u, isActive: !u.isActive } : u));
+  const isPlatformAdmin = user?.role === "admin";
+
+  const api = useCallback(
+    async (url: string, init?: RequestInit) => {
+      const token = getAccessToken();
+      const res = await fetch(url, { ...init, headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}), ...(init?.headers || {}) } });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.success) throw new Error(json?.error || `Request failed (${res.status})`);
+      return json.data;
+    },
+    [getAccessToken],
+  );
+
+  const load = useCallback(
+    async (key: string, fn: () => Promise<void>) => {
+      setLoading((l) => ({ ...l, [key]: true }));
+      setErrors((e) => ({ ...e, [key]: "" }));
+      try {
+        await fn();
+      } catch (err: any) {
+        setErrors((e) => ({ ...e, [key]: err.message || "Something went wrong" }));
+      } finally {
+        setLoading((l) => ({ ...l, [key]: false }));
+      }
+    },
+    [],
+  );
+
+  const loadUsers = useCallback(
+    () => load("users", async () => {
+      const q = userSearch.trim() ? `&q=${encodeURIComponent(userSearch.trim())}` : "";
+      const data = await api(`/api/admin/users?limit=50${q}`);
+      setUsers(data.users);
+      setUsersTotal(data.total);
+    }),
+    [api, load, userSearch],
+  );
+
+  // users reload when the search settles
+  useEffect(() => {
+    const t = setTimeout(loadUsers, 250);
+    return () => clearTimeout(t);
+  }, [loadUsers]);
+
+  useEffect(() => {
+    if (tab === "health" || tab === "logs") load("health", async () => setHealth((await api("/api/admin/system")).health));
+    if (tab === "audit") load("audit", async () => {
+      const data = await api("/api/admin/system?view=audit");
+      setAudit(data.logs);
+      setAuditTotal(data.total);
+    });
+  }, [tab, api, load]);
+
+  async function toggleActive(u: AdminUserRow) {
+    setBusyUser(u.id);
+    try {
+      await api(`/api/admin/users/${u.id}`, { method: "PATCH", body: JSON.stringify({ isActive: !u.isActive }) });
+      setUsers((prev) => prev.map((x) => (x.id === u.id ? { ...x, isActive: !u.isActive } : x)));
+    } catch (err: any) {
+      setErrors((e) => ({ ...e, users: err.message }));
+    } finally {
+      setBusyUser(null);
+    }
   }
-
-  const filteredUsers = userSearch
-    ? users.filter(u => `${u.firstName} ${u.lastName} ${u.email}`.toLowerCase().includes(userSearch.toLowerCase()))
-    : users;
 
   const tabs: { key: AdminTab; label: string; icon: any }[] = [
     { key: "users", label: "Users", icon: Users },
     { key: "health", label: "System health", icon: Activity },
-    { key: "logs", label: "AI logs", icon: Bot },
+    { key: "logs", label: "Processing log", icon: Bot },
     { key: "audit", label: "Audit trail", icon: Shield },
   ];
+
+  const Notice = ({ keyName }: { keyName: string }) =>
+    errors[keyName] ? (
+      <div style={{ padding: "14px 20px", color: CHART_STATUS.warning, fontSize: 13, display: "flex", gap: 8, alignItems: "center" }}>
+        <AlertTriangle size={15} /> {errors[keyName]}
+        {/Forbidden|permission|403/i.test(errors[keyName]) && " — sign in as the platform admin (admin@sahyadri-demo.com) to see this."}
+      </div>
+    ) : null;
+  const Spinner = ({ keyName }: { keyName: string }) =>
+    loading[keyName] ? (
+      <div style={{ padding: 20, color: "rgba(244,246,250,0.45)", fontSize: 13, display: "flex", gap: 8, alignItems: "center" }}>
+        <Loader2 size={15} className="animate-spin" /> Loading…
+      </div>
+    ) : null;
 
   return (
     <div style={{ fontFamily: "'Inter', system-ui, -apple-system, sans-serif", color: "#F4F6FA" }}>
@@ -114,7 +176,7 @@ export default function AdminPanel() {
       <p style={{ fontSize: 13, color: "rgba(244,246,250,0.45)", margin: "0 0 20px" }}>Manage users, monitor system health, and review activity</p>
 
       <div className="tab-bar">
-        {tabs.map(t => (
+        {tabs.map((t) => (
           <div key={t.key} className={`tab ${tab === t.key ? "active" : ""}`} onClick={() => setTab(t.key)}>
             <t.icon size={15} /> {t.label}
           </div>
@@ -126,18 +188,18 @@ export default function AdminPanel() {
         <div className="card fade-in">
           <div className="card-head">
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-              <span style={{ fontWeight: 700 }}>Users ({users.length})</span>
+              <span style={{ fontWeight: 700 }}>Users ({usersTotal})</span>
               <div style={{ position: "relative", width: 240 }}>
                 <Search size={14} style={{ position: "absolute", left: 12, top: 10, color: "rgba(244,246,250,0.4)" }} />
-                <input className="search-input" placeholder="Search users..." value={userSearch} onChange={e => setUserSearch(e.target.value)} />
+                <input className="search-input" placeholder="Search users..." value={userSearch} onChange={(e) => setUserSearch(e.target.value)} />
               </div>
             </div>
-            <button className="btn-sm btn-primary-sm"><Plus size={13} /> Add user</button>
           </div>
+          <Notice keyName="users" />
           <table className="tbl">
-            <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Last login</th><th>Actions</th></tr></thead>
+            <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Last login</th>{isPlatformAdmin && <th>Actions</th>}</tr></thead>
             <tbody>
-              {filteredUsers.map(u => {
+              {users.map((u) => {
                 const rc = ROLE_COLORS[u.role] || ROLE_COLORS.broker;
                 return (
                   <tr key={u.id}>
@@ -158,85 +220,103 @@ export default function AdminPanel() {
                         {u.isActive ? "Active" : "Inactive"}
                       </span>
                     </td>
-                    <td style={{ color: "rgba(244,246,250,0.4)" }}>{u.lastLogin}</td>
-                    <td>
-                      <div style={{ display: "flex", gap: 4 }}>
-                        <button className="btn-sm" onClick={() => toggleActive(u.id)} title={u.isActive ? "Deactivate" : "Activate"}>
+                    <td style={{ color: "rgba(244,246,250,0.4)" }}>{when(u.lastLoginAt)}</td>
+                    {isPlatformAdmin && (
+                      <td>
+                        <button className="btn-sm" disabled={busyUser === u.id || u.id === user?.id} onClick={() => toggleActive(u)} title={u.id === user?.id ? "You can't deactivate yourself" : u.isActive ? "Deactivate" : "Activate"}>
                           {u.isActive ? <Lock size={13} /> : <Unlock size={13} />}
                         </button>
-                        <button className="btn-sm"><MoreHorizontal size={13} /></button>
-                      </div>
-                    </td>
+                      </td>
+                    )}
                   </tr>
                 );
               })}
+              {!loading.users && users.length === 0 && !errors.users && (
+                <tr><td colSpan={5} style={{ color: "rgba(244,246,250,0.4)", textAlign: "center", padding: 24 }}>No users match.</td></tr>
+              )}
             </tbody>
           </table>
+          <Spinner keyName="users" />
+          {!isPlatformAdmin && (
+            <div style={{ padding: "12px 20px", fontSize: 12, color: "rgba(244,246,250,0.4)" }}>Only the platform admin can activate or deactivate users.</div>
+          )}
         </div>
       )}
 
       {/* ─── System health ─── */}
       {tab === "health" && (
         <div className="fade-in">
-          {/* Status cards */}
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 20 }}>
-            {[
-              { label: "System", value: "Healthy", icon: Server, color: CHART_STATUS.good },
-              { label: "Database", value: "Connected (3ms)", icon: Database, color: CHART_STATUS.good },
-              { label: "Memory", value: "124 MB / 512 MB", icon: Cpu, color: CHART_SERIES[0] },
-              { label: "Uptime", value: "14d 6h 32m", icon: Clock, color: CHART_STATUS.warning },
-            ].map((s, i) => (
-              <div key={i} className="card" style={{ padding: 16, textAlign: "center" }}>
-                <s.icon size={20} color={s.color} style={{ margin: "0 auto 8px", display: "block" }} />
-                <div style={{ fontSize: 16, fontWeight: 700 }}>{s.value}</div>
-                <div style={{ fontSize: 12, color: "rgba(244,246,250,0.45)", marginTop: 2 }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-
-          {/* Provider status */}
-          <div className="card">
-            <div className="card-head">
-              <span style={{ fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}><Zap size={15} color="#F4F6FA" /> Provider status</span>
-              <span className="pill" style={{ background: "rgba(244,246,250,0.08)", color: "rgba(244,246,250,0.6)" }}>All providers in mock mode</span>
-            </div>
-            <table className="tbl">
-              <thead><tr><th>Service</th><th>Provider</th><th>Type</th><th>Status</th><th>Latency</th></tr></thead>
-              <tbody>
-                {PROVIDERS.map((p, i) => (
-                  <tr key={i}>
-                    <td style={{ fontWeight: 600 }}>{p.name}</td>
-                    <td style={{ color: "rgba(244,246,250,0.55)" }}>{p.provider}</td>
-                    <td><span className="pill" style={{ background: "rgba(244,246,250,0.08)", color: "rgba(244,246,250,0.55)" }}>{p.type}</span></td>
-                    <td>
-                      <span style={{ display: "flex", alignItems: "center", gap: 4 }}>
-                        <span className="health-dot" style={{ background: p.status === "healthy" ? CHART_STATUS.good : CHART_STATUS.warning }} />
-                        {p.status}
-                      </span>
-                    </td>
-                    <td style={{ fontVariantNumeric: "tabular-nums", color: "rgba(244,246,250,0.45)" }}>{p.latency}</td>
-                  </tr>
+          <Notice keyName="health" />
+          <Spinner keyName="health" />
+          {health && (
+            <>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(4,1fr)", gap: 12, marginBottom: 20 }}>
+                {[
+                  { label: "System", value: health.status === "healthy" ? "Healthy" : health.status === "degraded" ? "Degraded" : "Down", icon: Server, color: health.status === "healthy" ? CHART_STATUS.good : CHART_STATUS.warning },
+                  { label: "Database", value: `${health.database.status === "connected" ? "Connected" : "Slow"} (${health.database.latencyMs} ms)`, icon: Database, color: health.database.status === "connected" ? CHART_STATUS.good : CHART_STATUS.warning },
+                  { label: "Memory (heap)", value: `${health.memory.used} / ${health.memory.total}`, icon: Cpu, color: CHART_SERIES[0] },
+                  { label: "Uptime", value: health.uptime, icon: Clock, color: CHART_SERIES[0] },
+                ].map((s, i) => (
+                  <div key={i} className="card" style={{ padding: 16, textAlign: "center" }}>
+                    <s.icon size={20} color={s.color} style={{ margin: "0 auto 8px", display: "block" }} />
+                    <div style={{ fontSize: 16, fontWeight: 700 }}>{s.value}</div>
+                    <div style={{ fontSize: 12, color: "rgba(244,246,250,0.45)", marginTop: 2 }}>{s.label}</div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
-          </div>
+              </div>
+
+              <div className="card" style={{ marginBottom: 20 }}>
+                <div className="card-head">
+                  <span style={{ fontWeight: 700 }}>Data on file</span>
+                </div>
+                <table className="tbl">
+                  <tbody>
+                    {Object.entries(health.counts).map(([k, v]) => (
+                      <tr key={k}><td style={{ textTransform: "capitalize" }}>{k}</td><td style={{ fontVariantNumeric: "tabular-nums", textAlign: "right" }}>{v.toLocaleString("en-IN")}</td></tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="card">
+                <div className="card-head">
+                  <span style={{ fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}><Zap size={15} color="#F4F6FA" /> Data providers</span>
+                  <span className="pill" style={{ background: "rgba(244,246,250,0.08)", color: "rgba(244,246,250,0.6)" }}>Configured in .env (PROVIDER_*)</span>
+                </div>
+                <table className="tbl">
+                  <thead><tr><th>Service</th><th>Provider</th><th>Mode</th></tr></thead>
+                  <tbody>
+                    {Object.entries(health.providers).map(([k, p]) => (
+                      <tr key={k}>
+                        <td style={{ fontWeight: 600 }}>{PROVIDER_LABELS[k] || k}</td>
+                        <td style={{ color: "rgba(244,246,250,0.55)" }}>{p.provider}</td>
+                        <td><span className="pill" style={{ background: "rgba(244,246,250,0.08)", color: "rgba(244,246,250,0.55)" }}>{p.type}</span></td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </>
+          )}
         </div>
       )}
 
-      {/* ─── AI logs ─── */}
+      {/* ─── Processing log ─── */}
       {tab === "logs" && (
         <div className="card fade-in">
           <div className="card-head">
-            <span style={{ fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}><Bot size={15} color="#F4F6FA" /> Agent activity log</span>
+            <span style={{ fontWeight: 700, display: "flex", alignItems: "center", gap: 6 }}><Bot size={15} color="#F4F6FA" /> Documents needing attention</span>
           </div>
-          {ERROR_LOG.map((log, i) => (
+          <Notice keyName="health" />
+          <Spinner keyName="health" />
+          {health && health.recentErrors.length === 0 && <div style={{ padding: 20, color: "rgba(244,246,250,0.45)", fontSize: 13 }}>No failed or low-confidence documents.</div>}
+          {health?.recentErrors.map((log, i) => (
             <div key={i} style={{ padding: "14px 20px", borderBottom: "1px solid rgba(255,255,255,0.05)", display: "flex", gap: 12, alignItems: "flex-start" }}>
-              <div style={{ width: 8, height: 8, borderRadius: "50%", background: LOG_COLORS[log.level], flexShrink: 0, marginTop: 7 }} />
+              <div style={{ width: 8, height: 8, borderRadius: "50%", background: CHART_STATUS.warning, flexShrink: 0, marginTop: 7 }} />
               <div style={{ flex: 1 }}>
                 <div style={{ display: "flex", gap: 8, alignItems: "center", marginBottom: 4 }}>
                   <span style={{ fontSize: 13, fontWeight: 600 }}>{log.service}</span>
-                  <span className="pill" style={{ background: `${LOG_COLORS[log.level]}1f`, color: LOG_COLORS[log.level] }}>{log.level}</span>
-                  <span style={{ fontSize: 11, color: "rgba(244,246,250,0.35)", marginLeft: "auto" }}>{log.time}</span>
+                  <span style={{ fontSize: 11, color: "rgba(244,246,250,0.35)", marginLeft: "auto" }}>{when(log.time)}</span>
                 </div>
                 <div style={{ fontSize: 12, color: "rgba(244,246,250,0.55)", lineHeight: 1.5 }}>{log.message}</div>
               </div>
@@ -248,19 +328,24 @@ export default function AdminPanel() {
       {/* ─── Audit trail ─── */}
       {tab === "audit" && (
         <div className="card fade-in">
-          <div className="card-head"><span style={{ fontWeight: 700 }}>Audit trail</span></div>
+          <div className="card-head"><span style={{ fontWeight: 700 }}>Audit trail ({auditTotal})</span></div>
+          <Notice keyName="audit" />
+          <Spinner keyName="audit" />
           <table className="tbl">
             <thead><tr><th>Time</th><th>User</th><th>Action</th><th>Resource</th><th>IP</th></tr></thead>
             <tbody>
-              {AUDIT_LOG.map((a, i) => (
-                <tr key={i}>
-                  <td style={{ color: "rgba(244,246,250,0.4)", fontSize: 12 }}>{a.time}</td>
-                  <td style={{ fontWeight: 600 }}>{a.user}</td>
+              {audit.map((a) => (
+                <tr key={a.id}>
+                  <td style={{ color: "rgba(244,246,250,0.4)", fontSize: 12 }}>{when(a.createdAt)}</td>
+                  <td style={{ fontWeight: 600 }}>{a.user ? `${a.user.firstName} ${a.user.lastName}` : "System"}</td>
                   <td>{a.action}</td>
-                  <td style={{ fontFamily: "'IBM Plex Mono',ui-monospace,monospace", fontSize: 12, color: CHART_SERIES[0] }}>{a.resource}</td>
-                  <td style={{ color: "rgba(244,246,250,0.35)", fontSize: 12 }}>{a.ip}</td>
+                  <td style={{ fontFamily: "'IBM Plex Mono',ui-monospace,monospace", fontSize: 12, color: CHART_SERIES[0] }}>{a.resourceType}{a.resourceId ? ` · ${a.resourceId.slice(0, 14)}` : ""}</td>
+                  <td style={{ color: "rgba(244,246,250,0.35)", fontSize: 12 }}>{a.ipAddress || "—"}</td>
                 </tr>
               ))}
+              {!loading.audit && audit.length === 0 && !errors.audit && (
+                <tr><td colSpan={5} style={{ color: "rgba(244,246,250,0.4)", textAlign: "center", padding: 24 }}>Nothing recorded yet. Logins, uploads, match decisions and user changes appear here.</td></tr>
+              )}
             </tbody>
           </table>
         </div>

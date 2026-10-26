@@ -21,7 +21,9 @@ that with court cases and news into a **0–100 risk score** — with the eviden
 | **Duplicate & conflict matching** | Compares every pair of properties on survey number (35%), owner (25%), village (15%), area, price and coordinates. Flags exact/likely duplicates and **ownership conflicts** (same survey number, different owner). Reviewers confirm or dismiss; decisions persist. |
 | **Risk scoring** | Five weighted factors, each with evidence — see [How the risk score works](#how-the-risk-score-works). Recalculates automatically when anything feeding it changes. |
 | **Court cases & news** | Cases (with hearings, parties, stay orders) and newspaper mentions are linked to properties and feed the score. |
-| **Map, analytics, dashboard** | Leaflet map of all properties coloured by risk; portfolio dashboards. |
+| **Map, analytics, dashboard** | Leaflet map of all properties coloured by risk; portfolio dashboard (risk distribution, talukas, onboarding trend, high-risk watchlist, latest activity), all computed from the database. |
+| **Alerts** | When a property's risk rises to High or Critical, its owner, broker and the agency admins get an in-app alert (bell in the header + Notifications page). |
+| **Admin** | Platform admin can list and (de)activate users, see system health and documents needing attention, and read the **audit trail** (logins, uploads, deletions, match decisions, property creation, user changes). |
 | **Auth & roles** | JWT access/refresh tokens, bcrypt, role-based access (admin, agency admin, broker, land owner), multi-tenant data isolation. |
 
 ## Tech stack
@@ -299,7 +301,7 @@ Being upfront about what this prototype does **not** do:
 
 - **No live external data.** Court records, land records (7/12 portals) and news come from seeded/generated data. Public Indian court and land-record sites have no official API; they would need scraping or paid providers.
 - **Survey numbers, owners and coordinates in the dataset are generated**, not real. Coordinates are locality centres ±400 m.
-- **Notifications are stored in-app only** — no email, SMS or WhatsApp is actually sent.
+- **Alerts are in-app only** — nothing is sent by email, SMS or WhatsApp (no provider is connected), and the only event that raises one is a property's risk rising to High/Critical.
 - **Marathi vs English names are compared by sound, not proof.** A built-in rule-based transliterator (offline) plus phonetic matching handles common names well (all 56 names and places in the test set score ≥ 0.8), but a Marathi name can be spelled several ways in English. Without Claude, a low score is reported as *can't confirm — verify manually*, never as a mismatch; with Claude's spellings it becomes a real mismatch. Names sharing a first name (*Prashant Kulkarni* vs *Prashant Kale*) come out as *partial*.
 - **OCR quality depends on the scan.** Clean scans read at ~93–94% confidence; degraded ones drop to ~55–60% and are routed to manual review rather than trusted.
 - **Flats in one building share a real-world survey number**; the dataset gives each flat its own so the matcher doesn't flag every neighbour.

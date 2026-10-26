@@ -1,6 +1,7 @@
 // src/app/api/documents/[id]/route.ts
 
 import { NextRequest } from "next/server";
+import { recordAudit } from "@/lib/audit";
 import { authenticate, apiSuccess, apiError } from "@/lib/auth/middleware";
 import { getDocumentById, deleteDocument, triggerOcr } from "@/modules/documents/document.service";
 
@@ -29,6 +30,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 
   try {
     await deleteDocument(auth.tenantId, id);
+    await recordAudit({ tenantId: auth.tenantId, userId: auth.userId, action: "document.delete", resourceType: "document", resourceId: id }, request);
     return apiSuccess({ message: "Document deleted" });
   } catch (error: any) {
     if (error.message === "Document not found") return apiError(error.message, 404);

@@ -100,7 +100,7 @@ export async function sendNotification(
       body,
       status: "SENDING",
       priority: priority.toUpperCase(),
-      dataPayload: metadata || {},
+      dataPayload: JSON.stringify(metadata || {}),
       createdAt: new Date(),
     },
   });
@@ -213,7 +213,7 @@ export async function getUserNotifications(
 
   if (input.status === "unread") where.readAt = null;
   if (input.status === "read") where.readAt = { not: null };
-  if (input.channel !== "all") where.channel = input.channel.toUpperCase();
+  if (input.channel !== "all") where.channel = input.channel;
 
   const skip = (input.page - 1) * input.limit;
 
@@ -233,6 +233,50 @@ export async function getUserNotifications(
     total,
     unread,
   };
+}
+
+// ─── Risk escalation alerts (the one event PropIntel raises on its own) ───
+
+const LEVEL_RANK: Record<string, number> = { MINIMAL: 0, LOW: 1, MODERATE: 2, HIGH: 3, CRITICAL: 4 };
+const pretty = (level: string) => level.charAt(0) + level.slice(1).toLowerCase();
+
+/** True when a score has just crossed UP into High or Critical — the moment someone should be told. */
+export function isRiskEscalation(previous: string | null | undefined, current: string): boolean {
+  if (!previous) return false; // first score for a property (e.g. a bulk import) isn't news
+  return (LEVEL_RANK[current] ?? 0) >= LEVEL_RANK.HIGH && (LEVEL_RANK[current] ?? 0) > (LEVEL_RANK[previous] ?? 0);
+}
+
+/**
+ * In-app alert to the property's owner and broker and the tenant's agency admins.
+ * Email / WhatsApp / SMS are not connected, so nothing is claimed to be sent through them.
+ */
+export async function notifyRiskEscalation(
+  tenantId: string,
+  propertyId: string,
+  previous: string,
+  current: string,
+  score: number,
+): Promise<number> {
+  const property = await prisma.property.findFirst({
+    where: { id: propertyId, tenantId },
+    select: { title: true, ownerId: true, brokerId: true },
+  });
+  if (!property) return 0;
+
+  const admins: { id: string }[] = await prisma.user.findMany({
+    where: { tenantId, isActive: true, role: { name: "agency_admin" } },
+    select: { id: true },
+  });
+  const recipients = [...new Set([property.ownerId, property.brokerId, ...admins.map((a) => a.id)].filter(Boolean))] as string[];
+
+  const subject = `Risk raised to ${pretty(current)}`;
+  const body = `${property.title} moved from ${pretty(previous)} to ${pretty(current)} (${score}/100).`;
+  const priority: NotificationPriority = current === "CRITICAL" ? "urgent" : "high";
+
+  for (const userId of recipients) {
+    await sendNotification(tenantId, userId, "in_app", subject, body, priority, { eventType: "risk_alert", propertyId, previous, current, score });
+  }
+  return recipients.length;
 }
 
 export async function markAsRead(notificationId: string, userId: string): Promise<void> {

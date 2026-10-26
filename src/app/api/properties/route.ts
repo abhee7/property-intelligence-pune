@@ -3,6 +3,7 @@
 // POST /api/properties  — create new property
 
 import { NextRequest } from "next/server";
+import { recordAudit } from "@/lib/audit";
 import { authenticate, apiSuccess, apiError } from "@/lib/auth/middleware";
 import { propertySearchSchema, createPropertySchema } from "@/lib/validation/property.schema";
 import { searchProperties, createProperty, getPropertyStats, findDuplicates } from "@/modules/properties/property.service";
@@ -78,6 +79,7 @@ export async function POST(request: NextRequest) {
     }
 
     const property = await createProperty(auth.tenantId, auth.userId, parsed.data);
+    await recordAudit({ tenantId: auth.tenantId, userId: auth.userId, action: "property.create", resourceType: "property", resourceId: (property as any)?.id, metadata: { surveyNumber: parsed.data.surveyNumber } }, request);
 
     return apiSuccess({ property }, 201);
   } catch (error) {

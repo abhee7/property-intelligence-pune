@@ -4,6 +4,7 @@
 // and saves the result (RiskScore + one RiskScoreFactor per factor).
 
 import { prisma } from "@/lib/db/client";
+import { isRiskEscalation, notifyRiskEscalation } from "@/modules/notifications/notification.service";
 import { decideNarrative, generateAiNarrative, hashNarrativeInput, buildNarrativeInput, type NarrativeTrigger } from "./risk.narrative";
 import { getAiConfig } from "@/lib/ai/claude";
 import { computeRisk, DEFAULT_FACTOR_WEIGHTS, FACTOR_NAMES, type FactorKey, type RiskComputation, type RiskInputs } from "./risk.engine";
@@ -204,6 +205,15 @@ export async function computeAndSaveRisk(tenantId: string, propertyId: string, o
   const saved = await runExclusive(() => computeAndSaveRiskNow(tenantId, propertyId, undefined, trigger));
   if (!saved) return null;
 
+  // Tell people when a property has just become High / Critical (never during a bulk recalculation)
+  if (trigger !== "bulk" && isRiskEscalation(saved.previousLevel, saved.result.riskLevel)) {
+    try {
+      await runExclusive(() => notifyRiskEscalation(tenantId, propertyId, saved.previousLevel!, saved.result.riskLevel, saved.result.overallScore));
+    } catch (err) {
+      console.warn("[risk] could not send the escalation alert:", (err as Error)?.message || err);
+    }
+  }
+
   const status: NarrativeStatus = { source: saved.decision === "keep" ? "kept" : "rules", requested: trigger === "manual" };
 
   // The Claude call happens OUTSIDE the database queue so a slow API call never blocks other risk updates.
@@ -245,7 +255,7 @@ async function computeAndSaveRiskNow(
   const expiresAt = new Date(now.getTime() + RISK_VALIDITY_DAYS * 86400000);
 
   // Keep an existing Claude narrative while the data it describes hasn't changed
-  const existing = await prisma.riskScore.findUnique({ where: { propertyId }, select: { narrativeSource: true, inputsHash: true } });
+  const existing = await prisma.riskScore.findUnique({ where: { propertyId }, select: { narrativeSource: true, inputsHash: true, riskLevel: true } });
   const cfg = getAiConfig();
   const header = { title: "", locality: null as string | null, status: "" };
   const hash = hashNarrativeInput(buildNarrativeInput(result, header)); // hash ignores the property header
@@ -294,7 +304,7 @@ async function computeAndSaveRiskNow(
     }
   });
 
-  return { result, hash, decision, property };
+  return { result, hash, decision, property, previousLevel: (existing?.riskLevel as string | undefined) ?? null };
 }
 
 export function recomputeAllRisk(tenantId: string): Promise<{ updated: number; failed: number; byLevel: Record<string, number>; durationMs: number }> {

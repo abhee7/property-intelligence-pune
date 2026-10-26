@@ -7,7 +7,7 @@ import { vi } from "vitest";
 
 vi.mock("@/lib/db/client", () => ({
   prisma: {
-    user: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), count: vi.fn(), findMany: vi.fn() },
+    user: { findFirst: vi.fn(), findUnique: vi.fn(), create: vi.fn(), update: vi.fn(), updateMany: vi.fn(), count: vi.fn(), findMany: vi.fn() },
     tenant: { findUnique: vi.fn(), create: vi.fn() },
     tenantSettings: { findUnique: vi.fn(), create: vi.fn() },
     role: { findUnique: vi.fn() },
@@ -20,7 +20,7 @@ vi.mock("@/lib/db/client", () => ({
     newspaperPropertyMention: { findMany: vi.fn() },
     userSession: { create: vi.fn(), findFirst: vi.fn(), delete: vi.fn(), deleteMany: vi.fn() },
     loginAttempt: { create: vi.fn() },
-    auditLog: { findMany: vi.fn(), count: vi.fn() },
+    auditLog: { create: vi.fn(), findMany: vi.fn(), count: vi.fn() },
     $queryRaw: vi.fn().mockResolvedValue([{ "?column?": 1 }]),
   },
   runWithTenant: vi.fn((_, fn) => fn()),

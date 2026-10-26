@@ -1,6 +1,7 @@
 // src/app/api/auth/login/route.ts
 
 import { NextRequest } from "next/server";
+import { recordAudit } from "@/lib/audit";
 import { prisma } from "@/lib/db/client";
 import { loginSchema } from "@/lib/validation/auth.schema";
 import { verifyPassword } from "@/lib/auth/password";
@@ -103,6 +104,8 @@ export async function POST(request: NextRequest) {
         success: true,
       },
     });
+
+    await recordAudit({ tenantId: user.tenantId, userId: user.id, action: "auth.login", resourceType: "user", resourceId: user.id }, request);
 
     // Build response user object
     const authUser: AuthUser = {
