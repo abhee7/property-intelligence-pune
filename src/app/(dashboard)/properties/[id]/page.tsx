@@ -333,7 +333,7 @@ export default function PropertyDetailsPage({ params }: { params: Promise<{ id: 
                   Summary
                   {property.riskScore.narrativeSource === "ai" ? (
                     <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-200 text-[10px] font-bold" title="Every number in this text was checked against the report data">
-                      <Sparkles className="w-3 h-3" /> Written by Claude{property.riskScore.narrativeModel ? ` · ${property.riskScore.narrativeModel}` : ""}
+                      <Sparkles className="w-3 h-3" /> Written by AI{property.riskScore.narrativeModel ? ` · ${property.riskScore.narrativeModel}` : ""}
                     </span>
                   ) : (
                     <span className="px-2 py-0.5 rounded-full bg-white/[0.06] text-platinum/50 text-[10px] font-bold">Rule-based</span>

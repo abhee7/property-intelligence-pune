@@ -1,4 +1,4 @@
-// Has Claude write the risk narrative for the highest-risk properties.
+// Has the configured AI model (Claude or Gemini) write the risk narrative for the highest-risk properties.
 //
 //   npm run risk:narratives                    → shows the plan and cost estimate, spends nothing
 //   npm run risk:narratives -- --yes           → does it (default: top 20)
@@ -8,6 +8,7 @@
 
 import { prisma } from "../src/lib/db/client";
 import { getAiConfig, getAiUsage } from "../src/lib/ai/claude";
+import { describeProvider } from "../src/lib/ai/provider";
 import { computeAndSaveRisk, waitForRiskIdle } from "../src/modules/risk/risk.service";
 
 const args = process.argv.slice(2);
@@ -18,7 +19,7 @@ const EST_USD_PER_NARRATIVE = 0.03; // ~1.5k input + ~1k output tokens at Opus 5
 async function main() {
   const cfg = getAiConfig();
   if (!cfg.configured) {
-    console.log("No Claude credential found — add ANTHROPIC_API_KEY to .env first.");
+    console.log("No AI credential found — add GEMINI_API_KEY (or ANTHROPIC_API_KEY) to .env first.");
     process.exit(1);
   }
   if (!(limit > 0)) throw new Error("--limit must be a positive number");
@@ -31,8 +32,9 @@ async function main() {
   });
 
   const todo = targets.filter((t) => t.narrativeSource !== "ai"); // quick pre-filter; unchanged data is also skipped inside
-  console.log(`\nTop ${targets.length} properties by risk · ${todo.length} without a Claude narrative · model ${cfg.model}`);
-  console.log(`Estimated cost: ≈ $${(todo.length * EST_USD_PER_NARRATIVE).toFixed(2)} (rough estimate at Opus 5.5 list prices)\n`);
+  console.log(`\nTop ${targets.length} properties by risk · ${todo.length} without an AI narrative · ${describeProvider(cfg)}`);
+  if (cfg.provider === "claude") console.log(`Estimated cost: ≈ $${(todo.length * EST_USD_PER_NARRATIVE).toFixed(2)} (rough estimate at Opus 5.5 list prices)`);
+  console.log();
 
   if (!flag("yes")) {
     console.log("Nothing was sent. Re-run with --yes to generate them.\n");

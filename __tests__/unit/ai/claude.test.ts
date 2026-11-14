@@ -6,7 +6,7 @@ import { z } from "zod/v4";
 import { AiError, callClaude, getAiConfig, getAiUsage, resetAiUsage, toAiError, DEFAULT_MODEL, type AiConfig } from "@/lib/ai/claude";
 
 const cfg = (over: Partial<AiConfig> = {}): AiConfig => ({
-  configured: true, model: DEFAULT_MODEL, narratives: "manual", scanReading: "fallback", transliteration: "auto", refusalFallbacks: true, timeoutMs: 90_000, ...over,
+  configured: true, provider: "claude", model: DEFAULT_MODEL, geminiModel: "gemini-2.5-flash", narratives: "manual", scanReading: "fallback", transliteration: "auto", refusalFallbacks: true, timeoutMs: 90_000, ...over,
 });
 
 const schema = z.object({ answer: z.string() });
@@ -43,6 +43,31 @@ describe("getAiConfig", () => {
     expect(getAiConfig({ AI_NARRATIVES: "banana", AI_SCAN_READING: "" })).toMatchObject({ narratives: "manual", scanReading: "fallback" });
     expect(getAiConfig({ AI_TRANSLITERATION: "off" }).transliteration).toBe("off");
     expect(getAiConfig({ AI_TRANSLITERATION: "banana" }).transliteration).toBe("auto");
+  });
+
+  describe("provider choice", () => {
+    it("is Claude by default and when only a Claude key is set", () => {
+      expect(getAiConfig({})).toMatchObject({ provider: "claude", configured: false });
+      expect(getAiConfig({ ANTHROPIC_API_KEY: "sk-ant-x" })).toMatchObject({ provider: "claude", configured: true });
+    });
+    it("uses Gemini automatically when only a Gemini key is set", () => {
+      expect(getAiConfig({ GEMINI_API_KEY: "AIza-x" })).toMatchObject({ provider: "gemini", configured: true, geminiModel: "gemini-2.5-flash" });
+      expect(getAiConfig({ GOOGLE_API_KEY: "AIza-y" })).toMatchObject({ provider: "gemini", configured: true });
+    });
+    it("prefers Claude when both keys are set, unless told otherwise", () => {
+      const both = { ANTHROPIC_API_KEY: "sk-ant-x", GEMINI_API_KEY: "AIza-x" };
+      expect(getAiConfig(both).provider).toBe("claude");
+      expect(getAiConfig({ ...both, AI_PROVIDER: "gemini" })).toMatchObject({ provider: "gemini", configured: true });
+    });
+    it("reports not configured when the forced provider has no key", () => {
+      expect(getAiConfig({ AI_PROVIDER: "gemini", ANTHROPIC_API_KEY: "sk-ant-x" })).toMatchObject({ provider: "gemini", configured: false });
+      expect(getAiConfig({ AI_PROVIDER: "claude", GEMINI_API_KEY: "AIza-x" })).toMatchObject({ provider: "claude", configured: false });
+    });
+    it("ignores blank keys, reads the Gemini model override and falls back on a bad provider value", () => {
+      expect(getAiConfig({ GEMINI_API_KEY: "   " }).configured).toBe(false);
+      expect(getAiConfig({ GEMINI_API_KEY: "k", GEMINI_MODEL: "gemini-2.5-pro" }).geminiModel).toBe("gemini-2.5-pro");
+      expect(getAiConfig({ GEMINI_API_KEY: "k", AI_PROVIDER: "banana" }).provider).toBe("gemini");
+    });
   });
 });
 

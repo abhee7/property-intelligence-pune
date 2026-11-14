@@ -12,7 +12,9 @@
 
 import { createHash } from "crypto";
 import { z } from "zod/v4";
-import { AiError, callClaude, getAiConfig, type ClaudeClientLike, type NarrativeMode } from "@/lib/ai/claude";
+import { AiError, getAiConfig, type ClaudeClientLike, type NarrativeMode } from "@/lib/ai/claude";
+import { callAi } from "@/lib/ai/provider";
+import type { GeminiClientLike } from "@/lib/ai/gemini";
 import type { RiskComputation } from "./risk.engine";
 
 // ─── Types ───
@@ -136,13 +138,13 @@ export type NarrativeOutcome = { ok: true; text: string; model: string } | { ok:
 export async function generateAiNarrative(
   result: RiskComputation,
   property: NarrativeProperty,
-  deps: { client?: ClaudeClientLike } = {},
+  deps: { client?: ClaudeClientLike; geminiClient?: GeminiClientLike } = {},
 ): Promise<NarrativeOutcome> {
   const cfg = getAiConfig();
   const input = buildNarrativeInput(result, property);
 
   try {
-    const { data, model } = await callClaude(
+    const { data, model } = await callAi(
       {
         purpose: "narrative",
         system: NARRATIVE_SYSTEM_PROMPT,
@@ -151,13 +153,13 @@ export async function generateAiNarrative(
         effort: "low",
         maxTokens: 8_000,
       },
-      { client: deps.client, config: cfg },
+      { client: deps.client, geminiClient: deps.geminiClient, config: cfg },
     );
 
     const check = validateNarrative(data, input);
     if (!check.ok) {
       console.warn(`[ai] narrative rejected (${check.reasons.join("; ")})`);
-      return { ok: false, kind: "ungrounded", reason: `Claude's summary was discarded: ${check.reasons.join("; ")}` };
+      return { ok: false, kind: "ungrounded", reason: `The AI summary was discarded: ${check.reasons.join("; ")}` };
     }
     return { ok: true, text: formatNarrative(data), model };
   } catch (err) {

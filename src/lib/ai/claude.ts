@@ -16,10 +16,14 @@ import type { z } from "zod/v4";
 export type NarrativeMode = "off" | "manual" | "auto";
 export type ScanReadingMode = "off" | "fallback" | "always";
 export type TransliterationMode = "off" | "auto";
+/** Which model provider answers the AI features (see provider.ts). */
+export type AiProvider = "claude" | "gemini";
 
 export interface AiConfig {
-  configured: boolean; // a Claude credential is present in the environment
-  model: string;
+  configured: boolean; // the selected provider has a credential in the environment
+  provider: AiProvider;
+  model: string; // Claude model id (used when provider is "claude")
+  geminiModel: string; // Gemini model id (used when provider is "gemini")
   narratives: NarrativeMode;
   scanReading: ScanReadingMode;
   transliteration: TransliterationMode;
@@ -28,15 +32,23 @@ export interface AiConfig {
 }
 
 export const DEFAULT_MODEL = "claude-opus-5-5";
+export const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
 
 const oneOf = <T extends string>(value: string | undefined, allowed: readonly T[], fallback: T): T =>
   (allowed as readonly string[]).includes((value ?? "").trim().toLowerCase()) ? ((value as string).trim().toLowerCase() as T) : fallback;
 
 export function getAiConfig(env: Record<string, string | undefined> = process.env): AiConfig {
-  const configured = !!(env.ANTHROPIC_API_KEY?.trim() || env.ANTHROPIC_AUTH_TOKEN?.trim());
+  const hasClaudeKey = !!(env.ANTHROPIC_API_KEY?.trim() || env.ANTHROPIC_AUTH_TOKEN?.trim());
+  const hasGeminiKey = !!(env.GEMINI_API_KEY?.trim() || env.GOOGLE_API_KEY?.trim());
+  // AI_PROVIDER = claude | gemini | auto (default). Auto uses whichever key is present, Claude first if both are.
+  const requested = oneOf(env.AI_PROVIDER, ["auto", "claude", "gemini"] as const, "auto");
+  const provider: AiProvider = requested === "auto" ? (hasClaudeKey ? "claude" : hasGeminiKey ? "gemini" : "claude") : requested;
+  const configured = provider === "gemini" ? hasGeminiKey : hasClaudeKey;
   return {
     configured,
+    provider,
     model: env.ANTHROPIC_MODEL?.trim() || DEFAULT_MODEL,
+    geminiModel: env.GEMINI_MODEL?.trim() || DEFAULT_GEMINI_MODEL,
     // narratives: "manual" (default) = only when someone asks; "auto" = also after document/match events
     narratives: oneOf(env.AI_NARRATIVES, ["off", "manual", "auto"] as const, "manual"),
     // scan reading: "fallback" (default) = only when Tesseract isn't confident; "always" = every document
@@ -110,6 +122,15 @@ export interface AiUsageTotals {
 }
 const usage: AiUsageTotals = { calls: 0, inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, fallbacks: 0 };
 export const getAiUsage = (): AiUsageTotals => ({ ...usage });
+/** Shared by every provider so the usage totals and the log line look the same. */
+export function recordAiUsage(entry: { purpose: string; model: string; inputTokens: number; outputTokens: number; cacheReadTokens?: number; durationMs: number; usedFallback?: boolean }) {
+  usage.calls++;
+  usage.inputTokens += entry.inputTokens;
+  usage.outputTokens += entry.outputTokens;
+  usage.cacheReadTokens += entry.cacheReadTokens ?? 0;
+  if (entry.usedFallback) usage.fallbacks++;
+  console.info(`[ai] ${entry.purpose}: ${entry.model} · ${entry.inputTokens} in / ${entry.outputTokens} out · ${entry.durationMs} ms${entry.usedFallback ? " · served by fallback model" : ""}`);
+}
 export const resetAiUsage = () => Object.assign(usage, { calls: 0, inputTokens: 0, outputTokens: 0, cacheReadTokens: 0, fallbacks: 0 });
 
 // ─── The call ───
@@ -130,6 +151,10 @@ export interface ClaudeResult<T> {
   outputTokens: number;
   usedFallback: boolean;
 }
+
+/** The same request/response shapes serve every provider (see provider.ts). */
+export type AiCall<T> = ClaudeCall<T>;
+export type AiResult<T> = ClaudeResult<T>;
 
 const FALLBACK_BETA = "server-side-fallback-2026-07-01";
 
@@ -179,12 +204,7 @@ export async function callClaude<T>(call: ClaudeCall<T>, deps: { client?: Claude
   const outputTokens = response.usage?.output_tokens ?? 0;
   const usedFallback = (response.usage?.iterations ?? []).some((i: any) => i?.type === "fallback_message");
 
-  usage.calls++;
-  usage.inputTokens += inputTokens;
-  usage.outputTokens += outputTokens;
-  usage.cacheReadTokens += response.usage?.cache_read_input_tokens ?? 0;
-  if (usedFallback) usage.fallbacks++;
-  console.info(`[ai] ${call.purpose}: ${response.model ?? cfg.model} · ${inputTokens} in / ${outputTokens} out · ${Date.now() - started} ms${usedFallback ? " · served by fallback model" : ""}`);
+  recordAiUsage({ purpose: call.purpose, model: response.model ?? cfg.model, inputTokens, outputTokens, cacheReadTokens: response.usage?.cache_read_input_tokens ?? 0, durationMs: Date.now() - started, usedFallback });
 
   return { data: response.parsed_output as T, model: response.model ?? cfg.model, inputTokens, outputTokens, usedFallback };
 }

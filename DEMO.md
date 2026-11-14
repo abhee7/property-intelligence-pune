@@ -53,9 +53,9 @@ npm run demo:docs                    # (re)creates the files in demo-docs/ (3 En
 
 > Second example if asked: **2 BHK Apartment in R7 LIFE REPUBLIC, Hinjawadi — 79** has a fraud case *and* a stay order.
 
-> **Optional, if a Claude API key is configured:** on this same tab press **Explain with AI**. After a few seconds the
-> *Summary* box shows a purple **Written by Claude** badge and a plain-English explanation with suggested next steps,
-> built only from the evidence listed below it. Say: *"Claude doesn't score anything — the rules do. It only explains the
+> **Optional, if a Gemini or Claude API key is configured:** on this same tab press **Explain with AI**. After a few seconds the
+> *Summary* box shows a purple **Written by AI** badge and a plain-English explanation with suggested next steps,
+> built only from the evidence listed below it. Say: *"The AI model doesn't score anything — the rules do. It only explains the
 > result, and any number it writes that isn't in the report is rejected."* (Run `npm run risk:narratives -- --yes` beforehand
 > to have the top 20 ready, so you don't wait on the live call.)
 
@@ -135,12 +135,12 @@ review instead of accusing the property of a mismatch."*
 |---|---|
 | **Is the data real?** | The 930 listings (price, area, society, locality…) are real, from a public Kaggle dataset. Survey numbers, owners, coordinates and court cases are **generated** to make the legal features demonstrable — and tagged as such in the data. |
 | **How accurate is the OCR?** | ~93–94% confidence on clean scans. Degraded scans drop to ~55–60% and are sent to manual review rather than trusted. English first, Marathi as a fallback. |
-| **Does it use AI / an LLM?** | Deliberately only where it helps. Scoring and matching are transparent rules — every score is explainable. Claude is an *optional* layer: it writes the plain-English summary (checked so it can't state a number that isn't in the report) and re-reads scans Tesseract can't (only when Tesseract is unsure). With no API key everything still works. |
-| **What data goes to Claude?** | Summaries: only the property title, locality, status and the computed score/evidence — no owner names or contact details. Scan reading: the document image/PDF itself, so it's switchable (`AI_SCAN_READING=off`). |
-| **Can Claude make a mistake in a summary?** | It's constrained: it only sees the computed report, every number it writes is checked against that report, and a failed check discards its text and shows the rule-based one. It's labelled "Written by Claude" so a reader always knows. |
+| **Does it use AI / an LLM?** | Deliberately only where it helps. Scoring and matching are transparent rules — every score is explainable. An AI model (Gemini or Claude) is an *optional* layer: it writes the plain-English summary (checked so it can't state a number that isn't in the report) and re-reads scans Tesseract can't (only when Tesseract is unsure). With no API key everything still works. |
+| **What data goes to the AI model?** | Summaries: only the property title, locality, status and the computed score/evidence — no owner names or contact details. Scan reading: the document image/PDF itself, so it's switchable (`AI_SCAN_READING=off`). |
+| **Can the AI make a mistake in a summary?** | It's constrained: it only sees the computed report, every number it writes is checked against that report, and a failed check discards its text and shows the rule-based one. It's labelled "Written by AI" so a reader always knows. |
 | **Why is almost everything "Moderate"?** | Because 862 properties have no verified documents, and the engine counts "unverified" as +15 risk. Uploading documents is what moves them. |
 | **Why can't I just trust the OCR?** | You can't — so it never decides alone: low-confidence fields are held back, and matches/mismatches are suggestions for a human reviewer. |
-| **What about Marathi owner names?** | They're transliterated (offline rules, plus Claude's spellings if a key is set) and compared by sound. A weak match without Claude is shown as *can't confirm — verify manually*, not as an accusation; with Claude's spellings it can be a real mismatch. |
+| **What about Marathi owner names?** | They're transliterated (offline rules, plus the AI model's spellings if a key is set) and compared by sound. A weak match without the AI model is shown as *can't confirm — verify manually*, not as an accusation; with Claude's spellings it can be a real mismatch. |
 | **Can it scale?** | It's a single-process prototype on SQLite. The scoring is pure functions and the data layer is isolated, so moving to PostgreSQL + a job queue is a contained change. |
 
 ## If something goes wrong

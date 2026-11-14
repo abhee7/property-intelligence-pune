@@ -7,6 +7,7 @@ import { prisma } from "@/lib/db/client";
 import { isRiskEscalation, notifyRiskEscalation } from "@/modules/notifications/notification.service";
 import { decideNarrative, generateAiNarrative, hashNarrativeInput, buildNarrativeInput, type NarrativeTrigger } from "./risk.narrative";
 import { getAiConfig } from "@/lib/ai/claude";
+import { NO_KEY_HINT } from "@/lib/ai/provider";
 import { computeRisk, DEFAULT_FACTOR_WEIGHTS, FACTOR_NAMES, type FactorKey, type RiskComputation, type RiskInputs } from "./risk.engine";
 
 const RISK_VALIDITY_DAYS = 30;
@@ -226,7 +227,7 @@ export async function computeAndSaveRisk(tenantId: string, propertyId: string, o
       Object.assign(status, { ok: false, reason: outcome.reason, kind: outcome.kind });
     }
   } else if (trigger === "manual" && saved.decision === "rules") {
-    Object.assign(status, { ok: false, kind: "disabled", reason: getAiConfig().configured ? "AI narratives are switched off (AI_NARRATIVES=off)" : "No Claude API key is configured — add ANTHROPIC_API_KEY to .env" });
+    Object.assign(status, { ok: false, kind: "disabled", reason: getAiConfig().configured ? "AI narratives are switched off (AI_NARRATIVES=off)" : NO_KEY_HINT });
   }
 
   return { ...saved.result, narrativeStatus: status };

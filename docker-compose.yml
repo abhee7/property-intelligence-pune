@@ -17,6 +17,9 @@ x-app-env: &app-env
   PROVIDER_STORAGE: local
   OCR_LANGS: ${OCR_LANGS:-eng+mar}
   # Optional Claude features — empty key = off (see README → AI features)
+  GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+  GEMINI_MODEL: ${GEMINI_MODEL:-gemini-2.5-flash}
+  AI_PROVIDER: ${AI_PROVIDER:-auto}
   ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
   ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-opus-5-5}
   AI_NARRATIVES: ${AI_NARRATIVES:-manual}

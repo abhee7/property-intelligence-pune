@@ -59,7 +59,7 @@ that with court cases and news into a **0–100 risk score** — with the eviden
 
 | Feature | How it works |
 |---|---|
-| **Document OCR** | Upload a PDF or image. Digital PDFs are read directly; scans go through [Tesseract](https://github.com/naptha/tesseract.js) (English first, English + Marathi as a fallback) after speckle removal and contrast cleanup. Runs fully offline. *Optionally,* Claude re-reads scans Tesseract is unsure about ([AI features](#ai-features-optional)). |
+| **Document OCR** | Upload a PDF or image. Digital PDFs are read directly; scans go through [Tesseract](https://github.com/naptha/tesseract.js) (English first, English + Marathi as a fallback) after speckle removal and contrast cleanup. Runs fully offline. *Optionally,* an AI model (Gemini or Claude) re-reads scans Tesseract is unsure about ([AI features](#ai-features-optional)). |
 | **Field extraction** | Pulls survey number, owner, village, taluka, area (converts guntha / acre / hectare / `H.R` to sq ft), date, registration number and amount — English and Marathi labels, Devanagari digits, OCR debris stripped. |
 | **Verification** | Compares each extracted field with the property record and reports *match / partial / mismatch / can't compare* — including Marathi (Devanagari) owner names and villages against the English record, by transliteration and phonetic matching. Warns if a document isn't the type it was uploaded as, or describes a *different* property. A shaky scan never produces a false accusation — those fields are held back for manual review. |
 | **Duplicate & conflict matching** | Compares every pair of properties on survey number (35%), owner (25%), village (15%), area, price and coordinates. Flags exact/likely duplicates and **ownership conflicts** (same survey number, different owner). Reviewers confirm or dismiss; decisions persist. |
@@ -91,7 +91,7 @@ that with court cases and news into a **0–100 risk score** — with the eviden
 ## Tech stack
 
 Next.js 15 (App Router) · React 19 · TypeScript · Tailwind CSS · Prisma 6 + SQLite ·
-tesseract.js · pdfjs-dist · sharp · Leaflet · Recharts · Zod · Vitest · optional Claude (`@anthropic-ai/sdk`)
+tesseract.js · pdfjs-dist · sharp · Leaflet · Recharts · Zod · Vitest · optional AI: Google Gemini (`@google/genai`) or Claude (`@anthropic-ai/sdk`)
 
 ---
 
@@ -151,7 +151,7 @@ How it is put together: one image serves the app (Next.js "standalone" build on 
 Dockerfile runs the setup, and a single volume `/data` holds the SQLite database, uploaded documents and the OCR cache —
 so nothing is lost when containers are rebuilt. OCR language data is baked into the image, so scanning works offline.
 Secrets are never copied into an image: pass `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET` and (optionally)
-`ANTHROPIC_API_KEY` through your shell or a `.env` file next to `docker-compose.yml`. **Set real JWT secrets** outside local use.
+`GEMINI_API_KEY` (or `ANTHROPIC_API_KEY`) through your shell or a `.env` file next to `docker-compose.yml`. **Set real JWT secrets** outside local use.
 
 > **Verified.** `docker compose up --build` was run from an empty volume on Docker Desktop 4.77 (Windows, Linux
 > engine): the images built, the one-shot setup imported 944 properties and read 88 sample documents with OCR (about
@@ -231,27 +231,29 @@ weighted average, then adjusted:
 
 Every factor stores its evidence (e.g. *"Active title dispute case MA/9000/2021 (impact 72%)"*), shown
 on the property's **AI Risk Intelligence** tab. Tenants can override the weights in
-`TenantSettings.riskWeights`. By default the narrative text is generated from the rules; with a Claude API key
-you can have Claude write it instead — see [AI features](#ai-features-optional).
+`TenantSettings.riskWeights`. By default the narrative text is generated from the rules; with an AI key (Gemini or Claude)
+you can have the model write it instead — see [AI features](#ai-features-optional).
 
 ---
 
 ## AI features (optional)
 
-PropIntel works fully without any AI. Add a Claude API key and three things get better — both clearly labelled in the UI,
-and both fall back silently to the built-in behaviour if anything goes wrong (no key, API down, a refusal, a bad answer).
+PropIntel works fully without any AI. Add an API key — **Google Gemini** or **Anthropic Claude**, your choice — and three
+things get better, all clearly labelled in the UI, and all falling back silently to the built-in behaviour if anything
+goes wrong (no key, API down, a refusal, a bad answer).
 
-| | What Claude does | What it never does |
+| | What the AI model does | What it never does |
 |---|---|---|
-| **Risk narrative** | Explains a property's score in plain English with suggested next steps ("Explain with AI" on the risk tab). | Score anything. The rules compute the score; Claude only explains it. Any number it writes that isn't in the report data causes its text to be **discarded**. |
+| **Risk narrative** | Explains a property's score in plain English with suggested next steps ("Explain with AI" on the risk tab). | Score anything. The rules compute the score; the model only explains it. Any number it writes that isn't in the report data causes its text to be **discarded**. |
 | **Scan reading** | Transcribes scans Tesseract can't read confidently (photos, stamps, skew, fading, handwriting, Marathi). The normal extractor and verification then run on that text. | Decide a field value. A reading rated "poor" is never used, and a low-confidence scan is routed to manual review. |
 | **Marathi name spelling** | Writes a Marathi owner name or village in English letters (`प्रशांत कुलकर्णी` → *Prashant Kulkarni / Kulkarny*) so it can be compared with the English record. Each name is asked once and cached in the `Transliteration` table. | Decide whether two people are the same. It only spells; the phonetic matcher does the comparing. Anything that isn't plain Latin letters is discarded. |
 
 **Enable it**
 
 ```bash
-# 1. put your key in .env
-ANTHROPIC_API_KEY="sk-ant-..."
+# 1. put ONE key in .env (never commit it — .env is git-ignored)
+GEMINI_API_KEY="..."            # from https://aistudio.google.com/apikey
+# or: ANTHROPIC_API_KEY="sk-ant-..."
 
 # 2. check it works (≈ a few cents, writes nothing to the database)
 npm run ai:check
@@ -265,18 +267,22 @@ npm run risk:narratives -- --yes
 
 | Variable | Values | Default |
 |---|---|---|
-| `ANTHROPIC_API_KEY` | your key | empty = AI off |
+| `GEMINI_API_KEY` | your Google AI Studio key (`GOOGLE_API_KEY` also works) | empty = AI off |
+| `ANTHROPIC_API_KEY` | your Anthropic key | empty = AI off |
+| `AI_PROVIDER` | `auto` (whichever key is set; Claude first if both) · `gemini` · `claude` | `auto` |
+| `GEMINI_MODEL` | any Gemini model id | `gemini-2.5-flash` (use `gemini-2.5-pro` for higher quality) |
 | `AI_NARRATIVES` | `off` · `manual` (button / script only) · `auto` (also after document and match events) | `manual` |
 | `AI_SCAN_READING` | `off` · `fallback` (only when Tesseract is unsure) · `always` | `fallback` |
 | `AI_TRANSLITERATION` | `off` · `auto` (only used when a Marathi value faces an English record) | `auto` |
 | `ANTHROPIC_MODEL` | any Claude model id | `claude-opus-5-5` (use `claude-sonnet-5-5` to cut cost) |
-| `AI_REFUSAL_FALLBACKS` | `on` · `off` — re-run a declined request on a fallback model server-side | `on` |
+| `AI_REFUSAL_FALLBACKS` | `on` · `off` — Claude only: re-run a declined request on a fallback model server-side | `on` |
 
-**Cost and caching.** A narrative is roughly 1–2k tokens in and out, so a few cents on the default model; a scan read
-costs more (it sends an image). Nothing is called in bulk: recalculating all properties never calls Claude, and a property
-whose data hasn't changed since its last Claude narrative is not sent again. Per-call token usage is logged (`[ai] …`).
+**Cost and caching.** A narrative is roughly 1–2k tokens in and out — a few cents with Claude, and often free within
+Gemini's free tier (check Google's current limits for your model); a scan read costs more (it sends an image). Nothing is
+called in bulk: recalculating all properties never calls the model, and a property whose data hasn't changed since its
+last AI narrative is not sent again. Rate limits are retried with a short back-off. Per-call token usage is logged (`[ai] …`).
 
-**Privacy — what leaves your machine**
+**Privacy — what leaves your machine** (to whichever provider you configured)
 
 - **Narratives:** the property title, locality, status, and the computed score, factor evidence and flags. **No** owner
   names, phone numbers, emails or documents.
@@ -284,11 +290,14 @@ whose data hasn't changed since its last Claude narrative is not sent again. Per
   documents must not leave the machine. The sample-document generator never uses it.
 - **Marathi names:** only the Devanagari owner name / village found in the document (text, no image), and only when it
   has to be compared with an English record. Set `AI_TRANSLITERATION=off` to keep them local.
+- **Check your provider's terms.** Some free API tiers (Gemini's included) may use submitted content to improve their
+  products; paid tiers generally don't. Don't send real owners' documents through a plan whose terms you haven't read.
 
-**Tested how.** The integration is covered by unit tests with a fake client (request shape, refusals, truncation, a rejected
-beta, invented numbers, when Claude's reading should or shouldn't replace Tesseract's) and was exercised end to end against
-a local stand-in for the API. It has **not** been run against the live API in this repository — run `npm run ai:check`
-once with your key to confirm, and check the reading quality on your own scans.
+**Tested how.** The integration is covered by unit tests with a fake client (request shape, refusals and blocked answers,
+truncation, a rejected beta, invented numbers, retries, when the model's reading should or shouldn't replace Tesseract's)
+and was exercised end to end against local stand-ins for both APIs. Unless the key you added has been through
+`npm run ai:check`, treat it as **not yet run against the live API** — run it once with your key, and check the reading
+quality on your own scans.
 
 ---
 
@@ -312,9 +321,9 @@ Full details, including exactly what is real and what is not: [`data/pune-real-e
 | `npm run ocr:setup` | Download OCR language data |
 | `npm run dataset:import` | Import the Pune dataset (`--keep-existing`, `--seed N`) |
 | `npm run dataset:documents` | Generate sample documents and OCR them (`--reset`) |
-| `npm run risk:recompute` | Re-run matching and re-score every property (never calls Claude) |
-| `npm run ai:check` | Check your Claude key: writes one sample narrative and reads one degraded scan (needs `ANTHROPIC_API_KEY`) |
-| `npm run risk:narratives` | Have Claude write narratives for the highest-risk properties (dry run unless `--yes`) |
+| `npm run risk:recompute` | Re-run matching and re-score every property (never calls the AI model) |
+| `npm run ai:check` | Check your AI key (Gemini or Claude): one sample narrative, one degraded scan, two Marathi names; writes nothing to the database |
+| `npm run risk:narratives` | Have the AI model write narratives for the highest-risk properties (dry run unless `--yes`) |
 | `npm run smoke:standalone` | Run the production "standalone" build (what Docker serves) and check DB, login, OCR and PDF reading (after `npm run build`) |
 | `npm run smoke:risk` | Live end-to-end check of matching → risk (needs `npm run dev`) |
 | `npm run demo:docs` | Create the files used in the live demo — see [DEMO.md](DEMO.md) |
@@ -349,7 +358,7 @@ All routes need `Authorization: Bearer <token>` (from `POST /api/auth/login`) an
 ## Testing
 
 ```bash
-npm run test:run     # 290+ tests: OCR extraction, verification, matching, risk, dataset, Claude integration, auth, validation
+npm run test:run     # 430+ tests: OCR extraction, verification, matching, risk, dataset, AI integration (Claude and Gemini), auth, validation
 npm run typecheck
 npm run lint
 ```

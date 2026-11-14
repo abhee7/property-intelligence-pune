@@ -16,7 +16,9 @@
 
 import { z } from "zod/v4";
 import { prisma } from "@/lib/db/client";
-import { callClaude, getAiConfig, type ClaudeClientLike } from "@/lib/ai/claude";
+import { getAiConfig, type ClaudeClientLike } from "@/lib/ai/claude";
+import { callAi } from "@/lib/ai/provider";
+import type { GeminiClientLike } from "@/lib/ai/gemini";
 import { hasDevanagariText, transliterateDevanagari } from "@/lib/text/devanagari";
 
 export type TransliterationKind = "person" | "place";
@@ -140,13 +142,13 @@ const MAX_ITEMS_PER_CALL = 20;
 
 export async function resolveTransliterations(
   rawNeeds: TransliterationNeed[],
-  deps: { client?: ClaudeClientLike; store?: TransliterationStore; config?: ReturnType<typeof getAiConfig> } = {},
+  deps: { client?: ClaudeClientLike; geminiClient?: GeminiClientLike; store?: TransliterationStore; config?: ReturnType<typeof getAiConfig> } = {},
 ): Promise<ResolvedTransliterations> {
   const cfg = deps.config ?? getAiConfig();
   const result: ResolvedTransliterations = { spellings: {}, cached: 0, asked: 0 };
   const needs = normaliseNeeds(rawNeeds).slice(0, MAX_ITEMS_PER_CALL);
 
-  if (!needs.length || cfg.transliteration === "off" || (!cfg.configured && !deps.client)) return result;
+  if (!needs.length || cfg.transliteration === "off" || (!cfg.configured && !deps.client && !deps.geminiClient)) return result;
 
   const store = deps.store ?? prismaTransliterationStore;
 
@@ -176,7 +178,7 @@ export async function resolveTransliterations(
       devanagari: n.source,
       rule_based_reading: transliterateDevanagari(n.source), // a hint only; it is often imperfect
     }));
-    const { data, model } = await callClaude(
+    const { data, model } = await callAi(
       {
         purpose: "transliterate",
         system: TRANSLITERATION_SYSTEM_PROMPT,
@@ -185,7 +187,7 @@ export async function resolveTransliterations(
         effort: "low",
         maxTokens: 8_000,
       },
-      { client: deps.client, config: cfg },
+      { client: deps.client, geminiClient: deps.geminiClient, config: cfg },
     );
     result.asked = missing.length;
     result.model = model;

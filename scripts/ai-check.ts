@@ -1,17 +1,18 @@
-// Verifies the Claude integration end to end with your real API key.
+// Verifies the AI integration (Claude or Gemini, whichever key is in .env) end to end with your real API key.
 //
 //   npm run ai:check
 //
 // It makes three small API calls (a few cents in total) and writes NOTHING to the database:
 //   1. writes a risk narrative for the highest-risk property in your data
-//   2. reads a deliberately degraded scan with Claude and compares it with Tesseract
-//   3. asks Claude to spell two Marathi names in English and scores them against the usual spellings
+//   2. reads a deliberately degraded scan with the model and compares it with Tesseract
+//   3. asks the model to spell two Marathi names in English and scores them against the usual spellings
 
 import * as fs from "node:fs";
 import * as path from "node:path";
 import sharp from "sharp";
 import { prisma } from "../src/lib/db/client";
 import { getAiConfig, getAiUsage } from "../src/lib/ai/claude";
+import { describeProvider } from "../src/lib/ai/provider";
 import { computeRisk } from "../src/modules/risk/risk.engine";
 import { gatherRiskInputs } from "../src/modules/risk/risk.service";
 import { buildNarrativeInput, generateAiNarrative, validateNarrative } from "../src/modules/risk/risk.narrative";
@@ -27,15 +28,15 @@ const bad = (m: string) => console.log(`  ✗ ${m}`);
 
 async function main() {
   const cfg = getAiConfig();
-  console.log("\nClaude integration check");
+  console.log("\nAI integration check");
   console.log("========================");
-  console.log(`  model:            ${cfg.model}`);
+  console.log(`  provider / model: ${describeProvider(cfg)}   (AI_PROVIDER)`);
   console.log(`  narratives:       ${cfg.narratives}   (AI_NARRATIVES)`);
   console.log(`  scan reading:     ${cfg.scanReading}   (AI_SCAN_READING)`);
   console.log(`  refusal fallback: ${cfg.refusalFallbacks ? "on" : "off"}`);
 
   if (!cfg.configured) {
-    console.log("\n  No Claude credential found.\n  Add your key to .env as  ANTHROPIC_API_KEY=sk-ant-...  and run this again.\n");
+    console.log(`\n  No ${cfg.provider === "gemini" ? "Gemini" : "AI"} credential found.\n  Add your key to .env as  GEMINI_API_KEY=...  (or ANTHROPIC_API_KEY=sk-ant-...)  and run this again.\n`);
     process.exit(1);
   }
   ok("credential found in the environment");
@@ -59,7 +60,7 @@ async function main() {
 
     const out = await generateAiNarrative(result, header);
     if (out.ok) {
-      ok(`Claude (${out.model}) wrote a grounded narrative:\n`);
+      ok(`${out.model} wrote a grounded narrative:\n`);
       console.log(out.text.split("\n").map((l) => "      " + l).join("\n") + "\n");
       const check = validateNarrative({ summary: out.text.split("\n\n")[0], recommended_actions: ["x"] }, buildNarrativeInput(result, header));
       ok(check.ok ? "every number in it appears in the report data" : `grounding check: ${check.reasons.join("; ")}`);
@@ -86,7 +87,7 @@ async function main() {
     try {
       const reading = await readDocumentWithClaude(raw, "image/jpeg");
       const f = extractFields(reading.text, "seven_twelve");
-      ok(`Claude (${reading.model}): legibility ${reading.legibility}, ${f.found.length}/${f.expected.length} fields → ${JSON.stringify(f.fields)}`);
+      ok(`${reading.model}: legibility ${reading.legibility}, ${f.found.length}/${f.expected.length} fields → ${JSON.stringify(f.fields)}`);
       if (reading.illegibleParts.length) console.log(`      unreadable parts noted: ${reading.illegibleParts.join("; ")}`);
     } catch (e: any) {
       bad(`${e.kind ?? "error"}: ${e.message}`);
@@ -104,13 +105,14 @@ async function main() {
   for (const s of samples) {
     const claude = t.spellings[s.source] ?? [];
     const best = Math.max(0, ...claude.map((c) => matchOwnerNamePhonetic(c, s.english)));
-    console.log(`  ${s.source}  rules: "${transliterateDevanagari(s.source)}"  Claude: ${claude.length ? claude.join(" / ") : "(none)"}  → score vs "${s.english}": ${best.toFixed(2)}`);
+    console.log(`  ${s.source}  rules: "${transliterateDevanagari(s.source)}"  AI: ${claude.length ? claude.join(" / ") : "(none)"}  → score vs "${s.english}": ${best.toFixed(2)}`);
   }
 
   const u = getAiUsage();
-  // Claude Opus 5.5 list price: $4 / $20 per million input / output tokens
-  const cost = (u.inputTokens * 4 + u.outputTokens * 20) / 1_000_000;
-  console.log(`\nUsage: ${u.calls} calls · ${u.inputTokens} input / ${u.outputTokens} output tokens · ≈ $${cost.toFixed(3)} at Opus 5.5 list prices (estimate)`);
+  // Claude Opus 5.5 list price: $4 / $20 per million input / output tokens. Gemini pricing and free-tier
+  // limits depend on the model and plan, so for Gemini only the token counts are shown.
+  const cost = cfg.provider === "claude" ? ` · ≈ $${((u.inputTokens * 4 + u.outputTokens * 20) / 1_000_000).toFixed(3)} at Opus 5.5 list prices (estimate)` : "";
+  console.log(`\nUsage: ${u.calls} calls · ${u.inputTokens} input / ${u.outputTokens} output tokens${cost}`);
   console.log("The database was not modified.\n");
 
   await shutdownOcr();

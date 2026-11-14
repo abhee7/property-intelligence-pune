@@ -9,7 +9,9 @@
 // a key is configured, and AI_SCAN_READING=off disables it entirely.
 
 import { z } from "zod/v4";
-import { AiError, callClaude, getAiConfig, type ClaudeClientLike, type ScanReadingMode } from "@/lib/ai/claude";
+import { AiError, getAiConfig, type ClaudeClientLike, type ScanReadingMode } from "@/lib/ai/claude";
+import { callAi } from "@/lib/ai/provider";
+import type { GeminiClientLike } from "@/lib/ai/gemini";
 
 // ─── Result shape ───
 
@@ -110,11 +112,12 @@ export function chooseReading(opts: {
 
 // ─── The call ───
 
-export async function readDocumentWithClaude(buffer: Buffer, mimeType: string, deps: { client?: ClaudeClientLike } = {}): Promise<ClaudeReading> {
+/** Reads a scan with the configured AI provider (Claude or Gemini); the name is historical. */
+export async function readDocumentWithClaude(buffer: Buffer, mimeType: string, deps: { client?: ClaudeClientLike; geminiClient?: GeminiClientLike } = {}): Promise<ClaudeReading> {
   const cfg = getAiConfig();
   const content = await buildContentBlocks(buffer, mimeType);
 
-  const { data, model } = await callClaude(
+  const { data, model } = await callAi(
     {
       purpose: "scan-read",
       system: READER_SYSTEM_PROMPT,
@@ -123,7 +126,7 @@ export async function readDocumentWithClaude(buffer: Buffer, mimeType: string, d
       effort: "medium",
       maxTokens: 16_000,
     },
-    { client: deps.client, config: cfg },
+    { client: deps.client, geminiClient: deps.geminiClient, config: cfg },
   );
 
   return {
