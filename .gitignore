@@ -13,3 +13,6 @@ demo-docs/
 sample-docs/
 prisma/*.bak
 *.tsbuildinfo
+
+# real documents contain real people's details - never commit them
+real-scans/

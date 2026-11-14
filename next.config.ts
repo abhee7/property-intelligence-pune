@@ -3,7 +3,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   reactStrictMode: true,
   // Native / worker-thread packages must not be bundled by webpack
-  serverExternalPackages: ["tesseract.js", "pdfjs-dist", "sharp", "better-sqlite3"],
+  serverExternalPackages: ["tesseract.js", "pdfjs-dist", "sharp", "better-sqlite3", "@hyzyla/pdfium"],
   // `output: "standalone"` copies only the files Next can statically trace. These packages load
   // some of their files dynamically (pdf.js's worker + fonts, Tesseract's worker + wasm core), so
   // list them explicitly or PDFs and OCR fail inside the Docker image.
@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
       "./node_modules/pdfjs-dist/standard_fonts/**",
       "./node_modules/tesseract.js/src/**",
       "./node_modules/tesseract.js-core/**",
+      "./node_modules/@hyzyla/pdfium/**", // PDFium's WebAssembly binary, used to render PDF pages for OCR
     ],
   },
   // Note: on a local `next build` the tracer also copies ./uploads and ./ocr-data into

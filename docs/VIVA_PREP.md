@@ -32,11 +32,13 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 
 **Which OCR?** Tesseract through tesseract.js (WebAssembly), so it runs offline in Node. English first; if confidence is below 80 it re-reads with English + Marathi and keeps the better result. Images are cleaned with *sharp* first (median filter, normalisation).
 
-**Why not render PDF pages to an image?** It crashed Node on some files. For a scanned PDF the embedded page image is extracted instead.
+**Why not render PDF pages to an image?** Rendering with pdf.js and a canvas library crashed Node on some files, so scanned PDFs use the embedded page image. Government 7/12 PDFs are vector text with no image, so for those the page is rendered with PDFium (a WebAssembly build, which did not crash).
+
+**Why did real 7/12s work badly at first?** Their text layer looked like valid text (99% "confidence") but was gibberish: the Marathi font is embedded with no Unicode map. The pipeline accepted it and found zero fields. Now it detects a gibberish layer, renders the page and OCRs the Marathi, and takes digits from the layer by position, because the layer's digits are exact while OCR confuses them.
 
 **What if the scan is bad?** Below 65% OCR confidence, partial and mismatch results become *unverifiable* and the document is flagged for review. A misread digit must not become an accusation.
 
-**How accurate is it?** About 93–94% confidence on the generated clean pages; degraded scans fall to ~55–60% and go to review. *Be careful:* generated pages are cleaner than real scans, and confidence is not accuracy. Say so.
+**How accurate is it?** Two measurements. On generated pages: ~93–94% OCR confidence; degraded scans fall to ~55–60% and go to review. On five real Marathi 7/12 PDFs: survey number, village, taluka, district, document type and total area 5/5 each; occupant names 32/37 exactly (86%), the misses being names inside underlined brackets. Before the fix the same files gave 0 fields. *Be careful:* confidence is not accuracy; five files from one village is a small sample; the name ground truth is my own reading; and photographed paper 7/12s (no text layer) were not tested.
 
 ## 4. Matching
 
@@ -106,7 +108,7 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 - No live external data (no official API exists for court or land records).
 - Survey numbers, owners and the legal layer are generated.
 - The Claude path is untested on the live API (the Gemini path was tested live).
-- OCR measured on generated pages, not real scans.
+- Real-document accuracy measured on only five Marathi 7/12 PDFs (one village), not on photographed paper copies.
 - Alerts are in-app only; no email/SMS/WhatsApp provider.
 - Name matching is by sound and tested on a chosen list.
 
@@ -116,7 +118,7 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 
 **"What did you find wrong with your own project?"** (Strong answer.) Screens that still showed hardcoded demo data (dashboard donut totalled 84 on 944 properties), an audit log nothing wrote to, a user-update endpoint that wasn't tenant-scoped, a map showing only the first 100 properties, and a demo that differed on every install because the seed used unseeded random names. All fixed and covered by tests or a fresh-clone comparison.
 
-**"What would you do with another month?"** Measure OCR and name matching on genuine scans (with consent); connect one real data source; add email/WhatsApp alerts.
+**"What would you do with another month?"** Measure OCR on many more real documents, including photographed paper ones (with consent); connect one real data source; add email/WhatsApp alerts.
 
 **"How is this different from a Google search?"** Search finds pages. PropIntel reads *your* documents, compares them with the record and with every other property, and gives a scored, explained answer.
 

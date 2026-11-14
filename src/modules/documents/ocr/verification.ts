@@ -170,9 +170,14 @@ export function verifyAgainstProperty(
 ): VerificationResult {
   const f = extraction.fields;
 
+  // A 7/12 lists every occupant of the khate; the owner on record only has to be one of them.
+  const ownerCheck = (f.ownerNames?.length ? f.ownerNames : [f.ownerName]).map((name) =>
+    compare("ownerName", "Owner name", name, property.ownerName, matchOwnerName, { kind: "person", claude: claudeSpellings }),
+  ).reduce((best, c) => ((c.score ?? -1) > (best.score ?? -1) ? c : best));
+
   let checks: FieldCheck[] = [
     compare("surveyNumber", "Survey number", f.surveyNumber, property.surveyNumber, matchSurveyNumber, { kind: "identifier" }),
-    compare("ownerName", "Owner name", f.ownerName, property.ownerName, matchOwnerName, { kind: "person", claude: claudeSpellings }),
+    ownerCheck,
     compare("village", "Village", f.village, property.village, matchVillage, { kind: "place", claude: claudeSpellings }),
     compare("areaSqft", "Area (sq ft)", f.areaSqft, property.areaSqft, (a, b) => matchArea(a, b, 5)),
   ];

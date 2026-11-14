@@ -18,6 +18,10 @@ export type DocumentKind =
 export interface ExtractedFields {
   surveyNumber?: string;
   ownerName?: string;
+  /** Every occupant listed on a gaon namuna 7 (one khate often has ten or more); ownerName is the first */
+  ownerNames?: string[];
+  /** Khate (account) numbers listed on a gaon namuna 7 */
+  khateNumbers?: string[];
   buyerName?: string;
   village?: string;
   taluka?: string;
@@ -72,7 +76,13 @@ const KIND_KEYWORDS: Record<Exclude<DocumentKind, "unknown">, RegExp[]> = {
   mutation: [/mutation/i, /फेरफार/, /ferfar/i],
 };
 
+/** The government's printed form title: "गाव नमुना सात (अधिकार अभिलेख पत्रक)". */
+const GAON_NAMUNA_SAT = /गाव\s*नमुना\s*सात|अधिकार\s*अभिलेख\s*पत्रक/;
+
 export function classifyDocument(text: string): { kind: DocumentKind; score: number } {
+  // The form's own title is conclusive. (Its body says "फेरफार" for pending mutations, which
+  // would otherwise make a 7/12 read as a mutation.)
+  if (GAON_NAMUNA_SAT.test(text)) return { kind: "seven_twelve", score: 1 };
   let best: DocumentKind = "unknown";
   let bestScore = 0;
   for (const [kind, patterns] of Object.entries(KIND_KEYWORDS)) {
@@ -143,9 +153,13 @@ export function stripOcrJunk(value: string, kind: "name" | "place" = "name"): st
     .split(/\s+/)
     .filter(Boolean);
 
-  const hasLatin = tokens.some((t) => /[A-Za-z]/.test(t));
-  // mixed scripts → keep the Latin words; drop tokens that are only punctuation
-  const kept = (hasLatin ? tokens.filter((t) => !/[ऀ-ॿ]/.test(t)) : tokens).filter((t) => /[A-Za-zऀ-ॿ]/.test(t));
+  // Mixed scripts → keep the words of whichever script has more letters ("Balewadi रा ह" is English
+  // with speckle; "रत्नागिरी i es" is Marathi with speckle) and drop the other script's debris.
+  const letters = (re: RegExp) => tokens.reduce((n, t) => n + (t.match(re)?.length ?? 0), 0);
+  const hasLatin = letters(/[A-Za-z]/g) >= letters(/[ऀ-ॿ]/g) && letters(/[A-Za-z]/g) > 0;
+  // drop tokens that are only punctuation
+  const hasDev = !hasLatin && letters(/[ऀ-ॿ]/g) > 0;
+  const kept = (hasLatin ? tokens.filter((t) => !/[ऀ-ॿ]/.test(t)) : hasDev ? tokens.filter((t) => !/[A-Za-z]/.test(t)) : tokens).filter((t) => /[A-Za-zऀ-ॿ]/.test(t));
 
   // Trailing fragments of ≤2 letters are debris. Place names never end like that, so any
   // trailing fragment goes; for personal names (which can end in an initial) only strip after
@@ -158,7 +172,8 @@ export function stripOcrJunk(value: string, kind: "name" | "place" = "name"): st
 
 function cleanPlace(raw: string): string {
   const first = raw
-    .split(/[,;\n(]|\s{2,}|\b(?:taluka|tal|dist|district|tehsil|तालुका|जिल्हा)\b/i)[0]
+    // (\b doesn't work next to Devanagari, so the Marathi labels get explicit look-arounds)
+    .split(/[,;\n(]|\s{2,}|\b(?:taluka|tal|dist|district|tehsil)\b|(?<![ऀ-ॿ])(?:तालुका|जिल्हा)(?![ऀ-ॿ])/i)[0]
     .replace(/[0-9_=*#@<>~^]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
@@ -176,6 +191,8 @@ export function extractSurveyNumber(text: string) {
     new RegExp(`(?:gat|gut)\\s*(?:no\\.?|number|क्र\\.?)?\\s*[:.\\-]?\\s*${SURVEY_NO}`, "i"),
     new RegExp(`\\bS\\.?\\s*No\\.?\\s*[:.\\-]?\\s*${SURVEY_NO}`, "i"),
     new RegExp(`\\bCTS\\s*(?:no\\.?)?\\s*[:.\\-]?\\s*${SURVEY_NO}`, "i"),
+    // government 7/12: "भूमापन क्रमांक व उपविभाग  233/10" (survey number and subdivision)
+    new RegExp(`भूमापन\\s*क्रमांक\\s*(?:व|वं)?\\s*(?:उपविभाग|उप\\s*विभाग)?\\s*[:.\\-]?\\s*${SURVEY_NO}`),
     new RegExp(`(?:सर्व्हे|सर्वे|सर्व्हें|गट)\\s*(?:नंबर|नं|क्रमांक|क्र)?\\.?\\s*[:.\\-]?\\s*${SURVEY_NO}`),
     new RegExp(`भूमापन\\s*(?:क्रमांक|क्र|नं)?\\.?\\s*[:.\\-]?\\s*${SURVEY_NO}`),
   ]);
@@ -205,7 +222,7 @@ export function extractBuyerName(text: string) {
 export function extractVillage(text: string) {
   const m = firstMatch(text, [
     /(?:village|gaon|mouje|moje|mauje)\s*(?:name)?\s*[:\-]\s*([^\n]{2,60})/i,
-    /(?:गाव|मौजे|मौजा)\s*[:\-]\s*([^\n]{2,60})/,
+    /(?:गाव|मौजे|मौजा)\s*[:\-]+\s*([^\n]{2,60})/,
     // without a colon ("मौजे खराडी") — but never the form title "गाव नमुना ७/१२"
     /(?:गाव|मौजे|मौजा)(?!\s*नमुना)\s+([^\n]{2,60})/,
     /(?:situated at|located at|situate at)\s+(?:village\s+)?([A-Z][A-Za-z]+(?:\s+[A-Z][A-Za-z]+)?)/,
@@ -216,17 +233,66 @@ export function extractVillage(text: string) {
 }
 
 export function extractTaluka(text: string) {
-  const m = firstMatch(text, [/(?:taluka|tal\.?|tehsil)\s*[:\-]\s*([^\n]{2,40})/i, /तालुका\s*[:\-]?\s*([^\n]{2,40})/]);
+  const m = firstMatch(text, [/(?:taluka|tal\.?|tehsil)\s*[:\-]\s*([^\n]{2,40})/i, /तालुका\s*[:\-]*\s*([^\n]{2,40})/]);
   if (!m) return null;
   const v = cleanPlace(m.value);
   return v.length >= 2 ? { value: v, snippet: m.snippet } : null;
 }
 
 export function extractDistrict(text: string) {
-  const m = firstMatch(text, [/(?:district|dist\.?|zilla)\s*[:\-]\s*([^\n]{2,40})/i, /जिल्हा\s*[:\-]?\s*([^\n]{2,40})/]);
+  const m = firstMatch(text, [/(?:district|dist\.?|zilla)\s*[:\-]\s*([^\n]{2,40})/i, /जिल्हा\s*[:\-]*\s*([^\n]{2,40})/]);
   if (!m) return null;
   const v = cleanPlace(m.value);
   return v.length >= 2 ? { value: v, snippet: m.snippet } : null;
+}
+
+// ─── Occupants on a gaon namuna 7 ───
+
+/** Words of the printed form (headings, column titles, footer) that are never part of a person's name. */
+const FORM_WORDS = new Set(
+  (
+    "महाराष्ट्र महाराट्र शासन गाव गांव नमुना सात बारा तालुका जिल्हा भूमापन क्रमांक उपविभाग क्षेत्राचे क्षेत्र एकक हे आर चौ मी " +
+    "लागवड योग्य अयोग्य जिरायत बागायत एकुण एकूण पोटखराब पो ख वर्ग आकारणी जुडी किंवा विशेष सामाईक शेवटचा फेरफार प्रलंबित " +
+    "नाही दिनांक कुळाचे नाव खंड अधिकार इतर भोगवटादाराचे भोगवटादार शेताचे स्थानीक मार्गावरील खाते ला यो तुकडा डाउनलोड वैधता " +
+    "पडताळणीसाठी संकेत स्थळावर जाऊन वापरावा अभिलेख पत्रक नियम यातील आणि जमीन महसुल पिकांची नोंदवही व दि"
+  ).split(/\s+/),
+);
+
+/**
+ * The 7/12 lists every occupant of a khate as "name (mutation-no)", one per row, often beside area
+ * figures from the next column. A run of 2–4 name-words directly followed by a bracketed number
+ * or an area figure is a person; headings and column titles are filtered by FORM_WORDS.
+ */
+export function extractOccupants(text: string): string[] {
+  if (!GAON_NAMUNA_SAT.test(text)) return [];
+  // page 2 (gaon namuna 12, the crop register) has no occupants
+  const page1 = text.split(/गाव\s*नमुना\s*बारा/)[0];
+  const out: string[] = [];
+  for (const line of page1.split("\n")) {
+    // the certificate footer ("…स्वयंप्रमाणित असल्यामुळे ७/१२ अभिलेखावर…") reads like words followed by a number
+    if (/स्वयंप्रमाणित|डिजिटल|स्वाक्षरी|अभिलेखावर|डाउनलोड|वैधता|सही\s*शिक्क्याची/.test(line)) continue;
+    const tokens = line.split(/\s+/).filter(Boolean);
+    let run: string[] = [];
+    let found = false;
+    /** The run just ended at `next`; it is a person only if a bracketed number or area figure follows. */
+    const endRun = (next: string) => {
+      // One occupant per row: anything further along the same row sits in the "इतर अधिकार"
+      // (other rights) column on the right, e.g. a loan holder, who is not an occupant.
+      if (!found && run.length >= 2 && /^[(\[]?\s*\d/.test(next)) {
+        const name = (run.length > 4 ? run.slice(-3) : run).join(" ");
+        if (!out.includes(name)) out.push(name);
+        found = true;
+      }
+      run = [];
+    };
+    for (const raw of tokens) {
+      const t = raw.replace(/^[\[(|\-]+|[.,:;|\])\-]+$/g, "");
+      if (/^[ऀ-ॿ‌‍]{3,}$/.test(t) && !FORM_WORDS.has(t)) run.push(t);
+      else endRun(raw);
+    }
+    // a run at the very end of a line has no number after it, so it is not a row
+  }
+  return out;
 }
 
 // ─── Area ───
@@ -250,7 +316,28 @@ const AREA_PATTERNS: { re: RegExp; factor: number; unit: string }[] = [
   { re: /(\d+\.\d{2})\s*(?:H\.?\s*R\.?|हे\.?\s*आर)/i, factor: SQFT_PER.hectare, unit: "hectare" },
 ];
 
+/**
+ * The government 7/12 writes area as hectare.are.sq-metre in one number: "0.02.30" is 0 ha,
+ * 2 are (200 m²) and 30 m² = 230 m². The grand total sits beside "एकुण क्षेत्र" (total area).
+ */
+export function parseHaAreSqm(h: string): number | null {
+  const m = /^(\d{1,3})\s*\.\s*(\d{1,2})\s*\.\s*(\d{1,2})$/.exec(h.trim());
+  if (!m) return null;
+  const sqm = +m[1] * 10000 + +m[2] * 100 + +m[3];
+  return sqm > 0 ? sqm : null;
+}
+
+function extractGovtSevenTwelveArea(text: string): { sqft: number; text: string; snippet: string } | null {
+  const m = /(?:एकुण|एकूण)\s*क्षेत्र[^\d\n]{0,25}(\d{1,3}\s*\.\s*\d{1,2}\s*\.\s*\d{1,2})/.exec(text);
+  if (!m) return null;
+  const sqm = parseHaAreSqm(m[1]);
+  if (sqm === null) return null;
+  return { sqft: Math.round(sqm * SQFT_PER.sqm * 100) / 100, text: `${m[1].replace(/\s+/g, "")} ha.are.m²`, snippet: m[0].trim() };
+}
+
 export function extractArea(text: string): { sqft: number; text: string; snippet: string } | null {
+  const govt = extractGovtSevenTwelveArea(text);
+  if (govt) return govt;
   const lines = text.split("\n");
   const labelled = lines.filter((l) => /area|क्षेत्र|क्षेत्रफळ|extent|admeasuring|measuring/i.test(l)).join("\n");
 
@@ -341,6 +428,14 @@ export function extractFields(rawText: string, hintKind: DocumentKind = "unknown
 
   set("surveyNumber", extractSurveyNumber(text));
   set("ownerName", extractOwnerName(text));
+  const occupants = extractOccupants(text);
+  if (occupants.length) {
+    fields.ownerNames = occupants;
+    fields.ownerName = occupants[0]; // the heading text the generic rule grabs is a column title here
+    evidence.ownerName = occupants.slice(0, 3).join(", ") + (occupants.length > 3 ? ` … (${occupants.length} occupants)` : "");
+  }
+  const khate = /खाते\s*क्रमांक\s*[:\-]\s*([\d, ]+)/.exec(text);
+  if (khate) fields.khateNumbers = khate[1].split(/[,\s]+/).filter(Boolean);
   set("buyerName", extractBuyerName(text));
   set("village", extractVillage(text));
   set("taluka", extractTaluka(text));

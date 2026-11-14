@@ -8,6 +8,7 @@
 
 import * as fs from "fs";
 import * as path from "path";
+import { readSevenTwelveNumerals } from "./layer-numerals";
 
 export interface OcrResult {
   text: string;
@@ -21,6 +22,7 @@ export interface OcrResult {
 const LANGS = process.env.OCR_LANGS || "eng+mar";
 const MAX_PDF_PAGES = Number(process.env.OCR_MAX_PDF_PAGES || 8);
 const MIN_TEXT_LAYER_CHARS = 40; // below this a PDF page is treated as scanned
+const RENDER_SCALE = Number(process.env.OCR_RENDER_SCALE || 3); // 1 = 72 dpi; 3 ≈ 216 dpi, plenty for Tesseract
 
 const LANG_DIR = path.join(process.cwd(), "ocr-data");
 const CACHE_DIR = path.join(process.cwd(), ".ocr-cache");
@@ -75,11 +77,19 @@ export async function shutdownOcr(): Promise<void> {
 
 // ─── Image preprocessing ───
 
-async function preprocess(buffer: Buffer): Promise<Buffer> {
+async function preprocess(buffer: Buffer, clean = false): Promise<Buffer> {
   const sharp = (await import("sharp")).default;
   const img = sharp(buffer, { failOn: "none" }).rotate().flatten({ background: "#ffffff" });
   const meta = await img.metadata();
   const width = meta.width || 0;
+
+  // A page rendered from a digital PDF has no scanner noise to remove, and the clean-up filters
+  // below would only blur its thin Devanagari strokes — so it just goes to greyscale.
+  if (clean) {
+    let p = img.grayscale().normalize();
+    if (width && width < 1500) p = p.resize({ width: 2000, kernel: "lanczos3" });
+    return p.withMetadata({ density: 300 }).png().toBuffer();
+  }
 
   // median(3) removes salt-and-pepper speckle (dust on the glass, photocopier noise)
   let pipeline = img.grayscale().median(3).normalize();
@@ -96,8 +106,16 @@ async function recognise(prepared: Buffer, langs: string): Promise<ImageOcr> {
   return { text: data.text || "", confidence: data.confidence ?? 0, languages: langs };
 }
 
-async function ocrImage(buffer: Buffer): Promise<ImageOcr> {
-  const prepared = await preprocess(buffer);
+interface OcrImageOptions {
+  /** the image is a clean render of a digital page (no scanner noise) */
+  clean?: boolean;
+  /** the page is known to contain Devanagari, so go straight to English + Marathi */
+  fullLanguages?: boolean;
+}
+
+async function ocrImage(buffer: Buffer, opts: OcrImageOptions = {}): Promise<ImageOcr> {
+  const prepared = await preprocess(buffer, opts.clean);
+  if (opts.fullLanguages) return recognise(prepared, LANGS);
   const first = await recognise(prepared, PRIMARY_LANGS);
   if (LANGS === PRIMARY_LANGS || first.confidence >= CONFIDENT_ENOUGH) return first;
 
@@ -151,6 +169,69 @@ async function rawImageToPng(img: RawImage): Promise<Buffer | null> {
     .toBuffer();
 }
 
+/**
+ * Is a PDF page's text layer real text? Some government PDFs (the Maharashtra digital 7/12, for one)
+ * embed their Marathi font without a character map, so extraction returns confident-looking nonsense
+ * such as "ƻǗƥǃƭǊƴǊƾ" — and reading that as text finds nothing. Real text is mostly ASCII, or mostly
+ * Devanagari; nonsense is full of Latin-Extended, IPA-range and control characters.
+ */
+export function isTextLayerUsable(text: string): boolean {
+  const chars = [...text.replace(/\s/g, "")];
+  if (chars.length < MIN_TEXT_LAYER_CHARS) return false;
+  let devanagari = 0;
+  let odd = 0;
+  for (const ch of chars) {
+    const c = ch.codePointAt(0)!;
+    if (c >= 0x0900 && c <= 0x097f) devanagari++;
+    else if (c < 0x20 || (c >= 0x7f && c <= 0x02ff) || (c >= 0x0300 && c <= 0x036f)) odd++;
+  }
+  // accented Latin text (é, ü…) is legitimate, so allow a little; nonsense is far above this
+  return devanagari / chars.length > 0.2 || odd / chars.length < 0.1;
+}
+
+// ─── Rendering a PDF page to an image (PDFium compiled to WebAssembly) ───
+//
+// The pdf.js + canvas route crashed the Node process on some PDFs, and a native crash takes the
+// whole server down. PDFium runs in WebAssembly, so a bad file can't do that.
+
+type PdfiumLib = { loadDocument(buf: Uint8Array): Promise<any>; destroy(): void };
+const globalForPdfium = globalThis as unknown as { __pdfiumLib?: Promise<PdfiumLib> };
+
+async function getPdfium(): Promise<PdfiumLib> {
+  globalForPdfium.__pdfiumLib ??= (async () => {
+    const { PDFiumLibrary } = await import("@hyzyla/pdfium");
+    return (await PDFiumLibrary.init()) as unknown as PdfiumLib;
+  })().catch((err) => {
+    globalForPdfium.__pdfiumLib = undefined;
+    throw err;
+  });
+  return globalForPdfium.__pdfiumLib;
+}
+
+/** Opens the PDF once and renders pages on demand as PNGs. Always call close(). */
+async function openPdfRenderer(buffer: Buffer) {
+  const lib = await getPdfium();
+  const doc = await lib.loadDocument(new Uint8Array(buffer));
+  const sharp = (await import("sharp")).default;
+  return {
+    async render(pageIndex: number): Promise<Buffer> {
+      const page = doc.getPage(pageIndex);
+      try {
+        const img = await page.render({ scale: RENDER_SCALE, render: "bitmap" });
+        return await sharp(Buffer.from(img.data.buffer, img.data.byteOffset, img.data.byteLength), { raw: { width: img.width, height: img.height, channels: 4 } })
+          .flatten({ background: "#ffffff" })
+          .png()
+          .toBuffer();
+      } finally {
+        page.close();
+      }
+    },
+    close() {
+      doc.destroy();
+    },
+  };
+}
+
 async function ocrPdf(buffer: Buffer): Promise<Omit<OcrResult, "durationMs">> {
   const pdfjs: any = await import("pdfjs-dist/legacy/build/pdf.mjs");
   const OPS = pdfjs.OPS;
@@ -172,57 +253,91 @@ async function ocrPdf(buffer: Buffer): Promise<Omit<OcrResult, "durationMs">> {
   const languagesUsed = new Set<string>();
   let usedLayer = 0;
   let usedOcr = 0;
+  let renderer: Awaited<ReturnType<typeof openPdfRenderer>> | null = null;
 
-  for (let i = 1; i <= pageCount; i++) {
-    const page = await doc.getPage(i);
+  try {
+    for (let i = 1; i <= pageCount; i++) {
+      const page = await doc.getPage(i);
 
-    // 1. Digital PDFs carry their own text — no OCR needed
-    const content = await page.getTextContent();
-    const layerText = content.items.map((it: any) => ("str" in it ? it.str + (it.hasEOL ? "\n" : " ") : "")).join("");
-    if (layerText.replace(/\s/g, "").length >= MIN_TEXT_LAYER_CHARS) {
-      texts.push(layerText);
-      confidences.push(99);
-      usedLayer++;
-      page.cleanup();
-      continue;
-    }
-
-    // 2. Scanned page → pull out the embedded image(s) and OCR them
-    const ops = await page.getOperatorList();
-    const images: RawImage[] = [];
-    for (let k = 0; k < ops.fnArray.length; k++) {
-      const fn = ops.fnArray[k];
-      const arg = ops.argsArray[k]?.[0];
-      if (fn === OPS.paintInlineImageXObject && arg?.data) {
-        images.push(arg);
-      } else if (fn === OPS.paintImageXObject && typeof arg === "string") {
-        const store = arg.startsWith("g_") ? page.commonObjs : page.objs;
-        const obj = await waitFor<RawImage>((cb) => store.get(arg, cb), 5000);
-        if (obj?.data) images.push(obj);
+      // 1. Digital PDFs carry their own text — no OCR needed… provided it is real text
+      const content = await page.getTextContent();
+      const layerText = content.items.map((it: any) => ("str" in it ? it.str + (it.hasEOL ? "\n" : " ") : "")).join("");
+      const hasLayer = layerText.replace(/\s/g, "").length >= MIN_TEXT_LAYER_CHARS;
+      const scrambled = hasLayer && !isTextLayerUsable(layerText);
+      if (hasLayer && !scrambled) {
+        texts.push(layerText);
+        confidences.push(99);
+        usedLayer++;
+        page.cleanup();
+        continue;
       }
-    }
 
-    let pageText = "";
-    let pageConf = 0;
-    let n = 0;
-    for (const img of images.filter((im) => im.width * im.height >= MIN_IMAGE_PIXELS)) {
-      const png = await rawImageToPng(img);
-      if (!png) continue;
-      const r = await ocrImage(png);
-      pageText += r.text + "\n";
-      pageConf += r.confidence;
-      languagesUsed.add(r.languages);
-      n++;
+      // 2. Scanned page → pull out the embedded image(s) and OCR them
+      const ops = await page.getOperatorList();
+      const images: RawImage[] = [];
+      for (let k = 0; k < ops.fnArray.length; k++) {
+        const fn = ops.fnArray[k];
+        const arg = ops.argsArray[k]?.[0];
+        if (fn === OPS.paintInlineImageXObject && arg?.data) {
+          images.push(arg);
+        } else if (fn === OPS.paintImageXObject && typeof arg === "string") {
+          const store = arg.startsWith("g_") ? page.commonObjs : page.objs;
+          const obj = await waitFor<RawImage>((cb) => store.get(arg, cb), 5000);
+          if (obj?.data) images.push(obj);
+        }
+      }
+
+      let pageText = "";
+      let pageConf = 0;
+      let n = 0;
+      if (scrambled) {
+        // the layer's words are gibberish but its numerals are exact: read them by position
+        const vp = page.getViewport({ scale: 1 });
+        const items = content.items
+          .filter((it: any) => "str" in it && it.str.trim())
+          .map((it: any) => ({ str: it.str as string, x: it.transform[4] as number, y: vp.height - it.transform[5] }));
+        const numerals = readSevenTwelveNumerals(items, vp.width, vp.height);
+        if (numerals) pageText += numerals + "\n";
+      }
+      // a scrambled layer means the page is vector text in an unmapped font, so the embedded
+      // images (logos, QR codes) are not the content — go straight to rendering the page
+      const bigImages = scrambled ? [] : images.filter((im) => im.width * im.height >= MIN_IMAGE_PIXELS);
+      for (const img of bigImages) {
+        const png = await rawImageToPng(img);
+        if (!png) continue;
+        const r = await ocrImage(png);
+        pageText += r.text + "\n";
+        pageConf += r.confidence;
+        languagesUsed.add(r.languages);
+        n++;
+      }
+
+      // 3. Nothing readable yet (a scrambled font, or vector-only content): render the page and OCR that
+      if (!n) {
+        try {
+          renderer ??= await openPdfRenderer(buffer);
+          const png = await renderer.render(i - 1);
+          const r = await ocrImage(png, { clean: true, fullLanguages: scrambled });
+          pageText += r.text + "\n";
+          pageConf += r.confidence;
+          languagesUsed.add(r.languages);
+          n++;
+        } catch (err) {
+          console.warn(`[ocr] could not render PDF page ${i}: ${(err as Error)?.message || err}`);
+        }
+      }
+      if (n) {
+        texts.push(pageText);
+        confidences.push(pageConf / n);
+        usedOcr++;
+      } else {
+        texts.push("");
+        confidences.push(0);
+      }
+      page.cleanup();
     }
-    if (n) {
-      texts.push(pageText);
-      confidences.push(pageConf / n);
-      usedOcr++;
-    } else {
-      texts.push("");
-      confidences.push(0);
-    }
-    page.cleanup();
+  } finally {
+    renderer?.close();
   }
   await doc.destroy();
 
