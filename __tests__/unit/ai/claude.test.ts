@@ -6,7 +6,7 @@ import { z } from "zod/v4";
 import { AiError, callClaude, getAiConfig, getAiUsage, resetAiUsage, toAiError, DEFAULT_MODEL, type AiConfig } from "@/lib/ai/claude";
 
 const cfg = (over: Partial<AiConfig> = {}): AiConfig => ({
-  configured: true, provider: "claude", model: DEFAULT_MODEL, geminiModel: "gemini-2.5-flash", narratives: "manual", scanReading: "fallback", transliteration: "auto", refusalFallbacks: true, timeoutMs: 90_000, ...over,
+  configured: true, provider: "claude", model: DEFAULT_MODEL, geminiModel: "gemini-3.5-flash-lite", narratives: "manual", scanReading: "fallback", transliteration: "auto", refusalFallbacks: true, timeoutMs: 90_000, ...over,
 });
 
 const schema = z.object({ answer: z.string() });
@@ -51,7 +51,7 @@ describe("getAiConfig", () => {
       expect(getAiConfig({ ANTHROPIC_API_KEY: "sk-ant-x" })).toMatchObject({ provider: "claude", configured: true });
     });
     it("uses Gemini automatically when only a Gemini key is set", () => {
-      expect(getAiConfig({ GEMINI_API_KEY: "AIza-x" })).toMatchObject({ provider: "gemini", configured: true, geminiModel: "gemini-2.5-flash" });
+      expect(getAiConfig({ GEMINI_API_KEY: "AIza-x" })).toMatchObject({ provider: "gemini", configured: true, geminiModel: "gemini-3.5-flash-lite" });
       expect(getAiConfig({ GOOGLE_API_KEY: "AIza-y" })).toMatchObject({ provider: "gemini", configured: true });
     });
     it("prefers Claude when both keys are set, unless told otherwise", () => {
@@ -65,7 +65,7 @@ describe("getAiConfig", () => {
     });
     it("ignores blank keys, reads the Gemini model override and falls back on a bad provider value", () => {
       expect(getAiConfig({ GEMINI_API_KEY: "   " }).configured).toBe(false);
-      expect(getAiConfig({ GEMINI_API_KEY: "k", GEMINI_MODEL: "gemini-2.5-pro" }).geminiModel).toBe("gemini-2.5-pro");
+      expect(getAiConfig({ GEMINI_API_KEY: "k", GEMINI_MODEL: "gemini-3.5-flash" }).geminiModel).toBe("gemini-3.5-flash");
       expect(getAiConfig({ GEMINI_API_KEY: "k", AI_PROVIDER: "banana" }).provider).toBe("gemini");
     });
   });

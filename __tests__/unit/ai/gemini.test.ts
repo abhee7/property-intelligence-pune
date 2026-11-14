@@ -15,7 +15,7 @@ const okResponse = (over: Record<string, unknown> = {}) => ({
   text: JSON.stringify({ answer: "hi", score: 3 }),
   candidates: [{ finishReason: "STOP" }],
   usageMetadata: { promptTokenCount: 120, candidatesTokenCount: 30, thoughtsTokenCount: 10 },
-  modelVersion: "gemini-2.5-flash",
+  modelVersion: "gemini-3.5-flash-lite",
   ...over,
 });
 
@@ -38,10 +38,10 @@ beforeEach(() => {
 describe("request building", () => {
   it("sends the model, system instruction, JSON mode and a JSON schema made from the Zod schema", async () => {
     const { client, generateContent } = fakeClient(okResponse());
-    await callGemini({ ...call, maxTokens: 4000 }, { client, config: cfg({ geminiModel: "gemini-2.5-pro" }), sleep: noSleep });
+    await callGemini({ ...call, maxTokens: 4000 }, { client, config: cfg({ geminiModel: "gemini-3.5-flash" }), sleep: noSleep });
 
     const req = generateContent.mock.calls[0][0];
-    expect(req.model).toBe("gemini-2.5-pro");
+    expect(req.model).toBe("gemini-3.5-flash");
     expect(req.contents).toEqual([{ role: "user", parts: [{ text: "hello" }] }]);
     expect(req.config).toMatchObject({ systemInstruction: "be brief", responseMimeType: "application/json", maxOutputTokens: 4000 });
     expect(req.config.responseJsonSchema).toMatchObject({ type: "object", required: ["answer", "score"] });
@@ -77,7 +77,7 @@ describe("responses", () => {
   it("returns validated data, the answering model and token usage (thinking counts as output)", async () => {
     const { client } = fakeClient(okResponse());
     const r = await callGemini(call, { client, config: cfg(), sleep: noSleep });
-    expect(r).toMatchObject({ data: { answer: "hi", score: 3 }, model: "gemini-2.5-flash", inputTokens: 120, outputTokens: 40, usedFallback: false });
+    expect(r).toMatchObject({ data: { answer: "hi", score: 3 }, model: "gemini-3.5-flash-lite", inputTokens: 120, outputTokens: 40, usedFallback: false });
     expect(getAiUsage()).toMatchObject({ calls: 1, inputTokens: 120, outputTokens: 40 });
   });
 
@@ -114,6 +114,20 @@ describe("errors and retries", () => {
     [{ message: "fetch failed" }, "network"],
   ])("maps %j to %s", (err, kind) => {
     expect(toGeminiError(err).kind).toBe(kind);
+  });
+
+  it("explains a retired model in plain words, unwrapping Google's JSON error body", () => {
+    const body = JSON.stringify({ error: { code: 404, message: "This model models/gemini-3.5-flash-lite is no longer available to new users." } });
+    const mapped = toGeminiError(new Error(body));
+    expect(mapped.kind).toBe("bad_request");
+    expect(mapped.message).toContain("GEMINI_MODEL");
+    expect(mapped.message).toContain("no longer available");
+    expect(mapped.message).not.toContain('{"error"');
+  });
+
+  it("pulls the code out of a JSON error body when the SDK gives no status", () => {
+    const body = JSON.stringify({ error: { code: 429, message: "Quota exceeded for this model" } });
+    expect(toGeminiError(new Error(body)).kind).toBe("rate_limit");
   });
 
   it("retries a rate limit with backoff and then succeeds", async () => {
@@ -159,7 +173,7 @@ describe("provider switch (callAi)", () => {
   });
 
   it("describes the provider in plain words", () => {
-    expect(describeProvider(cfg())).toBe("Gemini (gemini-2.5-flash)");
+    expect(describeProvider(cfg())).toBe("Gemini (gemini-3.5-flash-lite)");
     expect(describeProvider(getAiConfig({ ANTHROPIC_API_KEY: "k" }))).toBe("Claude (claude-opus-5-5)");
   });
 });

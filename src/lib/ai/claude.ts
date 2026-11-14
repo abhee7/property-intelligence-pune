@@ -32,7 +32,7 @@ export interface AiConfig {
 }
 
 export const DEFAULT_MODEL = "claude-opus-5-5";
-export const DEFAULT_GEMINI_MODEL = "gemini-2.5-flash";
+export const DEFAULT_GEMINI_MODEL = "gemini-3.5-flash-lite";
 
 const oneOf = <T extends string>(value: string | undefined, allowed: readonly T[], fallback: T): T =>
   (allowed as readonly string[]).includes((value ?? "").trim().toLowerCase()) ? ((value as string).trim().toLowerCase() as T) : fallback;

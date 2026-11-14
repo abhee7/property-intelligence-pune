@@ -270,7 +270,7 @@ npm run risk:narratives -- --yes
 | `GEMINI_API_KEY` | your Google AI Studio key (`GOOGLE_API_KEY` also works) | empty = AI off |
 | `ANTHROPIC_API_KEY` | your Anthropic key | empty = AI off |
 | `AI_PROVIDER` | `auto` (whichever key is set; Claude first if both) · `gemini` · `claude` | `auto` |
-| `GEMINI_MODEL` | any Gemini model id | `gemini-2.5-flash` (use `gemini-2.5-pro` for higher quality) |
+| `GEMINI_MODEL` | any Gemini model id | `gemini-3.5-flash-lite` (use `gemini-3.5-flash` for higher quality) |
 | `AI_NARRATIVES` | `off` · `manual` (button / script only) · `auto` (also after document and match events) | `manual` |
 | `AI_SCAN_READING` | `off` · `fallback` (only when Tesseract is unsure) · `always` | `fallback` |
 | `AI_TRANSLITERATION` | `off` · `auto` (only used when a Marathi value faces an English record) | `auto` |
@@ -295,9 +295,13 @@ last AI narrative is not sent again. Rate limits are retried with a short back-o
 
 **Tested how.** The integration is covered by unit tests with a fake client (request shape, refusals and blocked answers,
 truncation, a rejected beta, invented numbers, retries, when the model's reading should or shouldn't replace Tesseract's)
-and was exercised end to end against local stand-ins for both APIs. Unless the key you added has been through
-`npm run ai:check`, treat it as **not yet run against the live API** — run it once with your key, and check the reading
-quality on your own scans.
+and was exercised end to end against local stand-ins for both APIs. **Gemini has also been run against the live API**
+(`gemini-3.5-flash-lite`, via `npm run ai:check`): a grounded narrative, a degraded scan read with 4/4 fields, and Marathi
+names spelled correctly. The **Claude path has not** been run against the live API — run `npm run ai:check` with an
+Anthropic key to confirm it. Either way, check the reading quality on your own scans.
+
+> Model names change: Google retires older ones for new accounts (`gemini-2.5-flash` already returns "no longer
+> available to new users"). If a call fails with *model unavailable*, set `GEMINI_MODEL` in `.env` to a current model.
 
 ---
 

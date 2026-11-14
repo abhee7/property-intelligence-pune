@@ -58,11 +58,29 @@ export function toGeminiParts(content: string | unknown[]): unknown[] {
 
 // ─── Errors ───
 
+/** The SDK often puts Google's whole JSON error body in .message; pull out the code and the sentence. */
+function unwrapApiError(e: any): { status?: number; message: string } {
+  let status: number | undefined = typeof e?.status === "number" ? e.status : typeof e?.code === "number" ? e.code : undefined;
+  let message = String(e?.message ?? e);
+  try {
+    const body = JSON.parse(message);
+    if (body?.error?.message) {
+      message = String(body.error.message);
+      if (typeof body.error.code === "number") status = status ?? body.error.code;
+    }
+  } catch {
+    /* not JSON — keep the text as it is */
+  }
+  return { status, message };
+}
+
 export function toGeminiError(err: unknown): AiError {
   if (err instanceof AiError) return err;
-  const e = err as any;
-  const status: number | undefined = typeof e?.status === "number" ? e.status : typeof e?.code === "number" ? e.code : undefined;
-  const message = String(e?.message ?? err);
+  const { status, message } = unwrapApiError(err);
+  // a model that doesn't exist (or is no longer offered) is a configuration problem the user can fix
+  if (status === 404 || /is no longer available|not found for API version|models\/.* is not found/i.test(message)) {
+    return new AiError("bad_request", `Gemini model unavailable — set GEMINI_MODEL in .env. Google said: ${message.slice(0, 220)}`, status ?? 404);
+  }
   if (status === 401 || status === 403 || /API key not valid|API_KEY_INVALID|PERMISSION_DENIED/i.test(message)) return new AiError("auth", "The Gemini API key was rejected", status);
   if (status === 429 || /RESOURCE_EXHAUSTED|quota/i.test(message)) return new AiError("rate_limit", "Gemini rate limit or quota reached — try again shortly", 429);
   if (status === 400) return new AiError("bad_request", `Gemini rejected the request: ${message.slice(0, 300)}`, 400);

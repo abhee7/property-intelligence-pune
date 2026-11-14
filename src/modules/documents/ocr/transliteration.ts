@@ -211,7 +211,7 @@ export async function resolveTransliterations(
   } catch (err: any) {
     // Never fail the document over this — the rule-based reading still applies
     result.error = String(err?.message || err).slice(0, 200);
-    console.warn(`[transliteration] Claude skipped: ${result.error}`);
+    console.warn(`[transliteration] AI skipped: ${result.error}`);
   }
   return result;
 }
