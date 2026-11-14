@@ -2,7 +2,7 @@
 
 Short, honest answers to the questions an examiner is most likely to ask. Each answer is something you can point to in the code or the running app. Read the **"say this first"** box before anything else.
 
-> **Say this first.** The data is real *listings* plus a *generated* legal layer (survey numbers, owners, court cases, news, sample documents). The Claude features have not been run against the live API. Examiners reward a team that says this before being asked far more than one that is caught out.
+> **Say this first.** The data is real *listings* plus a *generated* legal layer (survey numbers, owners, court cases, news, sample documents). The AI features have been run live against Google's Gemini API (`gemini-3.5-flash-lite`), but the Claude path has not been run against the live API. Examiners reward a team that says this before being asked far more than one that is caught out.
 
 ---
 
@@ -63,23 +63,29 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 ## 6. Marathi names
 
 **How do you compare a Marathi 7/12 with an English record?**
-(1) Rule-based Devanagari→Latin transliteration with schwa deletion (offline). (2) Optionally Claude spells the name the ways a person would write it (cached). (3) A phonetic matcher compares every pair of candidate spellings, capped at 0.92.
+(1) Rule-based Devanagari→Latin transliteration with schwa deletion (offline). (2) Optionally an AI model (Gemini or Claude) spells the name the ways a person would write it (cached). (3) A phonetic matcher compares every pair of candidate spellings, capped at 0.92.
 
-**What happens when the names look different?** With Claude's spellings, a score below 0.5 is a *mismatch*. With rules alone it is *unverifiable* ("verify manually"), because a rule-based reading cannot prove two names are different people. This asymmetry is the key design choice.
+**What happens when the names look different?** With the AI model's spellings, a score below 0.5 is a *mismatch*. With rules alone it is *unverifiable* ("verify manually"), because a rule-based reading cannot prove two names are different people. This asymmetry is the key design choice.
 
 **How well does it work?** All 56 names and places in our regression set score ≥ 0.8 against their usual English spelling; different people score low; two people sharing only a first name come out *partial*. *Limit:* it is a hand-chosen list, not an accuracy rate.
 
-**Why not just ask Claude to compare the names?** Then the model would be deciding identity. It only *spells*; our matcher judges.
+**Why not just ask the AI model to compare the names?** Then the model would be deciding identity. It only *spells*; our matcher judges.
 
 ## 7. AI features
 
-**What does Claude do?** Three things: writes a plain-English risk explanation, re-reads a poor scan, and spells Marathi names. All optional, off without a key.
+**Which AI do you use?** Either Google Gemini or Anthropic Claude, chosen by whichever key is in `.env` (`AI_PROVIDER` can force one). Both go through one provider layer and return the same result type, so the features don't depend on which one answers.
+
+**What does the AI do?** Three things: writes a plain-English risk explanation, re-reads a poor scan, and spells Marathi names. All optional, off without a key.
 
 **What does it never do?** Change a score, decide a field value, or decide whether two people are the same.
 
 **How do you stop it making things up?** Structured outputs (a schema); any number in a narrative must appear in the input data or the text is discarded; name spellings must be plain Latin letters; document text is treated as untrusted data in the prompt.
 
-**Has it been tested on the real API?** **No.** Unit tests with a fake client plus an end-to-end run against a local stand-in that speaks the real wire format. `npm run ai:check` checks it against a real key.
+**Has it been tested on the real API?** **Gemini: yes.** `npm run ai:check` against the live Gemini API (`gemini-3.5-flash-lite`) produced a grounded narrative for the 82/Critical property in 1.3 s, read a degraded Marathi 7/12 with 4 of 4 fields correct, and spelled *ज्ञानेश्वर लोखंडे* and *हिंजवडी* correctly (score 0.92 against the usual spellings). **Claude: no** — only unit tests with a fake client and a local stand-in that speaks the real wire format; `npm run ai:check` checks it with an Anthropic key. Say both parts.
+
+**Did anything go wrong in the live test?** Yes, and it is a good story: the first default model (`gemini-2.5-flash`) was refused as "no longer available to new users", and the bigger models were slow or overloaded. The default became `gemini-3.5-flash-lite`, the error now tells you to set `GEMINI_MODEL`, and a test covers it. Model names are not permanent.
+
+**Is it safe to send real documents to a free AI tier?** Not without reading the terms: some free tiers may use submitted content to improve products. The demo uses only sample data.
 
 **What if the API is down?** Rule-based narrative, Tesseract's reading and rule-based transliteration are used; nothing fails.
 
@@ -87,9 +93,9 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 
 **Why Next.js + SQLite?** One TypeScript codebase for UI and API; SQLite needs no setup, so the project installs with one command. For many concurrent users you would move to a server database (stated as future work).
 
-**Why pure functions?** Extraction, verification, matching, scoring and transliteration have no database access, so they are tested exhaustively and behave identically everywhere. 402 automated tests.
+**Why pure functions?** Extraction, verification, matching, scoring and transliteration have no database access, so they are tested exhaustively and behave identically everywhere. 435 automated tests.
 
-**How do you handle SQLite's single writer?** Risk updates run through a serialising queue; the slow Claude call is made outside the queue.
+**How do you handle SQLite's single writer?** Risk updates run through a serialising queue; the slow AI call is made outside the queue.
 
 **Is it secure?** Passwords hashed with bcrypt; JWT access/refresh tokens; login rate limiting; role and permission checks; every query scoped by tenant; Zod validation on input; an audit trail. *Admit:* it is a prototype — no penetration testing, SQLite instead of a hardened database.
 
@@ -99,7 +105,7 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 
 - No live external data (no official API exists for court or land records).
 - Survey numbers, owners and the legal layer are generated.
-- Claude features untested on the live API.
+- The Claude path is untested on the live API (the Gemini path was tested live).
 - OCR measured on generated pages, not real scans.
 - Alerts are in-app only; no email/SMS/WhatsApp provider.
 - Name matching is by sound and tested on a chosen list.
