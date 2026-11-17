@@ -87,6 +87,31 @@ describe("gaon namuna 7 — fields", () => {
     expect(names).not.toMatch(/स्वयंप्रमाणित|अभिलेखावर|क्षेत्र|खराब|आकारणी/);
   });
 
+  describe("scan noise on the name rows", () => {
+    const page = (rows: string[]) => `गाव नमुना सात (अधिकार अभिलेख पत्रक)\n${rows.join("\n")}\nगाव नमुना बारा (पिकांची नोंदवही)`;
+
+    it("still reads a name whose mutation number was garbled by the scan", () => {
+      const names = extractOccupants(page(["प -— सविता रमेश पाटील (RY4¢Y) पक्त", "अनिता अनंत जाधव [TA ------- वव"]));
+      expect(names).toEqual(["सविता रमेश पाटील", "अनिता अनंत जाधव"]);
+    });
+
+    it("drops stray accent marks inside a word", () => {
+      expect(extractOccupants(page(["[रमेश सुरेश पाटी॒ल 1 (9584)"]))).toEqual(["रमेश सुरेश पाटील"]);
+    });
+
+    it("corrects a surname that is one character off a surname seen twice on the same page", () => {
+      const names = extractOccupants(
+        page(["रमेश सुरेश गायकवाड (7531)", "सविता रमेश गायकवाड (7531)", "अनिल दत्तात्रय गायकवाळ (9584)"]),
+      );
+      expect(names[2]).toBe("अनिल दत्तात्रय गायकवाड");
+    });
+
+    it("leaves a different surname alone when it is not a repeated one", () => {
+      const names = extractOccupants(page(["रमेश सुरेश पाटील (7531)", "अंकुश लुका जाधव (7531)"]));
+      expect(names).toEqual(["रमेश सुरेश पाटील", "अंकुश लुका जाधव"]);
+    });
+  });
+
   it("finds nothing on documents that are not a gaon namuna 7", () => {
     expect(extractOccupants("Sale deed between Shri Ramesh Patil (7671) and Savita Patil")).toEqual([]);
   });

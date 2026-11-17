@@ -278,7 +278,9 @@ export function extractOccupants(text: string): string[] {
     const endRun = (next: string) => {
       // One occupant per row: anything further along the same row sits in the "इतर अधिकार"
       // (other rights) column on the right, e.g. a loan holder, who is not an occupant.
-      if (!found && run.length >= 2 && /^[(\[]?\s*\d/.test(next)) {
+      // The mutation number is often garbled by the scan ("(RY4¢Y)", "[TA"): an opening bracket
+      // followed by a digit or Latin-script debris still marks the end of a name.
+      if (!found && run.length >= 2 && /^(?:[(\[]?\s*\d|[(\[]\s*[A-Za-z¢|])/.test(next)) {
         const name = (run.length > 4 ? run.slice(-3) : run).join(" ");
         if (!out.includes(name)) out.push(name);
         found = true;
@@ -286,13 +288,42 @@ export function extractOccupants(text: string): string[] {
       run = [];
     };
     for (const raw of tokens) {
-      const t = raw.replace(/^[\[(|\-]+|[.,:;|\])\-]+$/g, "");
+      // stray Vedic accent marks (॒ ॑) are scan noise, never part of a name
+      const t = raw.replace(/^[\[(|\-]+|[.,:;|\])\-]+$/g, "").replace(/[॑-॔]/g, "");
       if (/^[ऀ-ॿ‌‍]{3,}$/.test(t) && !FORM_WORDS.has(t)) run.push(t);
       else endRun(raw);
     }
     // a run at the very end of a line has no number after it, so it is not a row
   }
-  return out;
+  return repairSurnames(out);
+}
+
+function editDistance(a: string, b: string): number {
+  const m = [...a], n = [...b];
+  let prev = Array.from({ length: n.length + 1 }, (_, j) => j);
+  for (let i = 1; i <= m.length; i++) {
+    const cur = [i];
+    for (let j = 1; j <= n.length; j++) cur[j] = Math.min(prev[j] + 1, cur[j - 1] + 1, prev[j - 1] + (m[i - 1] === n[j - 1] ? 0 : 1));
+    prev = cur;
+  }
+  return prev[n.length];
+}
+
+/**
+ * Family members share a surname, so on one 7/12 the surname usually appears several times. A last word that
+ * is one character away from a surname seen at least twice is almost certainly that surname misread by the OCR
+ * ("गायकवाळ" for "गायकवाड"), so it is corrected to the repeated form.
+ */
+function repairSurnames(names: string[]): string[] {
+  const last = names.map((n) => n.split(" ").pop() as string);
+  const count = new Map<string, number>();
+  for (const s of last) count.set(s, (count.get(s) ?? 0) + 1);
+  return names.map((name, i) => {
+    const s = last[i];
+    if ((count.get(s) ?? 0) >= 2 || s.length < 4) return name;
+    const better = [...count.entries()].find(([w, c]) => c >= 2 && w.length >= 4 && editDistance(w, s) === 1);
+    return better ? name.slice(0, name.length - s.length) + better[0] : name;
+  });
 }
 
 // ─── Area ───

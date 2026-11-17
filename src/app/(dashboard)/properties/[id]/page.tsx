@@ -109,6 +109,63 @@ export default function PropertyDetailsPage({ params }: { params: Promise<{ id: 
     }
   }
 
+  // ── Live court records (eCourtsIndia) ──
+  const [courtBusy, setCourtBusy] = useState(false);
+  const [courtLitigant, setCourtLitigant] = useState("");
+  const [courtQuery, setCourtQuery] = useState("");
+  const [courtResults, setCourtResults] = useState<any[] | null>(null);
+  const [courtMessage, setCourtMessage] = useState<{ ok: boolean; text: string } | null>(null);
+  const [linkingCnr, setLinkingCnr] = useState<string | null>(null);
+
+  async function searchLiveCourts() {
+    setCourtBusy(true);
+    setCourtMessage(null);
+    try {
+      const token = getAccessToken();
+      const qs = new URLSearchParams();
+      if (courtLitigant.trim()) qs.set("litigant", courtLitigant.trim());
+      if (courtQuery.trim()) qs.set("q", courtQuery.trim());
+      const res = await fetch(`/api/properties/${propertyId}/court-search?${qs}`, { headers: token ? { Authorization: `Bearer ${token}` } : {} });
+      const json = await res.json();
+      if (!json.success) {
+        setCourtResults(null);
+        setCourtMessage({ ok: false, text: json.error || "The court search failed." });
+        return;
+      }
+      setCourtResults(json.data.cases);
+      setCourtLitigant(json.data.terms.litigant ?? "");
+      setCourtQuery(json.data.terms.query ?? "");
+      if (!json.data.cases.length) setCourtMessage({ ok: true, text: "No matching cases were found in the live court records." });
+    } catch (err: any) {
+      setCourtMessage({ ok: false, text: err.message || "Network error." });
+    } finally {
+      setCourtBusy(false);
+    }
+  }
+
+  async function linkLiveCase(cnr: string) {
+    setLinkingCnr(cnr);
+    setCourtMessage(null);
+    try {
+      const token = getAccessToken();
+      const res = await fetch(`/api/properties/${propertyId}/court-search`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+        body: JSON.stringify({ cnr }),
+      });
+      const json = await res.json();
+      if (!json.success) {
+        setCourtMessage({ ok: false, text: json.error || "Couldn't link that case." });
+        return;
+      }
+      setCourtResults((rows) => rows?.map((r) => (r.cnr === cnr ? { ...r, linked: true } : r)) ?? null);
+      setCourtMessage({ ok: true, text: "Case linked. The risk score will update in a moment." });
+      setTimeout(fetchProperty, 1500);
+    } finally {
+      setLinkingCnr(null);
+    }
+  }
+
   if (loading) {
     return (
       <div className="h-96 flex items-center justify-center text-platinum/40 text-sm">
@@ -445,6 +502,64 @@ export default function PropertyDetailsPage({ params }: { params: Promise<{ id: 
               No active court litigations linked to this survey number.
             </div>
           )}
+
+          <div className="pi-surface p-4 space-y-3">
+            <div className="flex items-center justify-between gap-3 flex-wrap">
+              <div>
+                <p className="font-bold text-sm text-platinum">Search live court records</p>
+                <p className="text-[11px] text-platinum/45">
+                  Looks in eCourtsIndia by the owner&apos;s name or a place. Results are suggestions — nothing is linked until you choose. Each search is billed by the provider (about ₹0.60), a linked case about ₹1.50.
+                </p>
+              </div>
+            </div>
+            <div className="grid sm:grid-cols-2 gap-2">
+              <input
+                value={courtLitigant}
+                onChange={(e) => setCourtLitigant(e.target.value)}
+                placeholder="Person involved in the case (leave empty to use the owner)"
+                className="pi-input text-xs"
+              />
+              <input
+                value={courtQuery}
+                onChange={(e) => setCourtQuery(e.target.value)}
+                placeholder="Or any text, e.g. a village or society name"
+                className="pi-input text-xs"
+              />
+            </div>
+            <button onClick={searchLiveCourts} disabled={courtBusy} className="pi-btn-primary text-xs px-3 py-2 inline-flex items-center gap-2 disabled:opacity-50">
+              {courtBusy ? <Loader2 className="w-4 h-4 animate-spin" /> : <Scale className="w-4 h-4" />}
+              {courtBusy ? "Searching…" : "Search eCourts"}
+            </button>
+            {courtMessage && <p className={`text-xs ${courtMessage.ok ? "text-emerald-400" : "text-rose-400"}`}>{courtMessage.text}</p>}
+            {courtResults && courtResults.length > 0 && (
+              <div className="divide-y divide-white/[0.06]">
+                {courtResults.map((c: any) => (
+                  <div key={c.cnr} className="py-3 flex items-start justify-between gap-3 text-xs">
+                    <div className="space-y-1 min-w-0">
+                      <p className="font-bold text-platinum">
+                        {[c.petitioners?.[0], c.respondents?.[0]].filter(Boolean).join(" vs ") || c.caseNumber}
+                      </p>
+                      <p className="text-platinum/45">
+                        {c.caseNumber} · {c.caseType || "case"} · <span className="text-amber-400 font-bold">{c.caseStatus}</span>
+                      </p>
+                      <p className="text-platinum/35 truncate">{c.courtName}</p>
+                    </div>
+                    {c.linked ? (
+                      <span className="pi-pill bg-emerald-500/12 text-emerald-400 border-emerald-500/25 text-[10px] px-2 py-0.5 shrink-0">Linked</span>
+                    ) : (
+                      <button
+                        onClick={() => linkLiveCase(c.cnr)}
+                        disabled={linkingCnr === c.cnr}
+                        className="pi-btn-ghost text-[11px] px-2.5 py-1.5 shrink-0 disabled:opacity-50"
+                      >
+                        {linkingCnr === c.cnr ? "Linking…" : "Link to this property"}
+                      </button>
+                    )}
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
         </div>
       )}
 

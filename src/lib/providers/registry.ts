@@ -4,7 +4,10 @@ export function getProviderStatus(): Record<string, { provider: string; type: st
   return {
     ocr: { provider: env("PROVIDER_OCR"), type: t(env("PROVIDER_OCR")) },
     govRecords: { provider: env("PROVIDER_GOV_RECORDS"), type: t(env("PROVIDER_GOV_RECORDS")) },
-    courtRecords: { provider: env("PROVIDER_COURT_RECORDS"), type: t(env("PROVIDER_COURT_RECORDS")) },
+    // the stored cases are sample data; with a key set, a reviewer can also search eCourtsIndia live per property
+    courtRecords: process.env.ECOURTS_API_KEY?.trim()
+      ? { provider: "ecourtsindia (live search)", type: "production" }
+      : { provider: env("PROVIDER_COURT_RECORDS"), type: t(env("PROVIDER_COURT_RECORDS")) },
     news: { provider: env("PROVIDER_NEWS"), type: t(env("PROVIDER_NEWS")) },
     notification: { provider: env("PROVIDER_NOTIFICATION"), type: t(env("PROVIDER_NOTIFICATION")) },
     riskEngine: { provider: env("PROVIDER_RISK_ENGINE"), type: t(env("PROVIDER_RISK_ENGINE")) },

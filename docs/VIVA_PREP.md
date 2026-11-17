@@ -38,7 +38,7 @@ Property fraud (duplicate listings, one plot claimed by two owners, a document t
 
 **What if the scan is bad?** Below 65% OCR confidence, partial and mismatch results become *unverifiable* and the document is flagged for review. A misread digit must not become an accusation.
 
-**How accurate is it?** Two measurements. On generated pages: ~93–94% OCR confidence; degraded scans fall to ~55–60% and go to review. On five real Marathi 7/12 PDFs: survey number, village, taluka, district, document type and total area 5/5 each; occupant names 32/37 exactly (86%), the misses being names inside underlined brackets. Before the fix the same files gave 0 fields. *Be careful:* confidence is not accuracy; five files from one village is a small sample; the name ground truth is my own reading; and photographed paper 7/12s (no text layer) were not tested.
+**How accurate is it?** Two measurements. On generated pages: ~93–94% OCR confidence; degraded scans fall to ~55–60% and go to review. On five real Marathi 7/12 PDFs: survey number, village, taluka, district, document type and total area 5/5 each; occupant names 35/37 exactly (95%), the two misses being first names the OCR could not read; the rules were tuned on these same files (they first scored 32/37), so that is optimistic. Before the fix the same files gave 0 fields. *Be careful:* confidence is not accuracy; five files from one village is a small sample; the name ground truth is my own reading; and photographed paper 7/12s (no text layer) were not tested.
 
 ## 4. Matching
 
